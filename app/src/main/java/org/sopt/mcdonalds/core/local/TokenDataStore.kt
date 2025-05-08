@@ -4,10 +4,10 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
+import javax.inject.Inject
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
 import org.sopt.mcdonalds.BuildConfig
-import javax.inject.Inject
 
 class TokenDataStore @Inject constructor(
     private val preferenceDataStore: DataStore<Preferences>

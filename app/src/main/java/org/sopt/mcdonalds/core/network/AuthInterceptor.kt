@@ -1,12 +1,12 @@
 package org.sopt.mcdonalds.core.network
 
+import javax.inject.Inject
 import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
 import okhttp3.Request
 import okhttp3.Response
 import org.sopt.mcdonalds.core.local.TokenDataStore
 import timber.log.Timber
-import javax.inject.Inject
 
 class AuthInterceptor @Inject constructor(
     private val tokenDataStore: TokenDataStore

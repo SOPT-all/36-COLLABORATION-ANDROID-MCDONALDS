@@ -1,13 +1,11 @@
 package org.sopt.mcdonalds.core.network.di
 
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
-import org.sopt.mcdonalds.core.network.AuthInterceptor
-import org.sopt.mcdonalds.core.network.isJsonArray
-import org.sopt.mcdonalds.core.network.isJsonObject
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 import kotlinx.serialization.json.Json
 import okhttp3.Interceptor
 import okhttp3.MediaType.Companion.toMediaType
@@ -16,10 +14,12 @@ import okhttp3.logging.HttpLoggingInterceptor
 import org.json.JSONObject
 import org.sopt.mcdonalds.BuildConfig
 import org.sopt.mcdonalds.BuildConfig.BASE_URL
+import org.sopt.mcdonalds.core.network.AuthInterceptor
+import org.sopt.mcdonalds.core.network.isJsonArray
+import org.sopt.mcdonalds.core.network.isJsonObject
 import retrofit2.Converter
 import retrofit2.Retrofit
 import timber.log.Timber
-import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -69,7 +69,7 @@ object NetworkModule {
     @Provides
     @Singleton
     fun provideOkHttpClient(
-        loggingInterceptor: Interceptor,
+        loggingInterceptor: Interceptor
     ): OkHttpClient = OkHttpClient.Builder()
         .addInterceptor(loggingInterceptor)
         .build()
@@ -79,7 +79,7 @@ object NetworkModule {
     @Singleton
     fun provideJWTOkHttpClient(
         loggingInterceptor: Interceptor,
-        authInterceptor: AuthInterceptor,
+        authInterceptor: AuthInterceptor
     ): OkHttpClient = OkHttpClient.Builder()
         .addInterceptor(loggingInterceptor)
         .addInterceptor(authInterceptor)
@@ -88,7 +88,7 @@ object NetworkModule {
     @Provides
     fun provideRetrofit(
         client: OkHttpClient,
-        factory: Converter.Factory,
+        factory: Converter.Factory
     ): Retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)
         .client(client)
@@ -99,7 +99,7 @@ object NetworkModule {
     @Provides
     fun provideJWTRetrofit(
         @JWT client: OkHttpClient,
-        factory: Converter.Factory,
+        factory: Converter.Factory
     ): Retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)
         .client(client)

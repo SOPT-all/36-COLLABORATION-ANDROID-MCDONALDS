@@ -13,7 +13,8 @@ import androidx.compose.ui.composed
 inline fun Modifier.noRippleClickable(crossinline onClick: () -> Unit): Modifier = composed {
     clickable(
         indication = null,
-        interactionSource = remember { MutableInteractionSource() }) {
+        interactionSource = remember { MutableInteractionSource() }
+    ) {
         onClick()
     }
 }
@@ -22,12 +23,12 @@ inline fun Modifier.noRippleClickable(crossinline onClick: () -> Unit): Modifier
 @SuppressLint("ModifierFactoryUnreferencedReceiver")
 inline fun Modifier.noRippleCombineClickable(
     crossinline onClick: () -> Unit = {},
-    crossinline onLongClick: () -> Unit,
+    crossinline onLongClick: () -> Unit
 ): Modifier = composed {
     combinedClickable(
         interactionSource = remember { MutableInteractionSource() },
         indication = null,
         onClick = { onClick() },
-        onLongClick = { onLongClick() },
+        onLongClick = { onLongClick() }
     )
 }
