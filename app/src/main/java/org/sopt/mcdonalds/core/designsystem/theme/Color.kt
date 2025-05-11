@@ -52,7 +52,7 @@ class McDonaldsColors(
     gray300: Color,
     gray200: Color,
     gray100: Color,
-    isLight: Boolean,
+    isLight: Boolean
 ) {
     var lightYellow by mutableStateOf(lightYellow)
         private set
@@ -111,7 +111,7 @@ class McDonaldsColors(
         gray300,
         gray200,
         gray100,
-        isLight,
+        isLight
     )
 
     fun update(other: McDonaldsColors) {
@@ -155,7 +155,7 @@ fun McDonaldsLightColors(
     Gray400: Color = gray400,
     Gray300: Color = gray300,
     Gray200: Color = gray200,
-    Gray100: Color = gray100,
+    Gray100: Color = gray100
 ) = McDonaldsColors(
     LightYellow,
     Yellow,
@@ -175,5 +175,5 @@ fun McDonaldsLightColors(
     Gray300,
     Gray200,
     Gray100,
-    isLight = true,
+    isLight = true
 )

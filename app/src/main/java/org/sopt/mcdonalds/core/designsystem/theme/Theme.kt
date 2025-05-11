@@ -30,29 +30,29 @@ object McDonaldsTheme {
 fun ProvideMcDonaldsColorsAndTypography(
     colors: McDonaldsColors,
     typography: McDonaldsTypography,
-    content: @Composable () -> Unit,
+    content: @Composable () -> Unit
 ) {
     val provideColors = remember { colors.copy() }.apply { update(colors) }
     CompositionLocalProvider(
         LocalMcDonaldsColors provides provideColors,
         LocalMcDonaldsTypography provides typography,
-        content = content,
+        content = content
     )
 }
 
 @Composable
 fun MCDONALDSTheme(
-    content: @Composable () -> Unit,
+    content: @Composable () -> Unit
 ) {
     val colors = McDonaldsLightColors()
     val typography = McDonaldsTypography()
 
     ProvideMcDonaldsColorsAndTypography(
         colors = colors,
-        typography = typography,
+        typography = typography
     ) {
         MaterialTheme(
-            content = content,
+            content = content
         )
     }
 }

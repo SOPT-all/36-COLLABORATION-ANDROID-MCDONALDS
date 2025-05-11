@@ -33,75 +33,76 @@ class McDonaldsTypography(
     val body14r: TextStyle,
     val body12m: TextStyle,
     val body12r: TextStyle,
-    val caption10r: TextStyle,
+    val caption10r: TextStyle
 )
 
 private fun McDonaldsTextStyle(
     fontFamily: FontFamily,
     fontSize: TextUnit,
-    lineHeight: TextUnit = 1.4.em,
+    lineHeight: TextUnit = 1.4.em
 ): TextStyle = TextStyle(
     fontFamily = fontFamily,
     fontSize = fontSize,
     lineHeight = lineHeight,
     lineHeightStyle = LineHeightStyle(
-        alignment = LineHeightStyle.Alignment.Center, trim = LineHeightStyle.Trim.None
-    ),
+        alignment = LineHeightStyle.Alignment.Center,
+        trim = LineHeightStyle.Trim.None
+    )
 )
 
 fun McDonaldsTypography() = McDonaldsTypography(
     head34b = McDonaldsTextStyle(
         fontFamily = PretendardBold,
-        fontSize = 34.sp,
+        fontSize = 34.sp
     ),
     head24sb = McDonaldsTextStyle(
         fontFamily = PretendardSemiBold,
-        fontSize = 24.sp,
+        fontSize = 24.sp
     ),
     head18b = McDonaldsTextStyle(
         fontFamily = PretendardBold,
-        fontSize = 18.sp,
+        fontSize = 18.sp
     ),
     body18m = McDonaldsTextStyle(
         fontFamily = PretendardMedium,
-        fontSize = 18.sp,
+        fontSize = 18.sp
     ),
     body16sb = McDonaldsTextStyle(
         fontFamily = PretendardSemiBold,
-        fontSize = 16.sp,
+        fontSize = 16.sp
     ),
     body16m = McDonaldsTextStyle(
         fontFamily = PretendardMedium,
-        fontSize = 16.sp,
+        fontSize = 16.sp
     ),
     body16r = McDonaldsTextStyle(
         fontFamily = PretendardRegular,
-        fontSize = 16.sp,
+        fontSize = 16.sp
     ),
     body14b = McDonaldsTextStyle(
         fontFamily = PretendardBold,
-        fontSize = 14.sp,
+        fontSize = 14.sp
     ),
     body14m = McDonaldsTextStyle(
         fontFamily = PretendardMedium,
-        fontSize = 14.sp,
+        fontSize = 14.sp
     ),
     body14r = McDonaldsTextStyle(
         fontFamily = PretendardRegular,
-        fontSize = 14.sp,
+        fontSize = 14.sp
     ),
     body12m = McDonaldsTextStyle(
         fontFamily = PretendardMedium,
-        fontSize = 12.sp,
+        fontSize = 12.sp
     ),
     body12r = McDonaldsTextStyle(
         fontFamily = PretendardRegular,
-        fontSize = 12.sp,
+        fontSize = 12.sp
     ),
     caption10r = McDonaldsTextStyle(
         fontFamily = PretendardRegular,
-        fontSize = 10.sp,
-    ),
+        fontSize = 10.sp
+    )
 )
 
 @Preview(showBackground = true)
@@ -111,55 +112,55 @@ fun McDonaldsTypographyPreview() {
         Column {
             Text(
                 "McdonaldsTheme",
-                style = McDonaldsTheme.typography.head34b,
+                style = McDonaldsTheme.typography.head34b
             )
             Text(
                 "McdonaldsTheme",
-                style = McDonaldsTheme.typography.head24sb,
+                style = McDonaldsTheme.typography.head24sb
             )
             Text(
                 "McdonaldsTheme",
-                style = McDonaldsTheme.typography.head18b,
+                style = McDonaldsTheme.typography.head18b
             )
             Text(
                 "McdonaldsTheme",
-                style = McDonaldsTheme.typography.body18m,
+                style = McDonaldsTheme.typography.body18m
             )
             Text(
                 "McdonaldsTheme",
-                style = McDonaldsTheme.typography.body16sb,
+                style = McDonaldsTheme.typography.body16sb
             )
             Text(
                 "McdonaldsTheme",
-                style = McDonaldsTheme.typography.body16m,
+                style = McDonaldsTheme.typography.body16m
             )
             Text(
                 "McdonaldsTheme",
-                style = McDonaldsTheme.typography.body16r,
+                style = McDonaldsTheme.typography.body16r
             )
             Text(
                 "McdonaldsTheme",
-                style = McDonaldsTheme.typography.body14b,
+                style = McDonaldsTheme.typography.body14b
             )
             Text(
                 "McdonaldsTheme",
-                style = McDonaldsTheme.typography.body14m,
+                style = McDonaldsTheme.typography.body14m
             )
             Text(
                 "McdonaldsTheme",
-                style = McDonaldsTheme.typography.body14r,
+                style = McDonaldsTheme.typography.body14r
             )
             Text(
                 "McdonaldsTheme",
-                style = McDonaldsTheme.typography.body12m,
+                style = McDonaldsTheme.typography.body12m
             )
             Text(
                 "McdonaldsTheme",
-                style = McDonaldsTheme.typography.body12r,
+                style = McDonaldsTheme.typography.body12r
             )
             Text(
                 "McdonaldsTheme",
-                style = McDonaldsTheme.typography.caption10r,
+                style = McDonaldsTheme.typography.caption10r
             )
         }
     }
