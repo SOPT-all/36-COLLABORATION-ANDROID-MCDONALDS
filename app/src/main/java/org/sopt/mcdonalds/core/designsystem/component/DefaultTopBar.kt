@@ -15,10 +15,10 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import org.sopt.mcdonalds.core.designsystem.theme.McDonaldsTheme
 import org.sopt.mcdonalds.R.drawable.ic_back_24
 import org.sopt.mcdonalds.core.common.util.noRippleClickable
 import org.sopt.mcdonalds.core.designsystem.theme.MCDONALDSTheme
+import org.sopt.mcdonalds.core.designsystem.theme.McDonaldsTheme
 
 /**
  * Underlined top bar
@@ -33,7 +33,7 @@ import org.sopt.mcdonalds.core.designsystem.theme.MCDONALDSTheme
 fun DefaultTopBar(
     onBackClick: () -> Unit,
     modifier: Modifier = Modifier,
-    title: String = "",
+    title: String = ""
 ) {
     Column {
         Row(
@@ -47,7 +47,7 @@ fun DefaultTopBar(
                 contentDescription = null,
                 modifier = Modifier
                     .noRippleClickable(onBackClick),
-                tint = McDonaldsTheme.colors.gray600,
+                tint = McDonaldsTheme.colors.gray600
             )
 
             Text(
@@ -71,10 +71,10 @@ private fun TopBarPreview() {
     MCDONALDSTheme {
         Column(
             modifier = Modifier
-                .background(color = McDonaldsTheme.colors.white),
+                .background(color = McDonaldsTheme.colors.white)
         ) {
             DefaultTopBar(
-                onBackClick = { },
+                onBackClick = { }
             )
 
             DefaultTopBar(

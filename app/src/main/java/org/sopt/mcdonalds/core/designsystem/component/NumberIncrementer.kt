@@ -123,7 +123,7 @@ fun BorderedNumberIncrementer(
             style = McDonaldsTheme.typography.body18m.copy(
                 color = McDonaldsTheme.colors.black,
                 textAlign = TextAlign.Center
-            ),
+            )
         )
 
         Icon(
