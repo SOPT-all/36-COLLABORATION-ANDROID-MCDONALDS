@@ -1,0 +1,67 @@
+[
+  {
+    "name": "⚙ Setting",
+    "color": "e3dede",
+    "description": "개발 환경 세팅"
+  },
+  {
+    "name": "✨ Feature",
+    "color": "a2eeef",
+    "description": "기능 개발"
+  },
+  {
+    "name": "💄 Design",
+    "color": "FEF2C0",
+    "description": "UI 컴포넌트 & 디자인"
+  },
+  {
+    "name": "🐛 Fix",
+    "color": "d73a4a",
+    "description": "버그 및 문제 해결"
+  },
+  {
+    "name": "📃 Docs",
+    "color": "1D76DB",
+    "description": "문서 작성 및 수정"
+  },
+  {
+    "name": "📬 API",
+    "color": "D4C5F9",
+    "description": "서버 API 통신"
+  },
+  {
+    "name": "🔨 Refactor",
+    "color": "f29a4e",
+    "description": "코드 리팩토링"
+  },
+  {
+    "name": "🙋‍♂️ Question",
+    "color": "9ED447",
+    "description": "질문 및 논의"
+  },
+  {
+    "name": "✅ Test",
+    "color": "ccffc4",
+    "description": "test 관련"
+  },
+  {
+    "name": "🌏 Deploy",
+    "color": "C2E0C6",
+    "description": "배포 관련"
+  },
+  {
+    "name": "😎 종명",
+    "color": "C5DEF5",
+    "description": "담당자 종명"
+  },
+  {
+    "name": "🤩 형석",
+    "color": "C5DEF5",
+    "description": "담당자 형석"
+  },
+  {
+    "name": "😍 성하",
+    "color": "C5DEF5",
+    "description": "담당자 성하"
+  }
+]
