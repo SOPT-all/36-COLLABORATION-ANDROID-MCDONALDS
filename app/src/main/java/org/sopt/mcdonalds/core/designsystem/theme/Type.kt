@@ -53,11 +53,13 @@ private fun McDonaldsTextStyle(
 fun McDonaldsTypography() = McDonaldsTypography(
     head34b = McDonaldsTextStyle(
         fontFamily = PretendardBold,
-        fontSize = 34.sp
+        fontSize = 34.sp,
+        lineHeight = 40.sp
     ),
     head24sb = McDonaldsTextStyle(
         fontFamily = PretendardSemiBold,
-        fontSize = 24.sp
+        fontSize = 24.sp,
+        lineHeight = 22.sp
     ),
     head18b = McDonaldsTextStyle(
         fontFamily = PretendardBold,
@@ -65,27 +67,31 @@ fun McDonaldsTypography() = McDonaldsTypography(
     ),
     body18m = McDonaldsTextStyle(
         fontFamily = PretendardMedium,
-        fontSize = 18.sp
+        fontSize = 18.sp,
+        lineHeight = 22.sp
     ),
     body16sb = McDonaldsTextStyle(
         fontFamily = PretendardSemiBold,
-        fontSize = 16.sp
+        fontSize = 16.sp,
     ),
     body16m = McDonaldsTextStyle(
         fontFamily = PretendardMedium,
-        fontSize = 16.sp
+        fontSize = 16.sp,
     ),
     body16r = McDonaldsTextStyle(
         fontFamily = PretendardRegular,
-        fontSize = 16.sp
+        fontSize = 16.sp,
+        lineHeight = 22.sp,
     ),
     body14b = McDonaldsTextStyle(
         fontFamily = PretendardBold,
-        fontSize = 14.sp
+        fontSize = 14.sp,
+        lineHeight = 22.sp,
     ),
     body14m = McDonaldsTextStyle(
         fontFamily = PretendardMedium,
-        fontSize = 14.sp
+        fontSize = 14.sp,
+        lineHeight = 22.sp
     ),
     body14r = McDonaldsTextStyle(
         fontFamily = PretendardRegular,
@@ -93,15 +99,18 @@ fun McDonaldsTypography() = McDonaldsTypography(
     ),
     body12m = McDonaldsTextStyle(
         fontFamily = PretendardMedium,
-        fontSize = 12.sp
+        fontSize = 12.sp,
+        lineHeight = 22.sp,
     ),
     body12r = McDonaldsTextStyle(
         fontFamily = PretendardRegular,
-        fontSize = 12.sp
+        fontSize = 12.sp,
+        lineHeight = 22.sp
     ),
     caption10r = McDonaldsTextStyle(
         fontFamily = PretendardRegular,
-        fontSize = 10.sp
+        fontSize = 10.sp,
+        lineHeight = 22.sp
     )
 )
 
