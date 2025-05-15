@@ -24,10 +24,10 @@ import org.sopt.mcdonalds.presentation.menu.model.Menu
 @Composable
 fun MenuListContent(
     menus: ImmutableList<Menu>,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     LazyColumn(
-        modifier = modifier,
+        modifier = modifier
     ) {
         itemsIndexed(
             items = menus,
@@ -36,7 +36,7 @@ fun MenuListContent(
             MenuListItem(
                 imageUrl = menu.imageUrl,
                 menuName = menu.name,
-                menuPrice = menu.price,
+                menuPrice = menu.price
             )
         }
     }
@@ -47,10 +47,10 @@ private fun MenuListItem(
     imageUrl: String,
     menuName: String,
     menuPrice: String,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     Column(
-        modifier = modifier,
+        modifier = modifier
     ) {
         Row(
             modifier = Modifier.padding(20.dp),
@@ -64,7 +64,7 @@ private fun MenuListItem(
             )
 
             Column(
-                verticalArrangement = Arrangement.spacedBy(4.dp),
+                verticalArrangement = Arrangement.spacedBy(4.dp)
             ) {
                 Text(
                     text = menuName,

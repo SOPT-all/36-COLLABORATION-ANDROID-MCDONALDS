@@ -8,7 +8,7 @@ import org.sopt.mcdonalds.R.string.menu_type_new
 import org.sopt.mcdonalds.R.string.menu_type_recommend
 
 enum class MenuType(
-    @StringRes val title: Int,
+    @StringRes val title: Int
 ) {
     NEW(title = menu_type_new),
     RECOMMEND(title = menu_type_recommend),
