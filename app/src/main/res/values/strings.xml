@@ -2,4 +2,12 @@
     <string name="app_name">MCDONALDS</string>
     <string name="history_time_notice">매장 운영시간이 곧 종료되오니 %1$s 전에 픽업 완료해주세요.</string>
     <string name="history_store_change">매장 변경</string>
+
+    <!-- store location   -->
+    <string name="store_find_title">매장찾기</string>
+    <string name="mc_drive">맥드라이브</string>
+    <string name="open_24_hours">24시간 영업</string>
+    <string name="garage">주차장</string>
+    <string name="store_information">매장 정보</string>
+    <string name="select_store_button">매장 선택하기</string>
 </resources>
