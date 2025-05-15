@@ -37,7 +37,7 @@ import org.sopt.mcdonalds.core.designsystem.theme.McDonaldsTheme
 @Composable
 fun StoreInformationCard(
     isBusy: Boolean,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     Card(
         modifier = modifier.shadow(4.dp),
@@ -48,10 +48,10 @@ fun StoreInformationCard(
     ) {
         Column(
             modifier = Modifier
-                .padding(top = 16.dp, start = 16.dp, end = 16.dp, bottom = 12.dp),
+                .padding(top = 16.dp, start = 16.dp, end = 16.dp, bottom = 12.dp)
         ) {
             Row(
-                horizontalArrangement = Arrangement.SpaceBetween,
+                horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 if (isBusy) {
                     Text(

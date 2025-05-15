@@ -2,10 +2,7 @@ package org.sopt.mcdonalds.presentation.store.component
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.Icon
@@ -13,7 +10,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -30,7 +26,7 @@ fun StoreFilterGroup(
     selectedStoreType: StoreType,
     storeTypes: ImmutableList<StoreType>,
     onStoreTypeSelect: (StoreType) -> Unit,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     LazyRow(
         modifier = modifier
@@ -49,7 +45,7 @@ fun StoreFilterGroup(
 
         itemsIndexed(
             items = storeTypes,
-            key = { _, storeType -> storeType.title },
+            key = { _, storeType -> storeType.title }
         ) { _, storeType ->
             ChipButton(
                 isSelected = selectedStoreType == storeType,
@@ -58,7 +54,7 @@ fun StoreFilterGroup(
                 textStyle = McDonaldsTheme.typography.body12r.copy(
                     color = McDonaldsTheme.colors.black
                 ),
-                paddingValues = PaddingValues(horizontal = 16.dp, vertical = 4.dp),
+                paddingValues = PaddingValues(horizontal = 16.dp, vertical = 4.dp)
             )
         }
     }
@@ -71,7 +67,7 @@ private fun StoreFilterGroupPreview() {
         StoreFilterGroup(
             selectedStoreType = StoreType.OPEN_24_HOURS,
             storeTypes = StoreType.entries.toImmutableList(),
-            onStoreTypeSelect = {},
+            onStoreTypeSelect = {}
         )
     }
 }

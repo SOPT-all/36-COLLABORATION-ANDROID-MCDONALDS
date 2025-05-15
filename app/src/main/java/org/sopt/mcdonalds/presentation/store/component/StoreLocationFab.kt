@@ -4,7 +4,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.ripple.rememberRipple
@@ -25,7 +24,7 @@ import org.sopt.mcdonalds.core.designsystem.theme.McDonaldsTheme
 @Composable
 fun StoreLocationFab(
     onClick: () -> Unit,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     val interactionSource = remember { MutableInteractionSource() }
 
@@ -38,7 +37,7 @@ fun StoreLocationFab(
                 indication = rememberRipple(bounded = true),
                 onClick = onClick
             ).background(McDonaldsTheme.colors.white)
-            .padding(12.dp),
+            .padding(12.dp)
     ) {
         Icon(
             imageVector = ImageVector.vectorResource(ic_my_location),

@@ -15,8 +15,8 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.sopt.mcdonalds.R.drawable.ic_close_24
-import org.sopt.mcdonalds.R.string.store_find_title
 import org.sopt.mcdonalds.R.drawable.ic_search_24
+import org.sopt.mcdonalds.R.string.store_find_title
 import org.sopt.mcdonalds.core.common.util.noRippleClickable
 import org.sopt.mcdonalds.core.designsystem.theme.MCDONALDSTheme
 import org.sopt.mcdonalds.core.designsystem.theme.McDonaldsTheme
@@ -25,7 +25,7 @@ import org.sopt.mcdonalds.core.designsystem.theme.McDonaldsTheme
 fun StoreTopBar(
     onCloseClick: () -> Unit,
     onSearchClick: () -> Unit,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     Row(
         modifier = modifier
