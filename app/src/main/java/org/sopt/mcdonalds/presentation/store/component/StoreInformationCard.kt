@@ -31,12 +31,14 @@ import org.sopt.mcdonalds.R.string.store_congestion_high
 import org.sopt.mcdonalds.R.string.store_information
 import org.sopt.mcdonalds.R.string.store_location_information
 import org.sopt.mcdonalds.R.string.store_open_hours
+import org.sopt.mcdonalds.core.common.util.noRippleClickable
 import org.sopt.mcdonalds.core.designsystem.theme.MCDONALDSTheme
 import org.sopt.mcdonalds.core.designsystem.theme.McDonaldsTheme
 
 @Composable
 fun StoreInformationCard(
     isBusy: Boolean,
+    onCloseClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Card(
@@ -72,6 +74,7 @@ fun StoreInformationCard(
                 Icon(
                     imageVector = ImageVector.vectorResource(ic_close_24),
                     contentDescription = null,
+                    modifier = Modifier.noRippleClickable(onCloseClick),
                     tint = McDonaldsTheme.colors.black
                 )
             }
@@ -146,10 +149,12 @@ private fun StoreInformationCardPreview() {
     MCDONALDSTheme {
         Column {
             StoreInformationCard(
-                isBusy = true
+                isBusy = true,
+                onCloseClick = {}
             )
             StoreInformationCard(
-                isBusy = false
+                isBusy = false,
+                onCloseClick = {}
             )
         }
     }
