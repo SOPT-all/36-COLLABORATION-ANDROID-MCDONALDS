@@ -10,4 +10,10 @@
     <string name="garage">주차장</string>
     <string name="store_information">매장 정보</string>
     <string name="select_store_button">매장 선택하기</string>
+    <string name="store_congestion_high">혼잡</string>
+    <string name="store_location_information">중계역점 (상계 백병원 앞) · 1.2km</string>
+    <string name="store_address">노원구 동일로 1341(상계동), 서울특별시</string>
+    <string name="store_open_hours">24시간</string>
+    <string name="select_store">매장 선택하기</string>
+
 </resources>
