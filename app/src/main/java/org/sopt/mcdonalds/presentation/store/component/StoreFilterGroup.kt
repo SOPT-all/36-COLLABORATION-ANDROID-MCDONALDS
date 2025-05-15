@@ -25,7 +25,7 @@ import org.sopt.mcdonalds.presentation.store.type.StoreType
 fun StoreFilterGroup(
     selectedStoreType: StoreType,
     storeTypes: ImmutableList<StoreType>,
-    onStoreTypeSelect: (StoreType) -> Unit,
+    onStoreTypeSelect: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     LazyRow(
@@ -49,7 +49,7 @@ fun StoreFilterGroup(
         ) { _, storeType ->
             ChipButton(
                 isSelected = selectedStoreType == storeType,
-                selectedType = storeType,
+                title = storeType.title,
                 onSelect = onStoreTypeSelect,
                 textStyle = McDonaldsTheme.typography.body12r.copy(
                     color = McDonaldsTheme.colors.black

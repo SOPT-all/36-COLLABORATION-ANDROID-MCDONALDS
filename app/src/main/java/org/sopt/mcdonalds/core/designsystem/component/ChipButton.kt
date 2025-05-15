@@ -1,5 +1,6 @@
 package org.sopt.mcdonalds.core.designsystem.component
 
+import androidx.annotation.StringRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.PaddingValues
@@ -23,8 +24,8 @@ import org.sopt.mcdonalds.presentation.store.type.StoreType
 @Composable
 fun ChipButton(
     isSelected: Boolean,
-    selectedType: StoreType,
-    onSelect: (StoreType) -> Unit,
+    @StringRes title: Int,
+    onSelect: () -> Unit,
     modifier: Modifier = Modifier,
     textStyle: TextStyle = TextStyle.Default,
     paddingValues: PaddingValues = PaddingValues()
@@ -37,16 +38,14 @@ fun ChipButton(
         }
 
     Text(
-        text = stringResource(selectedType.title),
+        text = stringResource(title),
         style = textStyle,
         modifier = modifier
             .clip(RoundedCornerShape(20.dp))
             .border(Dp.Hairline, borderColor, RoundedCornerShape(20.dp))
             .background(backgroundColor)
             .padding(paddingValues)
-            .noRippleClickable {
-                onSelect(selectedType)
-            }
+            .noRippleClickable(onSelect)
     )
 }
 
@@ -57,14 +56,14 @@ private fun ChipButtonPreview() {
         Row {
             ChipButton(
                 isSelected = true,
-                selectedType = StoreType.GARAGE,
+                title = StoreType.GARAGE.title,
                 onSelect = {},
                 textStyle = McDonaldsTheme.typography.caption10r,
                 paddingValues = PaddingValues(horizontal = 16.dp, vertical = 4.dp)
             )
             ChipButton(
                 isSelected = false,
-                selectedType = StoreType.OPEN_24_HOURS,
+                title = StoreType.OPEN_24_HOURS.title,
                 onSelect = {},
                 textStyle = McDonaldsTheme.typography.caption10r,
                 paddingValues = PaddingValues(horizontal = 16.dp, vertical = 4.dp)
