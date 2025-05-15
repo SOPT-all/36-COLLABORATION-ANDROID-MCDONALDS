@@ -10,17 +10,21 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import org.sopt.mcdonalds.core.common.util.noRippleClickable
 import org.sopt.mcdonalds.core.designsystem.theme.MCDONALDSTheme
 import org.sopt.mcdonalds.core.designsystem.theme.McDonaldsTheme
+import org.sopt.mcdonalds.presentation.store.type.StoreType
 
 @Composable
 fun ChipButton(
     isSelected: Boolean,
-    title: String,
+    selectedType: StoreType,
+    onSelect: (StoreType) -> Unit,
     modifier: Modifier = Modifier,
     textStyle: TextStyle = TextStyle.Default,
     paddingValues: PaddingValues = PaddingValues()
@@ -33,13 +37,16 @@ fun ChipButton(
         }
 
     Text(
-        text = title,
+        text = stringResource(selectedType.title),
         style = textStyle,
         modifier = modifier
             .clip(RoundedCornerShape(20.dp))
             .border(Dp.Hairline, borderColor, RoundedCornerShape(20.dp))
             .background(backgroundColor)
             .padding(paddingValues)
+            .noRippleClickable {
+                onSelect(selectedType)
+            }
     )
 }
 
@@ -50,13 +57,15 @@ private fun ChipButtonPreview() {
         Row {
             ChipButton(
                 isSelected = true,
-                title = "맥드라이브",
+                selectedType = StoreType.GARAGE,
+                onSelect = {},
                 textStyle = McDonaldsTheme.typography.caption10r,
                 paddingValues = PaddingValues(horizontal = 16.dp, vertical = 4.dp)
             )
             ChipButton(
                 isSelected = false,
-                title = "맥드라이브",
+                selectedType = StoreType.OPEN_24_HOURS,
+                onSelect = {},
                 textStyle = McDonaldsTheme.typography.caption10r,
                 paddingValues = PaddingValues(horizontal = 16.dp, vertical = 4.dp)
             )
