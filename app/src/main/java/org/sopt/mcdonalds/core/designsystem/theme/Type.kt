@@ -72,21 +72,21 @@ fun McDonaldsTypography() = McDonaldsTypography(
     ),
     body16sb = McDonaldsTextStyle(
         fontFamily = PretendardSemiBold,
-        fontSize = 16.sp,
+        fontSize = 16.sp
     ),
     body16m = McDonaldsTextStyle(
         fontFamily = PretendardMedium,
-        fontSize = 16.sp,
+        fontSize = 16.sp
     ),
     body16r = McDonaldsTextStyle(
         fontFamily = PretendardRegular,
         fontSize = 16.sp,
-        lineHeight = 22.sp,
+        lineHeight = 22.sp
     ),
     body14b = McDonaldsTextStyle(
         fontFamily = PretendardBold,
         fontSize = 14.sp,
-        lineHeight = 22.sp,
+        lineHeight = 22.sp
     ),
     body14m = McDonaldsTextStyle(
         fontFamily = PretendardMedium,
@@ -100,7 +100,7 @@ fun McDonaldsTypography() = McDonaldsTypography(
     body12m = McDonaldsTextStyle(
         fontFamily = PretendardMedium,
         fontSize = 12.sp,
-        lineHeight = 22.sp,
+        lineHeight = 22.sp
     ),
     body12r = McDonaldsTextStyle(
         fontFamily = PretendardRegular,
