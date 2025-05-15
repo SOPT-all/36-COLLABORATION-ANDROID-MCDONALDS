@@ -55,7 +55,9 @@ fun StoreFilterGroup(
                 isSelected = selectedStoreType == storeType,
                 selectedType = storeType,
                 onSelect = onStoreTypeSelect,
-                textStyle = McDonaldsTheme.typography.body12r,
+                textStyle = McDonaldsTheme.typography.body12r.copy(
+                    color = McDonaldsTheme.colors.black
+                ),
                 paddingValues = PaddingValues(horizontal = 16.dp, vertical = 4.dp),
             )
         }
