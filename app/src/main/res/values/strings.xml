@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">MCDONALDS</string>
+    <string name="history_time_notice">매장 운영시간이 곧 종료되오니 %1$s 전에 픽업 완료해주세요.</string>
 </resources>
