@@ -5,10 +5,9 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -66,18 +65,16 @@ fun HistoryStoreBar(
                 onClick = onStoreChangeClick
             )
         }
-        Spacer(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(1.dp)
-                .background(color = McDonaldsTheme.colors.gray300)
+        HorizontalDivider(
+            thickness = 1.dp,
+            color = McDonaldsTheme.colors.gray300
         )
     }
 }
 
 @Preview
 @Composable
-fun HistoryStoreBarPreview() {
+private fun HistoryStoreBarPreview() {
     MCDONALDSTheme {
         Column {
             HistoryStoreBar(

@@ -52,7 +52,7 @@ fun HistorySquareButton(
 
 @Preview
 @Composable
-fun HistorySquareButtonPreview() {
+private fun HistorySquareButtonPreview() {
     MCDONALDSTheme {
         HistorySquareButton(
             text = "제품 수령 장소 선택",

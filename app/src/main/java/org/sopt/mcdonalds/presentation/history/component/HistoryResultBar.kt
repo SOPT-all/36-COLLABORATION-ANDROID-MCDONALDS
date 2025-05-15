@@ -31,7 +31,7 @@ import org.sopt.mcdonalds.core.designsystem.theme.McDonaldsTheme
 fun HistoryResultBar(
     text: String,
     amount: Int,
-    modifier: Modifier
+    modifier: Modifier = Modifier
 ) {
     TopShadow(
         modifier = Modifier
@@ -59,7 +59,7 @@ fun HistoryResultBar(
 }
 
 @Composable
-fun TopShadow(
+private fun TopShadow(
     modifier: Modifier = Modifier,
     content: @Composable () -> Unit
 ) {
@@ -82,7 +82,7 @@ fun TopShadow(
 
 @Preview
 @Composable
-fun HistoryResultBarPreview() {
+private fun HistoryResultBarPreview() {
     MCDONALDSTheme {
         Column {
             HistoryResultBar(

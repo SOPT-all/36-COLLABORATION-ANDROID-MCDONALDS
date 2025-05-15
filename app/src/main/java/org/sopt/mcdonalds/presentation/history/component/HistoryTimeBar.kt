@@ -68,7 +68,7 @@ fun HistoryTimeBar(
 
 @Preview
 @Composable
-fun HistoryTimeBarPreview() {
+private fun HistoryTimeBarPreview() {
     MCDONALDSTheme {
         Column {
             HistoryTimeBar(

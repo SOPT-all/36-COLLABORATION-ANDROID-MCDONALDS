@@ -50,7 +50,7 @@ fun HistoryMenuAddButton(
 
 @Preview
 @Composable
-fun HistoryMenuAddButtonPreview() {
+private fun HistoryMenuAddButtonPreview() {
     MCDONALDSTheme {
         HistoryMenuAddButton(
             text = "+ 메뉴 추가",

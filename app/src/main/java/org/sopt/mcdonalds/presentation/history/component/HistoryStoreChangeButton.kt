@@ -50,7 +50,7 @@ fun HistoryStoreChangeButton(
 
 @Preview
 @Composable
-fun HistoryStoreChangeButtonPreview() {
+private fun HistoryStoreChangeButtonPreview() {
     MCDONALDSTheme {
         HistoryStoreChangeButton(
             text = "매장 변경",
