@@ -52,7 +52,6 @@ fun HistoryResultBar(
             )
         }
     }
-
 }
 
 @Composable

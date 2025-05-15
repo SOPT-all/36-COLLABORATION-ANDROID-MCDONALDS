@@ -1,15 +1,13 @@
 package org.sopt.mcdonalds.presentation.history.component
 
-import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -18,7 +16,7 @@ import org.sopt.mcdonalds.core.designsystem.theme.MCDONALDSTheme
 import org.sopt.mcdonalds.core.designsystem.theme.McDonaldsTheme
 
 @Composable
-fun HistoryStoreChangeButton(
+fun HistorySquareButton(
     text: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
@@ -27,18 +25,17 @@ fun HistoryStoreChangeButton(
     Button(
         onClick = onClick,
         modifier = modifier
-            .padding(10.dp),
+            .fillMaxWidth()
+            .height(56.dp),
         enabled = enabled,
-        border = BorderStroke(0.5.dp, McDonaldsTheme.colors.blue),
-        colors = ButtonDefaults.buttonColors(McDonaldsTheme.colors.white),
-        shape = RoundedCornerShape(8.dp),
-        contentPadding = PaddingValues(0.dp),
+        colors = ButtonDefaults.buttonColors(McDonaldsTheme.colors.yellow),
+        shape = RectangleShape,
         interactionSource = NoRippleInteractionSource,
     ) {
         Text(
             text = text,
-            style = McDonaldsTheme.typography.caption10r,
-            color = McDonaldsTheme.colors.blue,
+            style = McDonaldsTheme.typography.body16m,
+            color = McDonaldsTheme.colors.gray800,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
         )
@@ -47,13 +44,12 @@ fun HistoryStoreChangeButton(
 
 @Preview
 @Composable
-fun HistoryStoreChangeButtonPreview(
+fun HistorySquareButtonPreview(
 ){
     MCDONALDSTheme {
-        HistoryStoreChangeButton(
-            text = "매장 변경",
+        HistorySquareButton(
+            text = "제품 수령 장소 선택",
             onClick = {},
-            modifier = Modifier.size(width = 61.dp, height = 29.dp),
             enabled = true,
         )
     }

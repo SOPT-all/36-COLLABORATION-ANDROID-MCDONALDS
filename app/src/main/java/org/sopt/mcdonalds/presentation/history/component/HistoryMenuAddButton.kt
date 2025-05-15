@@ -21,12 +21,13 @@ import org.sopt.mcdonalds.core.designsystem.theme.McDonaldsTheme
 fun HistoryMenuAddButton(
     text: String,
     onClick: () -> Unit,
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
     enabled: Boolean = true,
 ) {
     Button(
         onClick = onClick,
-        modifier = modifier,
+        modifier = modifier
+            .padding(10.dp),
         enabled = enabled,
         border = BorderStroke(1.dp, McDonaldsTheme.colors.gray400),
         colors = ButtonDefaults.buttonColors(McDonaldsTheme.colors.white),
