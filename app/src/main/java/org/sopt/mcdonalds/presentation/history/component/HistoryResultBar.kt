@@ -8,12 +8,10 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
@@ -22,33 +20,39 @@ import java.text.DecimalFormat
 import org.sopt.mcdonalds.core.designsystem.theme.MCDONALDSTheme
 import org.sopt.mcdonalds.core.designsystem.theme.McDonaldsTheme
 
+/**
+ * 주문내역 페이지 속에서 최종 금액 표시를 위한 바
+ *
+ * @param text 바에 표시할 텍스트입니다.
+ * @param amount 바에 표시할 최종 금액입니다.
+ * @param modifier 수정자
+ */
 @Composable
 fun HistoryResultBar(
     text: String,
     amount: Int,
-    modifier: Modifier,
+    modifier: Modifier
 ) {
     TopShadow(
         modifier = Modifier
-    )
-    {
-        Row (
+    ) {
+        Row(
             modifier = modifier
                 .fillMaxWidth()
                 .background(color = McDonaldsTheme.colors.white)
                 .padding(start = 20.dp, end = 20.dp, top = 25.dp, bottom = 25.dp),
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween,
+            horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Text(
                 text = text,
                 style = McDonaldsTheme.typography.body16sb,
-                color = McDonaldsTheme.colors.black,
+                color = McDonaldsTheme.colors.black
             )
             Text(
                 text = "₩" + DecimalFormat("#,###").format(amount),
                 style = McDonaldsTheme.typography.body18m,
-                color = McDonaldsTheme.colors.black,
+                color = McDonaldsTheme.colors.black
             )
         }
     }
@@ -60,7 +64,7 @@ fun TopShadow(
     content: @Composable () -> Unit
 ) {
     Column(
-        modifier = modifier,
+        modifier = modifier
     ) {
         Box(
             modifier = Modifier
@@ -78,15 +82,14 @@ fun TopShadow(
 
 @Preview
 @Composable
-fun HistoryResultBarPreview(){
+fun HistoryResultBarPreview() {
     MCDONALDSTheme {
         Column {
             HistoryResultBar(
                 text = "주문 금액",
                 amount = 11500,
-                modifier = Modifier,
+                modifier = Modifier
             )
         }
-
     }
 }

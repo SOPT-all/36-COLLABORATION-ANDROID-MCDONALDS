@@ -25,10 +25,16 @@ import org.sopt.mcdonalds.R
 import org.sopt.mcdonalds.core.designsystem.theme.MCDONALDSTheme
 import org.sopt.mcdonalds.core.designsystem.theme.McDonaldsTheme
 
+/**
+ * 주문내역 페이지 속에서 마감 시간을 보여주는 바
+ *
+ * @param endTime 바에 표시할 매장 마감 시간입니다.
+ * @param modifier 수정자
+ */
 @Composable
 fun HistoryTimeBar(
     endTime: LocalDateTime,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     val formatter = DateTimeFormatter.ofPattern("HH:mm")
     Column {
@@ -36,25 +42,25 @@ fun HistoryTimeBar(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(1.dp)
-                .background(color = McDonaldsTheme.colors.gray200),
+                .background(color = McDonaldsTheme.colors.gray200)
         )
-        Row (
+        Row(
             modifier = modifier
                 .fillMaxWidth()
                 .background(color = McDonaldsTheme.colors.gray100)
                 .padding(start = 24.dp, end = 24.dp, top = 7.dp, bottom = 7.dp),
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(15.dp),
+            horizontalArrangement = Arrangement.spacedBy(15.dp)
         ) {
             Icon(
                 imageVector = ImageVector.vectorResource(R.drawable.ic_warning_20),
                 contentDescription = null,
-                tint = Color. Unspecified,
+                tint = Color.Unspecified
             )
             Text(
                 text = stringResource(R.string.history_time_notice, endTime.format(formatter)),
                 style = McDonaldsTheme.typography.body14r,
-                color = McDonaldsTheme.colors.black,
+                color = McDonaldsTheme.colors.black
             )
         }
     }
@@ -62,12 +68,12 @@ fun HistoryTimeBar(
 
 @Preview
 @Composable
-fun HistoryTimeBarPreview(){
+fun HistoryTimeBarPreview() {
     MCDONALDSTheme {
         Column {
             HistoryTimeBar(
                 endTime = LocalDateTime.now(),
-                modifier = Modifier,
+                modifier = Modifier
             )
         }
     }
