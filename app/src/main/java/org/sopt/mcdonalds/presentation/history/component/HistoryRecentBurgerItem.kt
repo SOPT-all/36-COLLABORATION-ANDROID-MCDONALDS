@@ -65,7 +65,7 @@ fun HistoryRecentBurgerItem(
                     color = McDonaldsTheme.colors.gray800
                 )
                 Text(
-                    text = "₩" + DecimalFormat("#,###").format(price) + "~",
+                    text = "₩" + DecimalFormat("#,###").format(price) + " ~",
                     style = McDonaldsTheme.typography.body14r,
                     color = McDonaldsTheme.colors.gray800
                 )
