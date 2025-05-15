@@ -5,4 +5,9 @@
 
     <!-- menu list   -->
     <string name="menu_list_title">버거 &amp; 세트</string>
+    <string name="menu_type_new">신메뉴</string>
+    <string name="menu_type_recommend">추천메뉴</string>
+    <string name="menu_type_mccrispy">맥크리스피</string>
+    <string name="menu_type_bulgogi">불고기</string>
+    <string name="menu_type_cheese">치즈</string>
 </resources>
