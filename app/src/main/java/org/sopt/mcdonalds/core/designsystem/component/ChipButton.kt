@@ -19,7 +19,7 @@ import androidx.compose.ui.unit.dp
 import org.sopt.mcdonalds.core.common.util.noRippleClickable
 import org.sopt.mcdonalds.core.designsystem.theme.MCDONALDSTheme
 import org.sopt.mcdonalds.core.designsystem.theme.McDonaldsTheme
-import org.sopt.mcdonalds.presentation.store.type.StoreType
+import org.sopt.mcdonalds.presentation.menu.type.MenuType
 
 @Composable
 fun ChipButton(
@@ -56,14 +56,14 @@ private fun ChipButtonPreview() {
         Row {
             ChipButton(
                 isSelected = true,
-                title = StoreType.GARAGE.title,
+                title = MenuType.MCCRISPY.title,
                 onSelect = {},
                 textStyle = McDonaldsTheme.typography.caption10r,
                 paddingValues = PaddingValues(horizontal = 16.dp, vertical = 4.dp)
             )
             ChipButton(
                 isSelected = false,
-                title = StoreType.OPEN_24_HOURS.title,
+                title = MenuType.NEW.title,
                 onSelect = {},
                 textStyle = McDonaldsTheme.typography.caption10r,
                 paddingValues = PaddingValues(horizontal = 16.dp, vertical = 4.dp)
