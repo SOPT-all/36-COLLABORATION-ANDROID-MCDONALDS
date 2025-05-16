@@ -31,7 +31,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import java.time.LocalDateTime
 import kotlinx.collections.immutable.persistentListOf
-import org.intellij.lang.annotations.JdkConstants.HorizontalAlignment
 import org.sopt.mcdonalds.R
 import org.sopt.mcdonalds.core.designsystem.component.DefaultTopBar
 import org.sopt.mcdonalds.core.designsystem.theme.MCDONALDSTheme
@@ -49,7 +48,7 @@ import org.sopt.mcdonalds.presentation.history.model.RecentBurger
 @Composable
 fun HistoryRoute(
     modifier: Modifier = Modifier
-){
+) {
     HistoryScreen(
         modifier = modifier
     )
@@ -57,7 +56,7 @@ fun HistoryRoute(
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-private fun HistoryScreen (
+private fun HistoryScreen(
     modifier: Modifier = Modifier,
     carts: List<Cart> = persistentListOf<Cart>(),
     recentBurgers: List<RecentBurger> = persistentListOf<RecentBurger>()
@@ -68,13 +67,13 @@ private fun HistoryScreen (
     val density = LocalDensity.current
     var footerHeightDp by remember { mutableStateOf(0.dp) }
 
-    LaunchedEffect (cartList) {
+    LaunchedEffect(cartList) {
         priceSum = cartList.sumOf { it.price * it.amount }
     }
 
     Box(
         modifier = modifier.fillMaxSize()
-    ){
+    ) {
         LazyColumn(
             modifier = Modifier
                 .fillMaxWidth(),
@@ -84,13 +83,13 @@ private fun HistoryScreen (
         ) {
             stickyHeader {
                 DefaultTopBar(
-                    onBackClick = {/*TODO*/},
+                    onBackClick = { /*TODO*/ },
                     title = "주문내역",
                     modifier = Modifier.background(color = McDonaldsTheme.colors.white).fillMaxWidth()
                 )
                 HistoryStoreBar(
                     store = store,
-                    onStoreChangeClick = {/*TODO*/}
+                    onStoreChangeClick = { /*TODO*/ }
                 )
             }
             item {
@@ -98,7 +97,7 @@ private fun HistoryScreen (
                     endTime = LocalDateTime.now()
                 )
             }
-            if(carts.isEmpty()){
+            if (carts.isEmpty()) {
                 item {
                     Spacer(
                         modifier = Modifier.height(50.dp)
@@ -117,14 +116,13 @@ private fun HistoryScreen (
                         style = McDonaldsTheme.typography.body14b
                     )
                 }
-            }
-            else{
+            } else {
                 itemsIndexed(
                     items = cartList,
                     key = { index, cart -> cart.cartId }
                 ) { index, cart ->
                     HistoryCartItem(
-                        price = cart.price,//TODO 서버 요청해야함
+                        price = cart.price, // TODO 서버 요청해야함
                         count = cart.amount,
                         isSet = cart.isSet,
                         imageUrl = cart.imageUrl,
@@ -139,8 +137,8 @@ private fun HistoryScreen (
                                 it[index] = it[index].copy(amount = maxOf(1, it[index].amount - 1))
                             }
                         },
-                        onEditClick = {/*TODO*/},
-                        onDeleteClick = {/*TODO*/},
+                        onEditClick = { /*TODO*/ },
+                        onDeleteClick = { /*TODO*/ }
                     )
                 }
             }
@@ -148,16 +146,21 @@ private fun HistoryScreen (
                 Spacer(modifier = Modifier.height(30.dp))
                 HistoryMenuAddButton(
                     text = "메뉴 추가",
-                    onClick = {/*TODO*/},
+                    onClick = { /*TODO*/ },
                     modifier = Modifier.align(Alignment.Center)
                 )
                 Spacer(modifier = Modifier.height(20.dp))
             }
-            if(carts.isEmpty()){
-                item{
+            if (carts.isEmpty()) {
+                item {
                     Spacer(modifier = Modifier.height(30.dp))
-                    Box(modifier = Modifier.fillMaxWidth().align(Alignment.CenterStart)){
-                        Text(modifier = Modifier.padding(start = 25.dp), text = "최근에 주문한 버거", color = McDonaldsTheme.colors.black, style = McDonaldsTheme.typography.body14b)
+                    Box(modifier = Modifier.fillMaxWidth().align(Alignment.CenterStart)) {
+                        Text(
+                            modifier = Modifier.padding(start = 25.dp),
+                            text = "최근에 주문한 버거",
+                            color = McDonaldsTheme.colors.black,
+                            style = McDonaldsTheme.typography.body14b
+                        )
                     }
                 }
                 itemsIndexed(
@@ -168,11 +171,11 @@ private fun HistoryScreen (
                         price = recentBurger.menuPrice,
                         imageUrl = recentBurger.menuImage,
                         menuName = recentBurger.menuName,
-                        onClick = {/*TODO*/},
+                        onClick = { /*TODO*/ }
                     )
                 }
             }
-            item{ Spacer(modifier = Modifier.height(footerHeightDp)) }
+            item { Spacer(modifier = Modifier.height(footerHeightDp)) }
         }
         Box(
             modifier = Modifier
@@ -181,11 +184,11 @@ private fun HistoryScreen (
                 .onGloballyPositioned { coordinates ->
                     footerHeightDp = with(density) { coordinates.size.height.toDp() }
                 }
-        ){
-            Column (
+        ) {
+            Column(
                 modifier = Modifier.fillMaxWidth()
             ) {
-                if(carts.isNotEmpty()) {
+                if (carts.isNotEmpty()) {
                     HistoryResultBar(
                         text = "주문 금액",
                         price = priceSum
@@ -193,26 +196,50 @@ private fun HistoryScreen (
                 }
                 HistorySquareButton(
                     text = "제품 수령 장소 선택",
-                    onClick = {/*TODO*/}
+                    onClick = { /*TODO*/ }
                 )
             }
         }
-
     }
 }
 
 @Preview
 @Composable
-private fun HistoryScreenEmptyPreview(){
+private fun HistoryScreenEmptyPreview() {
     MCDONALDSTheme {
         HistoryScreen(
             modifier = Modifier.background(McDonaldsTheme.colors.white),
             recentBurgers = listOf(
-                RecentBurger(menuId = 1, menuName = "더블 1995® 버거", menuPrice = "₩8,300 ~", menuImage = ""),
-                RecentBurger(menuId = 2, menuName = "더블 1995® 버거", menuPrice = "₩8,300 ~", menuImage = ""),
-                RecentBurger(menuId = 3, menuName = "더블 1995® 버거", menuPrice = "₩8,300 ~", menuImage = ""),
-                RecentBurger(menuId = 4, menuName = "더블 1995® 버거", menuPrice = "₩8,300 ~", menuImage = ""),
-                RecentBurger(menuId = 5, menuName = "더블 1995® 버거", menuPrice = "₩8,300 ~", menuImage = ""),
+                RecentBurger(
+                    menuId = 1,
+                    menuName = "더블 1995® 버거",
+                    menuPrice = "₩8,300 ~",
+                    menuImage = ""
+                ),
+                RecentBurger(
+                    menuId = 2,
+                    menuName = "더블 1995® 버거",
+                    menuPrice = "₩8,300 ~",
+                    menuImage = ""
+                ),
+                RecentBurger(
+                    menuId = 3,
+                    menuName = "더블 1995® 버거",
+                    menuPrice = "₩8,300 ~",
+                    menuImage = ""
+                ),
+                RecentBurger(
+                    menuId = 4,
+                    menuName = "더블 1995® 버거",
+                    menuPrice = "₩8,300 ~",
+                    menuImage = ""
+                ),
+                RecentBurger(
+                    menuId = 5,
+                    menuName = "더블 1995® 버거",
+                    menuPrice = "₩8,300 ~",
+                    menuImage = ""
+                )
             )
         )
     }
@@ -220,15 +247,43 @@ private fun HistoryScreenEmptyPreview(){
 
 @Preview
 @Composable
-private fun HistoryScreenNotEmptyPreview(){
+private fun HistoryScreenNotEmptyPreview() {
     MCDONALDSTheme {
         HistoryScreen(
             modifier = Modifier.background(McDonaldsTheme.colors.white),
             carts = listOf(
-                Cart(cartId = 1, menuName = "더블 1995® 버거", amount = 2, price = 5500, isSet = true, imageUrl = ""),
-                Cart(cartId = 2, menuName = "더블 1995® 버거", amount = 2, price = 5500, isSet = true, imageUrl = ""),
-                Cart(cartId = 3, menuName = "더블 1995® 버거", amount = 2, price = 5500, isSet = true, imageUrl = ""),
-                Cart(cartId = 4, menuName = "더블 1995® 버거", amount = 1, price = 3500, isSet = false, imageUrl = "")
+                Cart(
+                    cartId = 1,
+                    menuName = "더블 1995® 버거",
+                    amount = 2,
+                    price = 5500,
+                    isSet = true,
+                    imageUrl = ""
+                ),
+                Cart(
+                    cartId = 2,
+                    menuName = "더블 1995® 버거",
+                    amount = 2,
+                    price = 5500,
+                    isSet = true,
+                    imageUrl = ""
+                ),
+                Cart(
+                    cartId = 3,
+                    menuName = "더블 1995® 버거",
+                    amount = 2,
+                    price = 5500,
+                    isSet = true,
+                    imageUrl = ""
+                ),
+                Cart(
+                    cartId = 4,
+                    menuName = "더블 1995® 버거",
+                    amount = 1,
+                    price = 3500,
+                    isSet = false,
+                    imageUrl = ""
+                )
             )
         )
     }

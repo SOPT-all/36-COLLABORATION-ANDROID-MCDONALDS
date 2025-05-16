@@ -1,7 +1,6 @@
 package org.sopt.mcdonalds.presentation.history.component
 
 import androidx.annotation.DrawableRes
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -9,15 +8,12 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -39,13 +35,11 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import java.text.DecimalFormat
-import kotlinx.collections.immutable.ImmutableList
 import org.sopt.mcdonalds.R
 import org.sopt.mcdonalds.core.common.util.noRippleClickable
 import org.sopt.mcdonalds.core.designsystem.component.BorderedNumberIncrementer
 import org.sopt.mcdonalds.core.designsystem.theme.MCDONALDSTheme
 import org.sopt.mcdonalds.core.designsystem.theme.McDonaldsTheme
-import org.sopt.mcdonalds.presentation.history.model.Cart
 
 @Composable
 fun HistoryCartItem(
@@ -61,10 +55,10 @@ fun HistoryCartItem(
     modifier: Modifier = Modifier
 ) {
     val context = LocalContext.current
-    Column (
+    Column(
         modifier = modifier
             .fillMaxWidth()
-    ){
+    ) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
@@ -108,7 +102,9 @@ fun HistoryCartItem(
                                     color = McDonaldsTheme.colors.gray600
                                 )
                                 Text(
-                                    text = stringResource(R.string.history_ingredient_default_option),
+                                    text = stringResource(
+                                        R.string.history_ingredient_default_option
+                                    ),
                                     style = McDonaldsTheme.typography.body14r,
                                     color = McDonaldsTheme.colors.gray600
                                 )
