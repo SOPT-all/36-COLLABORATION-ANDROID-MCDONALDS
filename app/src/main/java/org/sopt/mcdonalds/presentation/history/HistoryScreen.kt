@@ -26,6 +26,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -84,7 +85,7 @@ private fun HistoryScreen(
             stickyHeader {
                 DefaultTopBar(
                     onBackClick = { /*TODO*/ },
-                    title = "주문내역",
+                    title = stringResource(R.string.history_title),
                     modifier = Modifier.background(color = McDonaldsTheme.colors.white).fillMaxWidth()
                 )
                 HistoryStoreBar(
@@ -111,7 +112,7 @@ private fun HistoryScreen(
                         modifier = Modifier.height(21.dp)
                     )
                     Text(
-                        text = "장바구니가 비었어요.",
+                        text = stringResource(R.string.history_empty_notice),
                         color = McDonaldsTheme.colors.black,
                         style = McDonaldsTheme.typography.body14b
                     )
@@ -122,7 +123,7 @@ private fun HistoryScreen(
                     key = { index, cart -> cart.cartId }
                 ) { index, cart ->
                     HistoryCartItem(
-                        price = cart.price, // TODO 서버 요청해야함
+                        price = cart.price,
                         count = cart.amount,
                         isSet = cart.isSet,
                         imageUrl = cart.imageUrl,
@@ -145,7 +146,7 @@ private fun HistoryScreen(
             item {
                 Spacer(modifier = Modifier.height(30.dp))
                 HistoryMenuAddButton(
-                    text = "메뉴 추가",
+                    text = stringResource(R.string.history_add_menu_button),
                     onClick = { /*TODO*/ },
                     modifier = Modifier.align(Alignment.Center)
                 )
@@ -157,7 +158,7 @@ private fun HistoryScreen(
                     Box(modifier = Modifier.fillMaxWidth().align(Alignment.CenterStart)) {
                         Text(
                             modifier = Modifier.padding(start = 25.dp),
-                            text = "최근에 주문한 버거",
+                            text = stringResource(R.string.history_recent_burger_title),
                             color = McDonaldsTheme.colors.black,
                             style = McDonaldsTheme.typography.body14b
                         )
@@ -190,12 +191,12 @@ private fun HistoryScreen(
             ) {
                 if (carts.isNotEmpty()) {
                     HistoryResultBar(
-                        text = "주문 금액",
+                        text = stringResource(R.string.history_sum_title),
                         price = priceSum
                     )
                 }
                 HistorySquareButton(
-                    text = "제품 수령 장소 선택",
+                    text = stringResource(R.string.history_order_button),
                     onClick = { /*TODO*/ }
                 )
             }
