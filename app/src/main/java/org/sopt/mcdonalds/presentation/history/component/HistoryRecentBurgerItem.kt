@@ -25,7 +25,7 @@ import org.sopt.mcdonalds.core.designsystem.theme.McDonaldsTheme
 
 @Composable
 fun HistoryRecentBurgerItem(
-    price: Int,
+    price: String,
     imageUrl: String,
     menuName: String,
     onClick: () -> Unit,
@@ -65,7 +65,7 @@ fun HistoryRecentBurgerItem(
                     color = McDonaldsTheme.colors.gray800
                 )
                 Text(
-                    text = "₩" + DecimalFormat("#,###").format(price) + " ~",
+                    text = price,
                     style = McDonaldsTheme.typography.body14r,
                     color = McDonaldsTheme.colors.gray800
                 )
@@ -85,7 +85,7 @@ fun HistoryRecentBurgerItem(
 private fun HistoryRecentBurgerItemPreview() {
     MCDONALDSTheme {
         HistoryRecentBurgerItem(
-            price = 8300,
+            price = "₩8,300 ~",
             imageUrl = "",
             menuName = "더블 1955® 버거",
             onClick = {}
