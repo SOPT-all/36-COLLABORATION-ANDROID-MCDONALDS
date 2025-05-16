@@ -17,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import org.sopt.mcdonalds.core.designsystem.theme.MCDONALDSTheme
 import org.sopt.mcdonalds.core.designsystem.theme.McDonaldsTheme
 
 /**
@@ -37,36 +38,37 @@ fun OrderSetSelectButton(
     imageURL: String,
     modifier: Modifier = Modifier
 ) {
+    val backgroundColor = if (isSelected) {
+        McDonaldsTheme.colors.lightYellow
+    } else {
+        McDonaldsTheme.colors.white
+    }
+    val borderColor = if (isSelected) {
+        McDonaldsTheme.colors.yellow
+    } else {
+        McDonaldsTheme.colors.gray200
+    }
     Column(
         modifier = modifier
-            .width(150.dp)
-            .height(204.dp)
             .background(
-                color = if (isSelected) {
-                    McDonaldsTheme.colors.lightYellow
-                } else {
-                    McDonaldsTheme.colors.white
-                },
+                color = backgroundColor,
                 shape = RoundedCornerShape(8.dp)
             )
             .border(
-                color = if (isSelected) {
-                    McDonaldsTheme.colors.yellow
-                } else {
-                    McDonaldsTheme.colors.gray200
-                },
+                color = borderColor,
                 width = 1.dp,
                 shape = RoundedCornerShape(8.dp)
-            ),
+            )
+            .padding(15.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Top
     ) {
-        Spacer(modifier = Modifier.height(15.dp))
         AsyncImage(
             model = imageURL,
             contentDescription = "햄버거 세트",
             modifier = Modifier
-                .padding(top = 15.dp, start = 15.dp, end = 15.dp)
+                .width(120.dp)
+                .height(104.dp)
         )
         Spacer(modifier = Modifier.height(20.dp))
         Text(
@@ -79,44 +81,46 @@ fun OrderSetSelectButton(
             style = McDonaldsTheme.typography.body14r,
             color = McDonaldsTheme.colors.gray800
         )
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(5.dp))
     }
 }
 
 @Preview(showBackground = true)
 @Composable
 fun OrderSetSelectButtonPreview() {
-    Column {
-        Row {
-            OrderSetSelectButton(
-                "단품",
-                "₩10,000",
-                false,
-                ""
-            )
-            Spacer(modifier = Modifier.width(8.dp))
-            OrderSetSelectButton(
-                "단품",
-                "₩10,000",
-                true,
-                ""
-            )
-        }
-        Spacer(modifier = Modifier.height(8.dp))
-        Row {
-            OrderSetSelectButton(
-                "세트",
-                "₩10,000",
-                false,
-                ""
-            )
-            Spacer(modifier = Modifier.width(8.dp))
-            OrderSetSelectButton(
-                "세트",
-                "₩10,000",
-                true,
-                ""
-            )
+    MCDONALDSTheme {
+        Column {
+            Row {
+                OrderSetSelectButton(
+                    "단품",
+                    "₩10,000",
+                    false,
+                    ""
+                )
+                Spacer(modifier = Modifier.width(8.dp))
+                OrderSetSelectButton(
+                    "단품",
+                    "₩10,000",
+                    true,
+                    ""
+                )
+            }
+            Spacer(modifier = Modifier.height(8.dp))
+            Row {
+                OrderSetSelectButton(
+                    "세트",
+                    "₩10,000",
+                    false,
+                    ""
+                )
+                Spacer(modifier = Modifier.width(8.dp))
+                OrderSetSelectButton(
+                    "세트",
+                    "₩10,000",
+                    true,
+                    ""
+                )
+            }
         }
     }
 }
