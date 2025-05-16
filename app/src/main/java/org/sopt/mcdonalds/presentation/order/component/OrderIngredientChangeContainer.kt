@@ -94,7 +94,7 @@ fun IngredientChangeContainer(
  */
 
 @Composable
-fun IngredientListContainer(
+private fun IngredientListContainer(
     isExpanded: Boolean,
     ingredientList: List<Ingredient>,
     modifier: Modifier = Modifier
@@ -127,7 +127,7 @@ fun IngredientListContainer(
  */
 
 @Composable
-fun IngredientContainer(
+private fun IngredientContainer(
     text: String,
     amount: MutableState<Int>,
     modifier: Modifier = Modifier

@@ -45,8 +45,8 @@ import org.sopt.mcdonalds.presentation.order.model.Ingredient
 fun OrderBurgerDetailContainer(
     name: String,
     @DrawableRes imageId: Int,
-    modifier: Modifier = Modifier,
     ingredientList: List<Ingredient>,
+    modifier: Modifier = Modifier,
 ) {
     var ingredientExpanded by remember { mutableStateOf(false) }
 

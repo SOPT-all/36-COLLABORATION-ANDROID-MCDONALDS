@@ -37,7 +37,6 @@ fun OrderButton(
         onClick = onClick,
         modifier = modifier
             .padding(vertical = 19.dp, horizontal = 57.dp),
-        enabled = true,
         colors = ButtonDefaults.buttonColors(color),
         shape = RoundedCornerShape(0.dp),
         interactionSource = NoRippleInteractionSource
