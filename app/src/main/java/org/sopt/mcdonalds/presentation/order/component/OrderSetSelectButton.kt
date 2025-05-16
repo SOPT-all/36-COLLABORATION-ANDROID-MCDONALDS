@@ -7,6 +7,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
@@ -92,13 +93,16 @@ fun OrderSetSelectButton(
 @Composable
 fun OrderSetSelectButtonPreview() {
     Column {
-        OrderSetSelectButton("단품", 10000, false, R.drawable.img_burger_single)
-        Spacer(modifier = Modifier.height(2.dp))
-        OrderSetSelectButton("단품", 10000, true, R.drawable.img_burger_single)
-        Spacer(modifier = Modifier.height(2.dp))
-        OrderSetSelectButton("세트", 10000, false, R.drawable.img_burger_set)
-        Spacer(modifier = Modifier.height(2.dp))
-        OrderSetSelectButton("세트", 10000, true, R.drawable.img_burger_set)
-        Spacer(modifier = Modifier.height(2.dp))
+        Row {
+            OrderSetSelectButton("단품", 10000, false, R.drawable.img_burger_single)
+            Spacer(modifier = Modifier.width(8.dp))
+            OrderSetSelectButton("단품", 10000, true, R.drawable.img_burger_single)
+        }
+        Spacer(modifier = Modifier.height(8.dp))
+        Row {
+            OrderSetSelectButton("세트", 10000, false, R.drawable.img_burger_set)
+            Spacer(modifier = Modifier.width(8.dp))
+            OrderSetSelectButton("세트", 10000, true, R.drawable.img_burger_set)
+        }
     }
 }
