@@ -24,13 +24,13 @@ import org.sopt.mcdonalds.core.designsystem.theme.McDonaldsTheme
  * 주문내역 페이지 속에서 최종 금액 표시를 위한 바
  *
  * @param text 바에 표시할 텍스트입니다.
- * @param amount 바에 표시할 최종 금액입니다.
+ * @param price 바에 표시할 최종 금액입니다.
  * @param modifier 수정자
  */
 @Composable
 fun HistoryResultBar(
     text: String,
-    amount: Int,
+    price: Int,
     modifier: Modifier = Modifier
 ) {
     TopShadow(
@@ -50,7 +50,7 @@ fun HistoryResultBar(
                 color = McDonaldsTheme.colors.black
             )
             Text(
-                text = "₩" + DecimalFormat("#,###").format(amount),
+                text = "₩" + DecimalFormat("#,###").format(price),
                 style = McDonaldsTheme.typography.body18m,
                 color = McDonaldsTheme.colors.black
             )
@@ -87,7 +87,7 @@ private fun HistoryResultBarPreview() {
         Column {
             HistoryResultBar(
                 text = "주문 금액",
-                amount = 11500,
+                price = 11500,
                 modifier = Modifier
             )
         }
