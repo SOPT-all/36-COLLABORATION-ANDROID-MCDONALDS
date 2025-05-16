@@ -50,18 +50,20 @@ fun OrderSetSelectButton(
                         McDonaldsTheme.colors.lightYellow
                     } else {
                         McDonaldsTheme.colors.white
-                    }, shape = RoundedCornerShape(8.dp)
+                    },
+                    shape = RoundedCornerShape(8.dp)
                 )
                 .border(
                     color = if (isSelected) {
                         McDonaldsTheme.colors.yellow
                     } else {
                         McDonaldsTheme.colors.gray200
-                    }, width = 1.dp,
+                    },
+                    width = 1.dp,
                     shape = RoundedCornerShape(8.dp)
                 ),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Top,
+            verticalArrangement = Arrangement.Top
         ) {
             Spacer(modifier = Modifier.height(15.dp))
             Image(
