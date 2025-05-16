@@ -10,7 +10,8 @@
     <string name="order_change_side_text">사이드 변경</string>
 
     <string name="order_ingredient_onion">양파</string>
-    
+    <string name="order_ingredient_salt">소금</string>
+
     <string name="order_side_french_fries">후렌치 후라이</string>
     <string name="order_side_coleslaw">코울슬로</string>
     <string name="order_drink_sprite">스프라이트</string>

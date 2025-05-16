@@ -37,12 +37,25 @@ import org.sopt.mcdonalds.core.designsystem.theme.MCDONALDSTheme
 import org.sopt.mcdonalds.core.designsystem.theme.McDonaldsTheme
 import org.sopt.mcdonalds.presentation.order.model.Side
 
+/**
+ * Side Change Container
+ * 주문하기에서 사이드를 변경하는 컴포넌트
+ *
+ * @param text 컨테이너에 들어갈 텍스트
+ * @param isExpanded 재료 리스트가 나오는지 여부
+ * @param toggle 확장 여부
+ * @param sideList 확장 시 보여줄 재료 리스트
+ * @param onSelect 변경할 사이드를 선택할 때 실행되는 함수
+ * @param modifier 수정자
+ */
+
 @Composable
 fun SideChangeContainer(
     text: String,
     isExpanded: Boolean,
     toggle: () -> Unit,
     sideList: List<Side>,
+    onSelect: (Side) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -72,15 +85,27 @@ fun SideChangeContainer(
         HorizontalDivider(color = McDonaldsTheme.colors.gray200, thickness = 1.dp)
         SideListContainer(
             isExpanded = isExpanded,
-            sideList = sideList
+            sideList = sideList,
+            onSelect = onSelect
         )
     }
 }
+
+/**
+ * Ingredient Change Container
+ * 주문하기에서 버거나 사이드의 재료를 변경하는 컴포넌트
+ *
+ * @param isExpanded 재료 리스트가 나오는지 여부
+ * @param sideList 확장 시 보여줄 사이드 리스트
+ * @param onSelect 변경할 사이드를 선택할 때 실행되는 함수
+ * @param modifier 수정자
+ */
 
 @Composable
 fun SideListContainer(
     isExpanded: Boolean,
     sideList: List<Side>,
+    onSelect: (Side) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Box(modifier = modifier.clipToBounds()) {
@@ -94,29 +119,47 @@ fun SideListContainer(
                 verticalArrangement = Arrangement.Top
             ) {
                 sideList.forEach { side ->
-                    SideContainer(text = side.name, imageId = side.imageId)
+                    SideContainer(
+                        text = side.name,
+                        imageId = side.imageId,
+                        onClick = {
+                            onSelect(side)
+                        }
+                    )
                 }
             }
         }
     }
 }
 
+/**
+ * Side Container
+ * 사이드 변경에서 확장시 나오는 사이드 컴포넌트
+ *
+ * @param text 재료 이름
+ * @param imageId 사이드 메뉴 이미지
+ * @param onClick 선택될 때 실행되는 함수
+ * @param modifier 수정자
+ */
+
 @Composable
 fun SideContainer(
     text: String,
     @DrawableRes imageId: Int,
+    onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(modifier = modifier) {
         Row(
             modifier = Modifier
-                .fillMaxWidth(),
+                .fillMaxWidth()
+                .clickable { onClick() },
             horizontalArrangement = Arrangement.Start,
             verticalAlignment = Alignment.CenterVertically
         ) {
             Image(
                 painter = painterResource(imageId),
-                contentDescription = "사이드 변경 이미지",
+                contentDescription = null,
                 modifier = Modifier
                     .padding(start = 24.dp, top = 4.dp, bottom = 4.dp)
                     .width(40.dp)
@@ -147,7 +190,8 @@ private fun SideChangeContainerPreview() {
                     name = stringResource(R.string.order_side_coleslaw),
                     imageId = R.drawable.img_side_coleslaw
                 )
-            )
+            ),
+            onSelect = {}
         )
     }
 }

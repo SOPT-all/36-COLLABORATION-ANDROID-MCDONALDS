@@ -1,6 +1,5 @@
 package org.sopt.mcdonalds.presentation.order.component
 
-import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -32,16 +31,25 @@ import org.sopt.mcdonalds.core.designsystem.theme.McDonaldsTheme
 import org.sopt.mcdonalds.presentation.order.model.Ingredient
 import org.sopt.mcdonalds.presentation.order.model.Side
 
+/**
+ * Order Side Detail Container
+ * 주문하기에서 사이드 상세 주문 컴포넌트
+ *
+ * @param ingredientList 확장 시 보여줄 재료 리스트
+ * @param modifier 수정자
+ */
+
 @Composable
 fun OrderSideDetailContainer(
-    text: String,
-    @DrawableRes imageId: Int,
-    modifier: Modifier = Modifier,
     ingredientList: List<Ingredient>,
     sideList: List<Side>,
+    modifier: Modifier = Modifier,
 ) {
     var sideExpanded by remember { mutableStateOf(false) }
     var ingredientExpanded by remember { mutableStateOf(false) }
+
+    var selectedSide by remember { mutableStateOf(sideList.first()) }
+    val remainSideList = sideList.filter { it != selectedSide }
 
     Column(
         modifier = modifier
@@ -61,7 +69,7 @@ fun OrderSideDetailContainer(
             horizontalArrangement = Arrangement.Start
         ) {
             Image(
-                painter = painterResource(imageId),
+                painter = painterResource(selectedSide.imageId),
                 contentDescription = null,
                 modifier = Modifier
                     .width(76.dp)
@@ -70,7 +78,7 @@ fun OrderSideDetailContainer(
             )
             Spacer(modifier = Modifier.width(14.dp))
             Text(
-                text = text,
+                text = selectedSide.name,
                 style = McDonaldsTheme.typography.body14b,
                 color = McDonaldsTheme.colors.black
             )
@@ -80,7 +88,8 @@ fun OrderSideDetailContainer(
             text = stringResource(R.string.order_change_side_text),
             isExpanded = sideExpanded,
             toggle = { sideExpanded = !sideExpanded },
-            sideList = sideList
+            sideList = remainSideList,
+            onSelect = { selectedSide = it }
         )
         IngredientChangeContainer(
             text = stringResource(R.string.order_change_ingredient_text),
@@ -96,17 +105,19 @@ fun OrderSideDetailContainer(
 private fun OrderSideDetailContainerPreview() {
     MCDONALDSTheme {
         OrderSideDetailContainer(
-            "후렌치 후라이",
-            R.drawable.img_side_fries,
             ingredientList = listOf(
                 Ingredient(
-                    name = "소금",
+                    name = stringResource(R.string.order_ingredient_salt),
                     amount = remember { mutableStateOf(1) }
                 )
             ),
             sideList = listOf(
                 Side(
-                    name = "코울슬로",
+                    name = stringResource(R.string.order_side_french_fries),
+                    imageId = R.drawable.img_side_fries
+                ),
+                Side(
+                    name = stringResource(R.string.order_side_coleslaw),
                     imageId = R.drawable.img_side_coleslaw
                 )
             )
