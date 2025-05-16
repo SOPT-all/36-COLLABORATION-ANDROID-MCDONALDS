@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">MCDONALDS</string>
-  
+
     <!-- history location   -->
     <string name="history_time_notice">매장 운영시간이 곧 종료되오니 %1$s 전에 픽업 완료해주세요.</string>
     <string name="history_store_change">매장 변경</string>
@@ -20,4 +20,12 @@
     <string name="store_address">노원구 동일로 1341(상계동), 서울특별시</string>
     <string name="store_open_hours">24시간</string>
     <string name="select_store">매장 선택하기</string>
+
+    <!-- menu list   -->
+    <string name="menu_list_title">버거 &amp; 세트</string>
+    <string name="menu_type_new">신메뉴</string>
+    <string name="menu_type_recommend">추천메뉴</string>
+    <string name="menu_type_mccrispy">맥크리스피</string>
+    <string name="menu_type_bulgogi">불고기</string>
+    <string name="menu_type_cheese">치즈</string>
 </resources>
