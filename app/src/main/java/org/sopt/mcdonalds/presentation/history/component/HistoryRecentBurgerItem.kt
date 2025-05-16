@@ -3,9 +3,13 @@ package org.sopt.mcdonalds.presentation.history.component
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.sizeIn
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -22,6 +26,8 @@ import java.text.DecimalFormat
 import org.sopt.mcdonalds.core.common.util.noRippleClickable
 import org.sopt.mcdonalds.core.designsystem.theme.MCDONALDSTheme
 import org.sopt.mcdonalds.core.designsystem.theme.McDonaldsTheme
+import org.sopt.mcdonalds.presentation.history.model.Cart
+import org.sopt.mcdonalds.presentation.history.model.RecentBurger
 
 @Composable
 fun HistoryRecentBurgerItem(
