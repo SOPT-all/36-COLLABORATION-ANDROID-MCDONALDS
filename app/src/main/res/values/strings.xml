@@ -1,8 +1,31 @@
 <resources>
     <string name="app_name">MCDONALDS</string>
+
+    <!-- history location   -->
     <string name="history_time_notice">매장 운영시간이 곧 종료되오니 %1$s 전에 픽업 완료해주세요.</string>
     <string name="history_store_change">매장 변경</string>
     <string name="history_fries_default_option">후렌치 후라이 - 미디엄</string>
     <string name="history_drink_default_option">스프라이트 - 미디엄</string>
     <string name="history_ingredient_default_option">선택 안함</string>
+
+    <!-- store location   -->
+    <string name="store_find_title">매장찾기</string>
+    <string name="mc_drive">맥드라이브</string>
+    <string name="open_24_hours">24시간 영업</string>
+    <string name="garage">주차장</string>
+    <string name="store_information">매장 정보</string>
+    <string name="select_store_button">매장 선택하기</string>
+    <string name="store_congestion_high">혼잡</string>
+    <string name="store_location_information">중계역점 (상계 백병원 앞) · 1.2km</string>
+    <string name="store_address">노원구 동일로 1341(상계동), 서울특별시</string>
+    <string name="store_open_hours">24시간</string>
+    <string name="select_store">매장 선택하기</string>
+
+    <!-- menu list   -->
+    <string name="menu_list_title">버거 &amp; 세트</string>
+    <string name="menu_type_new">신메뉴</string>
+    <string name="menu_type_recommend">추천메뉴</string>
+    <string name="menu_type_mccrispy">맥크리스피</string>
+    <string name="menu_type_bulgogi">불고기</string>
+    <string name="menu_type_cheese">치즈</string>
 </resources>
