@@ -35,7 +35,8 @@ import org.sopt.mcdonalds.presentation.order.model.Side
  * Order Side Detail Container
  * 주문하기에서 사이드 상세 주문 컴포넌트
  *
- * @param ingredientList 확장 시 보여줄 재료 리스트
+ * @param ingredientList 재료 리스트
+ * @param sideList 사이드 메뉴 리스트
  * @param modifier 수정자
  */
 

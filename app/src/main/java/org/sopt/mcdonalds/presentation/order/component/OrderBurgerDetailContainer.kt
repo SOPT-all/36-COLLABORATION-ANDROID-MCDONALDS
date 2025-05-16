@@ -31,6 +31,16 @@ import org.sopt.mcdonalds.core.designsystem.theme.MCDONALDSTheme
 import org.sopt.mcdonalds.core.designsystem.theme.McDonaldsTheme
 import org.sopt.mcdonalds.presentation.order.model.Ingredient
 
+/**
+ * Order Burger Detail Container
+ * 주문하기에서 버거 상세 주문 컴포넌트
+ *
+ * @param name 버거 이름
+ * @param imageId 버거 이미지
+ * @param ingredientList 재료 리스트
+ * @param modifier 수정자
+ */
+
 @Composable
 fun OrderBurgerDetailContainer(
     name: String,
@@ -83,7 +93,7 @@ fun OrderBurgerDetailContainer(
 }
 
 
-@Preview(showBackground = false)
+@Preview(showBackground = true)
 @Composable
 private fun OrderBurgerDetailContainerPreview() {
     MCDONALDSTheme {
