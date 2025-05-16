@@ -1,6 +1,5 @@
 package org.sopt.mcdonalds.presentation.order.component
 
-import android.icu.text.DecimalFormat
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -80,6 +79,7 @@ fun OrderSetSelectButton(
             style = McDonaldsTheme.typography.body14r,
             color = McDonaldsTheme.colors.gray800
         )
+        Spacer(modifier = Modifier.height(20.dp))
     }
 }
 
