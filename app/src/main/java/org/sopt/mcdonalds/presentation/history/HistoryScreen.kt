@@ -24,6 +24,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -63,7 +65,8 @@ private fun HistoryScreen (
     val store = "양평SK DT"
     var priceSum by remember { mutableStateOf(0) }
     var cartList by remember { mutableStateOf(carts.toMutableList()) }
-
+    val density = LocalDensity.current
+    var footerHeightDp by remember { mutableStateOf(0.dp) }
 
     LaunchedEffect (carts.size) {
         priceSum = 0
@@ -145,18 +148,17 @@ private fun HistoryScreen (
                 }
             }
             item {
-                Spacer(
-                    modifier = Modifier.height(30.dp)
-                )
+                Spacer(modifier = Modifier.height(30.dp))
                 HistoryMenuAddButton(
                     text = "메뉴 추가",
                     onClick = {/*TODO*/},
                     modifier = Modifier.align(Alignment.Center)
                 )
+                Spacer(modifier = Modifier.height(20.dp))
             }
             if(carts.isEmpty()){
                 item{
-                    Spacer(modifier = Modifier.height(56.dp))
+                    Spacer(modifier = Modifier.height(30.dp))
                     Box(modifier = Modifier.fillMaxWidth().align(Alignment.CenterStart)){
                         Text(modifier = Modifier.padding(start = 25.dp), text = "최근에 주문한 버거", color = McDonaldsTheme.colors.black, style = McDonaldsTheme.typography.body14b)
                     }
@@ -172,13 +174,16 @@ private fun HistoryScreen (
                         onClick = {/*TODO*/},
                     )
                 }
-                item{ Spacer(modifier = Modifier.height(56.dp)) }
             }
+            item{ Spacer(modifier = Modifier.height(footerHeightDp)) }
         }
         Box(
             modifier = Modifier
                 .align(Alignment.BottomCenter)
                 .fillMaxWidth()
+                .onGloballyPositioned { coordinates ->
+                    footerHeightDp = with(density) { coordinates.size.height.toDp() }
+                }
         ){
             Column (
                 modifier = Modifier.fillMaxWidth()
@@ -206,7 +211,11 @@ private fun HistoryScreenEmptyPreview(){
         HistoryScreen(
             modifier = Modifier.background(McDonaldsTheme.colors.white),
             recentBurgers = listOf(
-                RecentBurger(menuId = 1, menuName = "더블 1995® 버거", menuPrice = "₩8,300 ~", menuImage = "")
+                RecentBurger(menuId = 1, menuName = "더블 1995® 버거", menuPrice = "₩8,300 ~", menuImage = ""),
+                RecentBurger(menuId = 2, menuName = "더블 1995® 버거", menuPrice = "₩8,300 ~", menuImage = ""),
+                RecentBurger(menuId = 3, menuName = "더블 1995® 버거", menuPrice = "₩8,300 ~", menuImage = ""),
+                RecentBurger(menuId = 4, menuName = "더블 1995® 버거", menuPrice = "₩8,300 ~", menuImage = ""),
+                RecentBurger(menuId = 5, menuName = "더블 1995® 버거", menuPrice = "₩8,300 ~", menuImage = ""),
             )
         )
     }
