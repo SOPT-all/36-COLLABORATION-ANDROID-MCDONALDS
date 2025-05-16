@@ -41,6 +41,20 @@ import org.sopt.mcdonalds.core.designsystem.component.BorderedNumberIncrementer
 import org.sopt.mcdonalds.core.designsystem.theme.MCDONALDSTheme
 import org.sopt.mcdonalds.core.designsystem.theme.McDonaldsTheme
 
+/**
+ * 주문내역 페이지 속에서 장바구니 리스트의 아이템 뷰
+ *
+ * @param price 메뉴의 가격
+ * @param count 메뉴의 개수
+ * @param isSet 메뉴의 세트 여뷰
+ * @param imageUrl 메뉴의 이미지 URL
+ * @param menuName 메뉴의 이름
+ * @param onIncrementClick + 클릭 시 이벤트
+ * @param onDecrementClick - 클릭 시 이벤트
+ * @param onEditClick 수정 버튼 클릭 시 이벤트
+ * @param onDeleteClick 삭제 버튼 클릭 시 이벤트
+ * @param modifier 수정자
+ */
 @Composable
 fun HistoryCartItem(
     price: Int,

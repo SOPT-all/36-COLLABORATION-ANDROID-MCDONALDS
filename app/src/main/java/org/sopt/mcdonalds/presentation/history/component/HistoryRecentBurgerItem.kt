@@ -22,6 +22,15 @@ import org.sopt.mcdonalds.core.common.util.noRippleClickable
 import org.sopt.mcdonalds.core.designsystem.theme.MCDONALDSTheme
 import org.sopt.mcdonalds.core.designsystem.theme.McDonaldsTheme
 
+/**
+ * 주문내역 페이지 속에서 최근 주문한 메뉴 리스트의 아이템 뷰
+ *
+ * @param price 메뉴의 가격
+ * @param imageUrl 메뉴의 이미지 URL
+ * @param menuName 메뉴의 이름
+ * @param onClick 뷰 클릭 시 이벤트
+ * @param modifier 수정자
+ */
 @Composable
 fun HistoryRecentBurgerItem(
     price: String,
