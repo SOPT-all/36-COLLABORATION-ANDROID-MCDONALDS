@@ -68,11 +68,8 @@ private fun HistoryScreen (
     val density = LocalDensity.current
     var footerHeightDp by remember { mutableStateOf(0.dp) }
 
-    LaunchedEffect (carts.size) {
-        priceSum = 0
-        for(cart in carts){
-            priceSum += cart.price * cart.amount
-        }
+    LaunchedEffect (cartList) {
+        priceSum = cartList.sumOf { it.price * it.amount }
     }
 
     Box(
@@ -123,7 +120,7 @@ private fun HistoryScreen (
             }
             else{
                 itemsIndexed(
-                    items = carts,
+                    items = cartList,
                     key = { index, cart -> cart.cartId }
                 ) { index, cart ->
                     HistoryCartItem(
