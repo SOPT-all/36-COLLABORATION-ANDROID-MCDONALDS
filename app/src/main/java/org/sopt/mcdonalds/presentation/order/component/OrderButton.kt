@@ -1,10 +1,15 @@
 package org.sopt.mcdonalds.presentation.order.component
 
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -36,10 +41,11 @@ fun OrderButton(
     Button(
         onClick = onClick,
         modifier = modifier
-            .padding(vertical = 19.dp, horizontal = 57.dp),
+            .padding(),
+        contentPadding = PaddingValues(vertical = 19.dp, horizontal = 57.dp),
         colors = ButtonDefaults.buttonColors(color),
         shape = RoundedCornerShape(0.dp),
-        interactionSource = NoRippleInteractionSource
+        interactionSource = NoRippleInteractionSource,
     ) {
         Text(
             text = text,
@@ -54,8 +60,17 @@ fun OrderButton(
 private fun OrderButtonsPreview() {
     MCDONALDSTheme {
         Column {
-            OrderButton(stringResource(R.string.order_button), {}, McDonaldsTheme.colors.white)
-            OrderButton(stringResource(R.string.cart_button), {}, McDonaldsTheme.colors.yellow)
+            OrderButton(
+                stringResource(R.string.order_order_button),
+                {},
+                McDonaldsTheme.colors.white
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+            OrderButton(
+                stringResource(R.string.order_cart_button),
+                {},
+                McDonaldsTheme.colors.yellow
+            )
         }
     }
 }
