@@ -1,18 +1,17 @@
 package org.sopt.mcdonalds.presentation.order.component
 
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -38,10 +37,24 @@ fun OrderButton(
     color: Color,
     modifier: Modifier = Modifier,
 ) {
+    val borderColor = McDonaldsTheme.colors.gray200
     Button(
         onClick = onClick,
-        modifier = modifier
-            .padding(),
+        modifier = modifier.drawBehind {
+            val strokeWidth = 1.dp.toPx()
+            drawLine(
+                color = borderColor,
+                start = Offset(0f, 0f),
+                end = Offset(size.width, 0f),
+                strokeWidth = strokeWidth
+            )
+            drawLine(
+                color = borderColor,
+                start = Offset(0f, size.height),
+                end = Offset(size.width, size.height),
+                strokeWidth = strokeWidth
+            )
+        },
         contentPadding = PaddingValues(vertical = 19.dp, horizontal = 57.dp),
         colors = ButtonDefaults.buttonColors(color),
         shape = RoundedCornerShape(0.dp),
