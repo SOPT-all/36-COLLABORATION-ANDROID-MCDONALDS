@@ -17,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import org.sopt.mcdonalds.core.common.util.noRippleClickable
 import org.sopt.mcdonalds.core.designsystem.theme.MCDONALDSTheme
 import org.sopt.mcdonalds.core.designsystem.theme.McDonaldsTheme
 
@@ -36,6 +37,7 @@ fun OrderSetSelectButton(
     price: String,
     isSelected: Boolean,
     imageURL: String,
+    onSelect: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val backgroundColor = if (isSelected) {
@@ -59,7 +61,8 @@ fun OrderSetSelectButton(
                 width = 1.dp,
                 shape = RoundedCornerShape(8.dp)
             )
-            .padding(15.dp),
+            .padding(15.dp)
+            .noRippleClickable { onSelect() },
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Top
     ) {
@@ -87,38 +90,42 @@ fun OrderSetSelectButton(
 
 @Preview(showBackground = true)
 @Composable
-fun OrderSetSelectButtonPreview() {
+private fun OrderSetSelectButtonPreview() {
     MCDONALDSTheme {
         Column {
             Row {
                 OrderSetSelectButton(
-                    "단품",
-                    "₩10,000",
-                    false,
-                    ""
+                    text = "단품",
+                    price = "₩10,000",
+                    isSelected = false,
+                    imageURL = "",
+                    onSelect = {}
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 OrderSetSelectButton(
-                    "단품",
-                    "₩10,000",
-                    true,
-                    ""
+                    text = "단품",
+                    price = "₩10,000",
+                    isSelected = true,
+                    imageURL = "",
+                    onSelect = {}
                 )
             }
             Spacer(modifier = Modifier.height(8.dp))
             Row {
                 OrderSetSelectButton(
-                    "세트",
-                    "₩10,000",
-                    false,
-                    ""
+                    text = "세트",
+                    price = "₩10,000",
+                    isSelected = false,
+                    imageURL = "",
+                    onSelect = {}
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 OrderSetSelectButton(
-                    "세트",
-                    "₩10,000",
-                    true,
-                    ""
+                    text = "세트",
+                    price = "₩10,000",
+                    isSelected = true,
+                    imageURL = "",
+                    onSelect = {}
                 )
             }
         }
