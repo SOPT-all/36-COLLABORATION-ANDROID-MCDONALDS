@@ -34,11 +34,12 @@ fun HistoryResultBar(
     modifier: Modifier = Modifier
 ) {
     TopShadow(
-        modifier = Modifier
+        modifier = modifier
     ) {
         Row(
-            modifier = modifier
+            modifier = Modifier
                 .fillMaxWidth()
+                .height(72.dp)
                 .background(color = McDonaldsTheme.colors.white)
                 .padding(start = 20.dp, end = 20.dp, top = 25.dp, bottom = 25.dp),
             verticalAlignment = Alignment.CenterVertically,

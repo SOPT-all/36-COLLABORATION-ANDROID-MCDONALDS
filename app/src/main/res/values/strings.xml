@@ -1,12 +1,18 @@
 <resources>
     <string name="app_name">MCDONALDS</string>
 
-    <!-- history location   -->
+    <!-- history   -->
     <string name="history_time_notice">매장 운영시간이 곧 종료되오니 %1$s 전에 픽업 완료해주세요.</string>
     <string name="history_store_change">매장 변경</string>
     <string name="history_fries_default_option">후렌치 후라이 - 미디엄</string>
     <string name="history_drink_default_option">스프라이트 - 미디엄</string>
     <string name="history_ingredient_default_option">선택 안함</string>
+    <string name="history_title">주문내역</string>
+    <string name="history_empty_notice">장바구니가 비었어요.</string>
+    <string name="history_add_menu_button">메뉴 추가</string>
+    <string name="history_recent_burger_title">최근에 주문한 버거</string>
+    <string name="history_sum_title">주문 금액</string>
+    <string name="history_order_button">제품 수령 장소 선택</string>
 
     <!-- store location   -->
     <string name="store_find_title">매장찾기</string>

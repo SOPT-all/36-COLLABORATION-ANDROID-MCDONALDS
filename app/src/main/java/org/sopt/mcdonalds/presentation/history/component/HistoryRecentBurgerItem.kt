@@ -18,14 +18,22 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import java.text.DecimalFormat
 import org.sopt.mcdonalds.core.common.util.noRippleClickable
 import org.sopt.mcdonalds.core.designsystem.theme.MCDONALDSTheme
 import org.sopt.mcdonalds.core.designsystem.theme.McDonaldsTheme
 
+/**
+ * 주문내역 페이지 속에서 최근 주문한 메뉴 리스트의 아이템 뷰
+ *
+ * @param price 메뉴의 가격
+ * @param imageUrl 메뉴의 이미지 URL
+ * @param menuName 메뉴의 이름
+ * @param onClick 뷰 클릭 시 이벤트
+ * @param modifier 수정자
+ */
 @Composable
 fun HistoryRecentBurgerItem(
-    price: Int,
+    price: String,
     imageUrl: String,
     menuName: String,
     onClick: () -> Unit,
@@ -65,7 +73,7 @@ fun HistoryRecentBurgerItem(
                     color = McDonaldsTheme.colors.gray800
                 )
                 Text(
-                    text = "₩" + DecimalFormat("#,###").format(price) + " ~",
+                    text = price,
                     style = McDonaldsTheme.typography.body14r,
                     color = McDonaldsTheme.colors.gray800
                 )
@@ -85,7 +93,7 @@ fun HistoryRecentBurgerItem(
 private fun HistoryRecentBurgerItemPreview() {
     MCDONALDSTheme {
         HistoryRecentBurgerItem(
-            price = 8300,
+            price = "₩8,300 ~",
             imageUrl = "",
             menuName = "더블 1955® 버거",
             onClick = {}

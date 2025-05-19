@@ -9,10 +9,13 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -38,6 +41,20 @@ import org.sopt.mcdonalds.core.designsystem.component.BorderedNumberIncrementer
 import org.sopt.mcdonalds.core.designsystem.theme.MCDONALDSTheme
 import org.sopt.mcdonalds.core.designsystem.theme.McDonaldsTheme
 
+/**
+ * 주문내역 페이지 속에서 장바구니 리스트의 아이템 뷰
+ *
+ * @param price 메뉴의 가격
+ * @param count 메뉴의 개수
+ * @param isSet 메뉴의 세트 여뷰
+ * @param imageUrl 메뉴의 이미지 URL
+ * @param menuName 메뉴의 이름
+ * @param onIncrementClick + 클릭 시 이벤트
+ * @param onDecrementClick - 클릭 시 이벤트
+ * @param onEditClick 수정 버튼 클릭 시 이벤트
+ * @param onDeleteClick 삭제 버튼 클릭 시 이벤트
+ * @param modifier 수정자
+ */
 @Composable
 fun HistoryCartItem(
     price: Int,
@@ -54,100 +71,112 @@ fun HistoryCartItem(
     val context = LocalContext.current
     Column(
         modifier = modifier
-            .fillMaxWidth(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(17.dp)
+            .fillMaxWidth()
     ) {
         Column(
             modifier = Modifier
-                .fillMaxWidth(),
-            horizontalAlignment = Alignment.Start,
-            verticalArrangement = Arrangement.spacedBy(19.dp)
+                .fillMaxWidth()
+                .padding(20.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(17.dp)
         ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                horizontalAlignment = Alignment.Start,
+                verticalArrangement = Arrangement.spacedBy(19.dp)
+            ) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    verticalAlignment = Alignment.Top,
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Column {
+                        Text(
+                            text = if (isSet) "$menuName - 세트" else menuName,
+                            style = McDonaldsTheme.typography.body14b,
+                            color = McDonaldsTheme.colors.black
+                        )
+                        Column {
+                            Text(
+                                text = menuName,
+                                style = McDonaldsTheme.typography.body14r,
+                                color = McDonaldsTheme.colors.gray600
+                            )
+                            if (isSet) {
+                                Text(
+                                    text = stringResource(R.string.history_fries_default_option),
+                                    style = McDonaldsTheme.typography.body14r,
+                                    color = McDonaldsTheme.colors.gray600
+                                )
+                                Text(
+                                    text = stringResource(R.string.history_drink_default_option),
+                                    style = McDonaldsTheme.typography.body14r,
+                                    color = McDonaldsTheme.colors.gray600
+                                )
+                                Text(
+                                    text = stringResource(
+                                        R.string.history_ingredient_default_option
+                                    ),
+                                    style = McDonaldsTheme.typography.body14r,
+                                    color = McDonaldsTheme.colors.gray600
+                                )
+                            }
+                        }
+                    }
+                    AsyncImage(
+                        modifier = Modifier
+                            .sizeIn(
+                                maxWidth = 100.dp,
+                                maxHeight = 100.dp
+                            ),
+                        model = ImageRequest
+                            .Builder(context = context)
+                            .data(imageUrl)
+                            .build(),
+                        contentDescription = null
+                    )
+                }
+                Text(
+                    text = "₩" + DecimalFormat("#,###").format(price),
+                    style = McDonaldsTheme.typography.body14r,
+                    color = McDonaldsTheme.colors.black
+                )
+            }
             Row(
                 modifier = Modifier
                     .fillMaxWidth(),
-                verticalAlignment = Alignment.Top,
+                verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                Column {
-                    Text(
-                        text = if (isSet) "$menuName - 세트" else menuName,
-                        style = McDonaldsTheme.typography.body14b,
-                        color = McDonaldsTheme.colors.black
+                BorderedNumberIncrementer(
+                    count = count,
+                    onIncrementClick = onIncrementClick,
+                    onDecrementClick = onDecrementClick,
+                    modifier = Modifier.width(88.dp),
+                    textStyle = McDonaldsTheme.typography.body16sb,
+                    paddingValues = PaddingValues(horizontal = 8.dp, vertical = 4.dp)
+                )
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(15.dp)
+                ) {
+                    HistoryCircleButton(
+                        icon = R.drawable.ic_edit_28,
+                        onClick = onEditClick
                     )
-                    Column {
-                        Text(
-                            text = menuName,
-                            style = McDonaldsTheme.typography.body14r,
-                            color = McDonaldsTheme.colors.gray600
-                        )
-                        if (isSet) {
-                            Text(
-                                text = stringResource(R.string.history_fries_default_option),
-                                style = McDonaldsTheme.typography.body14r,
-                                color = McDonaldsTheme.colors.gray600
-                            )
-                            Text(
-                                text = stringResource(R.string.history_drink_default_option),
-                                style = McDonaldsTheme.typography.body14r,
-                                color = McDonaldsTheme.colors.gray600
-                            )
-                            Text(
-                                text = stringResource(R.string.history_ingredient_default_option),
-                                style = McDonaldsTheme.typography.body14r,
-                                color = McDonaldsTheme.colors.gray600
-                            )
-                        }
-                    }
+                    HistoryCircleButton(
+                        icon = R.drawable.ic_delete_28,
+                        onClick = onDeleteClick
+                    )
                 }
-                AsyncImage(
-                    modifier = Modifier
-                        .sizeIn(
-                            maxWidth = 100.dp,
-                            maxHeight = 100.dp
-                        ),
-                    model = ImageRequest
-                        .Builder(context = context)
-                        .data(imageUrl)
-                        .build(),
-                    contentDescription = null
-                )
-            }
-            Text(
-                text = "₩" + DecimalFormat("#,###").format(price),
-                style = McDonaldsTheme.typography.body14r,
-                color = McDonaldsTheme.colors.black
-            )
-        }
-        Row(
-            modifier = Modifier
-                .fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            BorderedNumberIncrementer(
-                count = count,
-                onIncrementClick = onIncrementClick,
-                onDecrementClick = onDecrementClick,
-                modifier = Modifier.width(88.dp),
-                textStyle = McDonaldsTheme.typography.body16sb,
-                paddingValues = PaddingValues(horizontal = 8.dp, vertical = 4.dp)
-            )
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(15.dp)
-            ) {
-                HistoryCircleButton(
-                    icon = R.drawable.ic_edit_28,
-                    onClick = onEditClick
-                )
-                HistoryCircleButton(
-                    icon = R.drawable.ic_delete_28,
-                    onClick = onDeleteClick
-                )
             }
         }
+        HorizontalDivider(
+            thickness = 1.dp,
+            color = McDonaldsTheme.colors.gray200
+        )
     }
 }
 
