@@ -12,35 +12,37 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import coil.request.ImageRequest
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toPersistentList
 import org.sopt.mcdonalds.core.common.util.noRippleClickable
 import org.sopt.mcdonalds.core.designsystem.theme.MCDONALDSTheme
 import org.sopt.mcdonalds.core.designsystem.theme.McDonaldsTheme
-import org.sopt.mcdonalds.presentation.menu.model.Menu
+import org.sopt.mcdonalds.domain.menu.model.Menu
 
 @Composable
 fun MenuListContent(
     menus: ImmutableList<Menu>,
     onMenuClick: (Long) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     LazyColumn(
         modifier = modifier
     ) {
         itemsIndexed(
             items = menus,
-            key = { _, menu -> menu.menuId }
+            key = { _, menu -> menu.id }
         ) { _, menu ->
             MenuListItem(
                 imageUrl = menu.imageUrl,
                 menuName = menu.name,
                 menuPrice = menu.price,
                 modifier = Modifier.noRippleClickable {
-                    onMenuClick(menu.menuId)
+                    onMenuClick(menu.id)
                 }
             )
         }
@@ -52,8 +54,10 @@ private fun MenuListItem(
     imageUrl: String,
     menuName: String,
     menuPrice: String,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
+    val context = LocalContext.current
+
     Column(
         modifier = modifier
     ) {
@@ -63,7 +67,11 @@ private fun MenuListItem(
             verticalAlignment = Alignment.CenterVertically
         ) {
             AsyncImage(
-                model = imageUrl,
+                model = ImageRequest
+                    .Builder(context)
+                    .data(imageUrl)
+                    .crossfade(true)
+                    .build(),
                 contentDescription = null,
                 modifier = modifier
             )
@@ -101,13 +109,13 @@ private fun MenuListContentPreview() {
         MenuListContent(
             menus = listOf(
                 Menu(
-                    menuId = 1,
+                    id = 1,
                     name = "더블 1955® 버거",
                     price = "₩9,500 ~",
                     imageUrl = "https://example.com/bigmac.jpg"
                 ),
                 Menu(
-                    menuId = 2,
+                    id = 2,
                     name = "더블 맥스파이시® 상하이 버거",
                     price = "₩8,900 ~",
                     imageUrl = "https://example.com/mcchicken.jpg"
