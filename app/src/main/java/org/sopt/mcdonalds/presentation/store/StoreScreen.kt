@@ -39,45 +39,52 @@ import org.sopt.mcdonalds.presentation.store.type.StoreType
 
 @Composable
 fun StoreRoute(
+    onNavigateToMenuList: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     StoreScreen(
+        onSelectStoreClick = onNavigateToMenuList,
         modifier = modifier
     )
 }
 
 @Composable
 private fun StoreScreen(
+    onSelectStoreClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     var isSelected by remember { mutableStateOf(false) }
+    var storeTab by remember { mutableStateOf(StoreType.MCDRIVE) }
 
     Box(
         modifier = modifier
-            .noRippleClickable {
-                isSelected = !isSelected
-            }
     ) {
-        Image(
-            painter = painterResource(img_map),
-            contentDescription = null,
-            modifier = Modifier.fillMaxSize(),
-            contentScale = ContentScale.FillHeight
-        )
-
         Column(
             modifier = Modifier
                 .background(McDonaldsTheme.colors.white)
         ) {
             StoreTopBar(
-                onCloseClick = { /* TODO */ },
-                onSearchClick = { /* TODO */ }
+                onCloseClick = { /* 첫 화면이기에 빈 함수 유지 */ },
+                onSearchClick = { /* 추가 Action 없음 */ }
             )
 
             StoreFilterGroup(
-                selectedStoreType = StoreType.MCDRIVE,
+                selectedStoreType = storeTab,
                 storeTypes = StoreType.entries.toPersistentList(),
-                onStoreTypeSelect = { /* TODO */ }
+                onStoreTypeSelect = {
+                    storeTab = it
+                }
+            )
+
+            Image(
+                painter = painterResource(img_map),
+                contentDescription = null,
+                modifier = Modifier
+                    .fillMaxSize()
+                    .noRippleClickable {
+                        isSelected = !isSelected
+                    },
+                contentScale = ContentScale.FillHeight
             )
         }
 
@@ -110,6 +117,7 @@ private fun StoreScreen(
                     onCloseClick = {
                         isSelected = false
                     },
+                    onSelectStoreClick = onSelectStoreClick,
                     modifier = Modifier
                         .padding(start = 12.dp, end = 12.dp, bottom = 16.dp)
                 )
@@ -122,6 +130,8 @@ private fun StoreScreen(
 @Composable
 private fun StoreScreenPreview() {
     MCDONALDSTheme {
-        StoreScreen()
+        StoreScreen(
+            onSelectStoreClick = {},
+        )
     }
 }
