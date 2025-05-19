@@ -39,6 +39,7 @@ import org.sopt.mcdonalds.core.designsystem.theme.McDonaldsTheme
 fun StoreInformationCard(
     isBusy: Boolean,
     onCloseClick: () -> Unit,
+    onSelectStoreClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Card(
@@ -130,7 +131,8 @@ fun StoreInformationCard(
                     color = McDonaldsTheme.colors.yellow,
                     shape = RoundedCornerShape(4.dp)
                 )
-                .padding(vertical = 12.dp),
+                .padding(vertical = 12.dp)
+                .noRippleClickable(onSelectStoreClick),
             contentAlignment = Alignment.Center
         ) {
             Text(
@@ -150,11 +152,13 @@ private fun StoreInformationCardPreview() {
         Column {
             StoreInformationCard(
                 isBusy = true,
-                onCloseClick = {}
+                onCloseClick = {},
+                onSelectStoreClick = {}
             )
             StoreInformationCard(
                 isBusy = false,
-                onCloseClick = {}
+                onCloseClick = {},
+                onSelectStoreClick = {}
             )
         }
     }

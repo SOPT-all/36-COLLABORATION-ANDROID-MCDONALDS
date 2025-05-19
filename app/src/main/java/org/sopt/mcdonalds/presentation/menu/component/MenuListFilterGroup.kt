@@ -39,7 +39,6 @@ fun MenuListFilterGroup(
             ChipButton(
                 isSelected = selectedMenuType == menuType,
                 title = menuType.title,
-                onSelect = onMenuTypeSelect,
                 modifier = Modifier.padding(start = padStart, end = padEnd),
                 textStyle = McDonaldsTheme.typography.body12r.copy(
                     color = McDonaldsTheme.colors.black

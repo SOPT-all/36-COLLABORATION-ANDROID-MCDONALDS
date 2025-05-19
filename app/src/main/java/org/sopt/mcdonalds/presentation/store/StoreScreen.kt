@@ -1,6 +1,8 @@
 package org.sopt.mcdonalds.presentation.store
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.Image
@@ -36,48 +38,57 @@ import org.sopt.mcdonalds.presentation.store.component.StoreInformationCard
 import org.sopt.mcdonalds.presentation.store.component.StoreLocationFab
 import org.sopt.mcdonalds.presentation.store.component.StoreTopBar
 import org.sopt.mcdonalds.presentation.store.type.StoreType
+import kotlin.random.Random
 
 @Composable
 fun StoreRoute(
+    onNavigateToMenuList: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     StoreScreen(
+        onSelectStoreClick = onNavigateToMenuList,
         modifier = modifier
     )
 }
 
 @Composable
 private fun StoreScreen(
+    onSelectStoreClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     var isSelected by remember { mutableStateOf(false) }
+    var storeTab by remember { mutableStateOf(StoreType.MCDRIVE) }
+    val isBusy = Random.nextInt(2) == 1
 
     Box(
         modifier = modifier
-            .noRippleClickable {
-                isSelected = !isSelected
-            }
     ) {
-        Image(
-            painter = painterResource(img_map),
-            contentDescription = null,
-            modifier = Modifier.fillMaxSize(),
-            contentScale = ContentScale.FillHeight
-        )
-
         Column(
             modifier = Modifier
                 .background(McDonaldsTheme.colors.white)
         ) {
             StoreTopBar(
-                onCloseClick = { /* TODO */ },
-                onSearchClick = { /* TODO */ }
+                onCloseClick = { /* 첫 화면이기에 빈 함수 유지 */ },
+                onSearchClick = { /* 추가 Action 없음 */ }
             )
 
             StoreFilterGroup(
-                selectedStoreType = StoreType.MCDRIVE,
+                selectedStoreType = storeTab,
                 storeTypes = StoreType.entries.toPersistentList(),
-                onStoreTypeSelect = { /* TODO */ }
+                onStoreTypeSelect = {
+                    storeTab = it
+                }
+            )
+
+            Image(
+                painter = painterResource(img_map),
+                contentDescription = null,
+                modifier = Modifier
+                    .fillMaxSize()
+                    .noRippleClickable {
+                        isSelected = true
+                    },
+                contentScale = ContentScale.FillHeight
             )
         }
 
@@ -102,14 +113,15 @@ private fun StoreScreen(
 
             AnimatedVisibility(
                 visible = isSelected,
-                enter = fadeIn(),
-                exit = fadeOut()
+                enter = EnterTransition.None,
+                exit = ExitTransition.None
             ) {
                 StoreInformationCard(
-                    isBusy = false,
+                    isBusy = isBusy,
                     onCloseClick = {
                         isSelected = false
                     },
+                    onSelectStoreClick = onSelectStoreClick,
                     modifier = Modifier
                         .padding(start = 12.dp, end = 12.dp, bottom = 16.dp)
                 )
@@ -122,6 +134,8 @@ private fun StoreScreen(
 @Composable
 private fun StoreScreenPreview() {
     MCDONALDSTheme {
-        StoreScreen()
+        StoreScreen(
+            onSelectStoreClick = {},
+        )
     }
 }
