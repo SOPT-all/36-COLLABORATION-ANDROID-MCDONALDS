@@ -28,6 +28,7 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.sopt.mcdonalds.R
+import org.sopt.mcdonalds.core.common.util.noRippleClickable
 import org.sopt.mcdonalds.core.designsystem.component.NumberIncrementer
 import org.sopt.mcdonalds.core.designsystem.theme.MCDONALDSTheme
 import org.sopt.mcdonalds.core.designsystem.theme.McDonaldsTheme
@@ -73,7 +74,7 @@ fun IngredientChangeContainer(
                 tint = McDonaldsTheme.colors.gray800,
                 modifier = Modifier
                     .padding(end = 16.dp, top = 10.dp, bottom = 10.dp)
-                    .clickable(onClick = toggle)
+                    .noRippleClickable(onClick = toggle)
             )
         }
         HorizontalDivider(color = McDonaldsTheme.colors.gray200, thickness = 1.dp)
