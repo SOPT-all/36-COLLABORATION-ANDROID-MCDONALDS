@@ -61,21 +61,20 @@ private fun OrderScreen(
     Scaffold(
         modifier = modifier,
         topBar = {
-            DefaultTopBar(
-                onBackClick = {/* TODO */ }
-            )
         }
     ) { innerPadding ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(innerPadding)
-                .verticalScroll(rememberScrollState()),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Top
+                .padding(innerPadding),
         ) {
+            DefaultTopBar(
+                onBackClick = {/* TODO */ }
+            )
             Column(
-                modifier = Modifier.padding(horizontal = 20.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .verticalScroll(rememberScrollState()),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Top
             ) {
@@ -85,11 +84,16 @@ private fun OrderScreen(
                     style = McDonaldsTheme.typography.head34b,
                     color = McDonaldsTheme.colors.gray800,
                     textAlign = TextAlign.Start,
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 20.dp)
                 )
                 Spacer(modifier = Modifier.height(28.dp))
                 Row(
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .fillMaxWidth()
+                        .padding(horizontal = 20.dp),
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
@@ -113,6 +117,8 @@ private fun OrderScreen(
                     name = "",
                     imageId = R.drawable.img_burger_single,
                     ingredientList = persistentListOf(),
+                    modifier = Modifier
+                        .padding(horizontal = 20.dp)
                 )
                 Spacer(modifier = Modifier.height(16.dp))
                 OrderSideDetailContainer(
@@ -127,6 +133,8 @@ private fun OrderScreen(
                             imageId = R.drawable.img_side_coleslaw
                         )
                     ),
+                    modifier = Modifier
+                        .padding(horizontal = 20.dp)
                 )
                 Spacer(modifier = Modifier.height(16.dp))
                 OrderSideDetailContainer(
@@ -145,6 +153,8 @@ private fun OrderScreen(
                             imageId = R.drawable.img_drink_zero_coke
                         ),
                     ),
+                    modifier = Modifier
+                        .padding(horizontal = 20.dp)
                 )
                 Spacer(modifier = Modifier.height(24.dp))
                 BorderedNumberIncrementer(
@@ -157,7 +167,9 @@ private fun OrderScreen(
                 )
                 Spacer(modifier = Modifier.height(34.dp))
                 Row(
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 20.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
@@ -172,26 +184,26 @@ private fun OrderScreen(
                         tint = McDonaldsTheme.colors.gray500
                     )
                 }
-            }
-            Spacer(modifier = Modifier.height(36.dp))
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(58.dp),
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                OrderButton(
-                    text = stringResource(R.string.order_order_button),
-                    onClick = { /* TODO */ },
-                    color = McDonaldsTheme.colors.white,
-                    modifier = Modifier.weight(1f)
-                )
-                OrderButton(
-                    text = stringResource(R.string.order_cart_button),
-                    onClick = { /* TODO */ },
-                    color = McDonaldsTheme.colors.yellow,
-                    modifier = Modifier.weight(1f)
-                )
+                Spacer(modifier = Modifier.height(36.dp))
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(58.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    OrderButton(
+                        text = stringResource(R.string.order_order_button),
+                        onClick = { /* TODO */ },
+                        color = McDonaldsTheme.colors.white,
+                        modifier = Modifier.weight(1f)
+                    )
+                    OrderButton(
+                        text = stringResource(R.string.order_cart_button),
+                        onClick = { /* TODO */ },
+                        color = McDonaldsTheme.colors.yellow,
+                        modifier = Modifier.weight(1f)
+                    )
+                }
             }
         }
     }
