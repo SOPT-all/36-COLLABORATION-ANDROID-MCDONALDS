@@ -25,7 +25,6 @@ import org.sopt.mcdonalds.presentation.menu.type.MenuType
 fun ChipButton(
     isSelected: Boolean,
     @StringRes title: Int,
-    onSelect: () -> Unit,
     modifier: Modifier = Modifier,
     textStyle: TextStyle = TextStyle.Default,
     paddingValues: PaddingValues = PaddingValues()
@@ -45,7 +44,6 @@ fun ChipButton(
             .border(Dp.Hairline, borderColor, RoundedCornerShape(20.dp))
             .background(backgroundColor)
             .padding(paddingValues)
-            .noRippleClickable(onSelect)
     )
 }
 
@@ -57,14 +55,12 @@ private fun ChipButtonPreview() {
             ChipButton(
                 isSelected = true,
                 title = MenuType.MCCRISPY.title,
-                onSelect = {},
                 textStyle = McDonaldsTheme.typography.caption10r,
                 paddingValues = PaddingValues(horizontal = 16.dp, vertical = 4.dp)
             )
             ChipButton(
                 isSelected = false,
                 title = MenuType.NEW.title,
-                onSelect = {},
                 textStyle = McDonaldsTheme.typography.caption10r,
                 paddingValues = PaddingValues(horizontal = 16.dp, vertical = 4.dp)
             )

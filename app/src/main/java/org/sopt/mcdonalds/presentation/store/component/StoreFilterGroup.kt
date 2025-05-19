@@ -16,6 +16,7 @@ import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 import org.sopt.mcdonalds.R.drawable.ic_menu_20
+import org.sopt.mcdonalds.core.common.util.noRippleClickable
 import org.sopt.mcdonalds.core.designsystem.component.ChipButton
 import org.sopt.mcdonalds.core.designsystem.theme.MCDONALDSTheme
 import org.sopt.mcdonalds.core.designsystem.theme.McDonaldsTheme
@@ -25,7 +26,7 @@ import org.sopt.mcdonalds.presentation.store.type.StoreType
 fun StoreFilterGroup(
     selectedStoreType: StoreType,
     storeTypes: ImmutableList<StoreType>,
-    onStoreTypeSelect: () -> Unit,
+    onStoreTypeSelect: (StoreType) -> Unit,
     modifier: Modifier = Modifier
 ) {
     LazyRow(
@@ -50,7 +51,9 @@ fun StoreFilterGroup(
             ChipButton(
                 isSelected = selectedStoreType == storeType,
                 title = storeType.title,
-                onSelect = onStoreTypeSelect,
+                modifier = Modifier.noRippleClickable {
+                    onStoreTypeSelect(storeType)
+                },
                 textStyle = McDonaldsTheme.typography.body12r.copy(
                     color = McDonaldsTheme.colors.black
                 ),
