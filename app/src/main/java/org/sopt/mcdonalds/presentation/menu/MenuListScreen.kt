@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -24,6 +25,7 @@ import org.sopt.mcdonalds.presentation.menu.type.MenuType
 
 @Composable
 fun MenuListRoute(
+    onBackClick: () -> Unit,
     onNavigateToOrder: (Long) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: MenuListViewModel = hiltViewModel()
@@ -32,6 +34,7 @@ fun MenuListRoute(
 
     MenuListScreen(
         uiState = uiState,
+        onBackClick = onBackClick,
         onMenuClick = onNavigateToOrder,
         modifier = modifier
     )
@@ -40,24 +43,26 @@ fun MenuListRoute(
 @Composable
 private fun MenuListScreen(
     uiState: MenuListState,
+    onBackClick: () -> Unit,
     onMenuClick: (Long) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val selectedMenuType by remember { mutableStateOf(MenuType.NEW) }
+    var menuType by remember { mutableStateOf(MenuType.NEW) }
 
     Column(
         modifier = modifier
     ) {
         MenuListTopBar(
-            onBackClick = { /* TODO */ }
+            onBackClick = onBackClick
         )
 
         Spacer(modifier = Modifier.height(16.dp))
 
         MenuListFilterGroup(
-            selectedMenuType = selectedMenuType,
+            selectedMenuType = menuType,
             menuTypes = MenuType.entries.toPersistentList(),
             onMenuTypeSelect = {
+                menuType = it
             }
         )
 
@@ -77,6 +82,7 @@ private fun MenuListScreenPreview() {
     MCDONALDSTheme {
         MenuListScreen(
             uiState = MenuListState(),
+            onBackClick = {},
             onMenuClick = {},
             modifier = Modifier.background(McDonaldsTheme.colors.white)
         )
