@@ -29,8 +29,12 @@
     <string name="menu_type_bulgogi">불고기</string>
     <string name="menu_type_cheese">치즈</string>
 
-    <string name="order_button">바로 주문하기</string>
-    <string name="cart_button">장바구니 담기</string>
+    <string name="order_order_button">바로 주문하기</string>
+    <string name="order_cart_button">장바구니 담기</string>
+
+    <!-- order detail -->
+    <string name="order_change_set">세트</string>
+    <string name="order_change_single">단품</string>
 
     <string name="order_change_ingredient_text">재료 변경</string>
     <string name="order_change_side_text">사이드 변경</string>
@@ -40,5 +44,10 @@
 
     <string name="order_side_french_fries">후렌치 후라이</string>
     <string name="order_side_coleslaw">코울슬로</string>
+
     <string name="order_drink_sprite">스프라이트</string>
+    <string name="order_drink_zero_coke">코카 콜라 제로</string>
+    <string name="order_drink_coke">코카 콜라</string>
+
+    <string name="order_product_info">원산지, 영양성분 및 알레르기 정보</string>
 </resources>
