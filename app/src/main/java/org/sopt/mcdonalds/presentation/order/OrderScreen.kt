@@ -43,9 +43,13 @@ import org.sopt.mcdonalds.presentation.order.type.OrderType
 
 @Composable
 fun OrderRoute(
+    onBackClick: () -> Unit,
+    onNavigateToHistory: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     OrderScreen(
+        onBackClick = onBackClick,
+        onNavigateToHistory = onNavigateToHistory,
         modifier = modifier
     )
 }
@@ -53,6 +57,8 @@ fun OrderRoute(
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun OrderScreen(
+    onBackClick: () -> Unit,
+    onNavigateToHistory: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     var setType by remember { mutableStateOf(OrderType.SET) }
@@ -213,6 +219,10 @@ private fun OrderScreen(
 @Composable
 private fun OrderScreenPreview() {
     MCDONALDSTheme {
-        OrderScreen(modifier = Modifier.background(McDonaldsTheme.colors.white))
+        OrderScreen(
+            onBackClick = {},
+            onNavigateToHistory = {},
+            modifier = Modifier.background(McDonaldsTheme.colors.white)
+        )
     }
 }
