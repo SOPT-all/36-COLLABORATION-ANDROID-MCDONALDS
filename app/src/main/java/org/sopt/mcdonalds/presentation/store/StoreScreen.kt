@@ -1,6 +1,8 @@
 package org.sopt.mcdonalds.presentation.store
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.Image
@@ -36,6 +38,7 @@ import org.sopt.mcdonalds.presentation.store.component.StoreInformationCard
 import org.sopt.mcdonalds.presentation.store.component.StoreLocationFab
 import org.sopt.mcdonalds.presentation.store.component.StoreTopBar
 import org.sopt.mcdonalds.presentation.store.type.StoreType
+import kotlin.random.Random
 
 @Composable
 fun StoreRoute(
@@ -55,6 +58,7 @@ private fun StoreScreen(
 ) {
     var isSelected by remember { mutableStateOf(false) }
     var storeTab by remember { mutableStateOf(StoreType.MCDRIVE) }
+    val isBusy = Random.nextInt(2) == 1
 
     Box(
         modifier = modifier
@@ -82,7 +86,7 @@ private fun StoreScreen(
                 modifier = Modifier
                     .fillMaxSize()
                     .noRippleClickable {
-                        isSelected = !isSelected
+                        isSelected = true
                     },
                 contentScale = ContentScale.FillHeight
             )
@@ -109,11 +113,11 @@ private fun StoreScreen(
 
             AnimatedVisibility(
                 visible = isSelected,
-                enter = fadeIn(),
-                exit = fadeOut()
+                enter = EnterTransition.None,
+                exit = ExitTransition.None
             ) {
                 StoreInformationCard(
-                    isBusy = false,
+                    isBusy = isBusy,
                     onCloseClick = {
                         isSelected = false
                     },
