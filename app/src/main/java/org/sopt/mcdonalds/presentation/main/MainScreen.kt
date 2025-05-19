@@ -10,6 +10,8 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
+import org.sopt.mcdonalds.presentation.menu.navigation.menuListGraph
+import org.sopt.mcdonalds.presentation.menu.navigation.navigateToMenuList
 import org.sopt.mcdonalds.presentation.store.navigation.Store
 import org.sopt.mcdonalds.presentation.store.navigation.storeGraph
 
@@ -39,7 +41,13 @@ private fun MainNavHost(
         startDestination = Store,
     ) {
         storeGraph(
-            onNavigateToMenuList = { /* TODO */ },
+            onNavigateToMenuList = navController::navigateToMenuList,
+            modifier = modifier,
+        )
+
+        menuListGraph(
+            onNavigateToUp = navController::navigateUp,
+            onNavigateToOrder = { /* TODO */ },
             modifier = modifier,
         )
     }

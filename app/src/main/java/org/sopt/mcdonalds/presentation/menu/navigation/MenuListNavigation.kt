@@ -13,11 +13,13 @@ fun NavController.navigateToMenuList(navOptions: NavOptions? = null) =
     navigate(MenuList, navOptions)
 
 fun NavGraphBuilder.menuListGraph(
+    onNavigateToUp: () -> Unit,
     onNavigateToOrder: (Long) -> Unit,
     modifier: Modifier = Modifier
 ) {
     composable<MenuList> {
         MenuListRoute(
+            onBackClick = onNavigateToUp,
             onNavigateToOrder = onNavigateToOrder,
             modifier = modifier
         )
