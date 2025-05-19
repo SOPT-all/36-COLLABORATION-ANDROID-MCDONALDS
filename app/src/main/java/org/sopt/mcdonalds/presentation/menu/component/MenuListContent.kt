@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toPersistentList
+import org.sopt.mcdonalds.core.common.util.noRippleClickable
 import org.sopt.mcdonalds.core.designsystem.theme.MCDONALDSTheme
 import org.sopt.mcdonalds.core.designsystem.theme.McDonaldsTheme
 import org.sopt.mcdonalds.presentation.menu.model.Menu
@@ -24,6 +25,7 @@ import org.sopt.mcdonalds.presentation.menu.model.Menu
 @Composable
 fun MenuListContent(
     menus: ImmutableList<Menu>,
+    onMenuClick: (Long) -> Unit,
     modifier: Modifier = Modifier
 ) {
     LazyColumn(
@@ -36,7 +38,10 @@ fun MenuListContent(
             MenuListItem(
                 imageUrl = menu.imageUrl,
                 menuName = menu.name,
-                menuPrice = menu.price
+                menuPrice = menu.price,
+                modifier = Modifier.noRippleClickable {
+                    onMenuClick(menu.menuId)
+                }
             )
         }
     }
@@ -108,6 +113,7 @@ private fun MenuListContentPreview() {
                     imageUrl = "https://example.com/mcchicken.jpg"
                 )
             ).toPersistentList(),
+            onMenuClick = {},
             modifier = Modifier.background(McDonaldsTheme.colors.white)
         )
     }

@@ -12,6 +12,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toPersistentList
+import org.sopt.mcdonalds.core.common.util.noRippleClickable
 import org.sopt.mcdonalds.core.designsystem.component.ChipButton
 import org.sopt.mcdonalds.core.designsystem.theme.MCDONALDSTheme
 import org.sopt.mcdonalds.core.designsystem.theme.McDonaldsTheme
@@ -21,8 +22,8 @@ import org.sopt.mcdonalds.presentation.menu.type.MenuType
 fun MenuListFilterGroup(
     selectedMenuType: MenuType,
     menuTypes: ImmutableList<MenuType>,
-    onMenuTypeSelect: () -> Unit,
-    modifier: Modifier = Modifier
+    onMenuTypeSelect: (MenuType) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     LazyRow(
         modifier = modifier,
@@ -39,7 +40,11 @@ fun MenuListFilterGroup(
             ChipButton(
                 isSelected = selectedMenuType == menuType,
                 title = menuType.title,
-                modifier = Modifier.padding(start = padStart, end = padEnd),
+                modifier = Modifier
+                    .padding(start = padStart, end = padEnd)
+                    .noRippleClickable {
+                        onMenuTypeSelect(menuType)
+                    },
                 textStyle = McDonaldsTheme.typography.body12r.copy(
                     color = McDonaldsTheme.colors.black
                 ),
