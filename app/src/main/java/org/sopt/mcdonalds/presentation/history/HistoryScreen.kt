@@ -43,8 +43,7 @@ import org.sopt.mcdonalds.presentation.history.component.HistoryResultBar
 import org.sopt.mcdonalds.presentation.history.component.HistorySquareButton
 import org.sopt.mcdonalds.presentation.history.component.HistoryStoreBar
 import org.sopt.mcdonalds.presentation.history.component.HistoryTimeBar
-import org.sopt.mcdonalds.presentation.history.model.Cart
-import org.sopt.mcdonalds.presentation.history.model.RecentBurger
+import org.sopt.mcdonalds.presentation.history.state.HistoryContract.HistoryState
 
 @Composable
 fun HistoryRoute(
@@ -53,10 +52,13 @@ fun HistoryRoute(
     modifier: Modifier = Modifier,
     viewModel: HistoryViewModel = hiltViewModel()
 ) {
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     HistoryScreen(
-        viewModel = viewModel,
+        uiState = uiState,
         onNavigateToMenuList = onNavigateToMenuList,
         onNavigateToOrder = onNavigateToOrder,
+        increaseCount = viewModel::increaseCount,
+        decreaseCount = viewModel::decreaseCount,
         modifier = modifier
     )
 }
@@ -64,12 +66,13 @@ fun HistoryRoute(
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun HistoryScreen(
-    viewModel: HistoryViewModel,
+    uiState: HistoryState,
     onNavigateToMenuList: () -> Unit,
     onNavigateToOrder: (Long) -> Unit,
+    increaseCount: (Int) -> Unit,
+    decreaseCount: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val store = stringResource(R.string.store_title)
     val density = LocalDensity.current
     var footerHeightDp by remember { mutableStateOf(0.dp) }
@@ -131,12 +134,10 @@ private fun HistoryScreen(
                         imageUrl = cart.imageUrl,
                         menuName = cart.menuName,
                         onIncrementClick = {
-                            viewModel.increaseCount(index)
-                            viewModel.updatePriceSum()
+                            increaseCount(index)
                         },
                         onDecrementClick = {
-                            viewModel.decreaseCount(index)
-                            viewModel.updatePriceSum()
+                            decreaseCount(index)
                         },
                         onEditClick = { /*TODO*/ },
                         onDeleteClick = { /*구현 안함*/ }
@@ -206,99 +207,14 @@ private fun HistoryScreen(
 
 @Preview
 @Composable
-private fun HistoryScreenEmptyPreview() {
+private fun HistoryScreenPreview() {
     MCDONALDSTheme {
-        val viewModel = HistoryViewModel()
-        viewModel.updateRecentBurgerList(
-            listOf(
-                RecentBurger(
-                    menuId = 1,
-                    menuName = "더블 1995® 버거",
-                    menuPrice = "₩8,300 ~",
-                    menuImage = ""
-                ),
-                RecentBurger(
-                    menuId = 2,
-                    menuName = "더블 1995® 버거",
-                    menuPrice = "₩8,300 ~",
-                    menuImage = ""
-                ),
-                RecentBurger(
-                    menuId = 3,
-                    menuName = "더블 1995® 버거",
-                    menuPrice = "₩8,300 ~",
-                    menuImage = ""
-                ),
-                RecentBurger(
-                    menuId = 4,
-                    menuName = "더블 1995® 버거",
-                    menuPrice = "₩8,300 ~",
-                    menuImage = ""
-                ),
-                RecentBurger(
-                    menuId = 5,
-                    menuName = "더블 1995® 버거",
-                    menuPrice = "₩8,300 ~",
-                    menuImage = ""
-                )
-            )
-        )
-
         HistoryScreen(
-            viewModel = viewModel,
+            uiState = HistoryState(),
             onNavigateToMenuList = {},
             onNavigateToOrder = {},
-            modifier = Modifier.background(McDonaldsTheme.colors.white)
-        )
-    }
-}
-
-@Preview
-@Composable
-private fun HistoryScreenNotEmptyPreview() {
-    MCDONALDSTheme {
-        val viewModel = HistoryViewModel()
-        viewModel.updateCartList(
-            listOf(
-                Cart(
-                    cartId = 1,
-                    menuName = "더블 1995® 버거",
-                    amount = 2,
-                    price = 5500,
-                    isSet = true,
-                    imageUrl = ""
-                ),
-                Cart(
-                    cartId = 2,
-                    menuName = "더블 1995® 버거",
-                    amount = 2,
-                    price = 5500,
-                    isSet = true,
-                    imageUrl = ""
-                ),
-                Cart(
-                    cartId = 3,
-                    menuName = "더블 1995® 버거",
-                    amount = 2,
-                    price = 5500,
-                    isSet = true,
-                    imageUrl = ""
-                ),
-                Cart(
-                    cartId = 4,
-                    menuName = "더블 1995® 버거",
-                    amount = 1,
-                    price = 3500,
-                    isSet = false,
-                    imageUrl = ""
-                )
-            )
-        )
-
-        HistoryScreen(
-            viewModel = viewModel,
-            onNavigateToMenuList = {},
-            onNavigateToOrder = {},
+            increaseCount = {},
+            decreaseCount = {},
             modifier = Modifier.background(McDonaldsTheme.colors.white)
         )
     }
