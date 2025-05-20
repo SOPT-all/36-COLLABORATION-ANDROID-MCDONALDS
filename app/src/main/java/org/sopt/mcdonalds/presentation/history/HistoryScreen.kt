@@ -48,9 +48,13 @@ import org.sopt.mcdonalds.presentation.history.model.RecentBurger
 
 @Composable
 fun HistoryRoute(
+    onNavigateToMenuList: () -> Unit,
+    onNavigateToOrder: (Long) -> Unit,
     modifier: Modifier = Modifier
 ) {
     HistoryScreen(
+        onNavigateToMenuList =  onNavigateToMenuList,
+        onNavigateToOrder = onNavigateToOrder,
         modifier = modifier
     )
 }
@@ -58,6 +62,8 @@ fun HistoryRoute(
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun HistoryScreen(
+    onNavigateToMenuList: () -> Unit,
+    onNavigateToOrder: (Long) -> Unit,
     modifier: Modifier = Modifier,
     carts: List<Cart> = persistentListOf<Cart>(),
     recentBurgers: List<RecentBurger> = persistentListOf<RecentBurger>()
@@ -84,13 +90,13 @@ private fun HistoryScreen(
         ) {
             stickyHeader {
                 DefaultTopBar(
-                    onBackClick = { /*TODO*/ },
+                    onBackClick = onNavigateToMenuList,
                     title = stringResource(R.string.history_title),
                     modifier = Modifier.background(color = McDonaldsTheme.colors.white).fillMaxWidth()
                 )
                 HistoryStoreBar(
                     store = store,
-                    onStoreChangeClick = { /*TODO*/ }
+                    onStoreChangeClick = { /*구현 안함*/ }
                 )
             }
             item {
@@ -147,7 +153,7 @@ private fun HistoryScreen(
                 Spacer(modifier = Modifier.height(30.dp))
                 HistoryMenuAddButton(
                     text = stringResource(R.string.history_add_menu_button),
-                    onClick = { /*TODO*/ },
+                    onClick = onNavigateToMenuList,
                     modifier = Modifier.align(Alignment.Center)
                 )
                 Spacer(modifier = Modifier.height(20.dp))
@@ -172,7 +178,7 @@ private fun HistoryScreen(
                         price = recentBurger.menuPrice,
                         imageUrl = recentBurger.menuImage,
                         menuName = recentBurger.menuName,
-                        onClick = { /*TODO*/ }
+                        onClick = {onNavigateToOrder(recentBurger.menuId)}
                     )
                 }
             }
@@ -209,6 +215,8 @@ private fun HistoryScreen(
 private fun HistoryScreenEmptyPreview() {
     MCDONALDSTheme {
         HistoryScreen(
+            onNavigateToMenuList = {},
+            onNavigateToOrder = {},
             modifier = Modifier.background(McDonaldsTheme.colors.white),
             recentBurgers = listOf(
                 RecentBurger(
@@ -251,6 +259,8 @@ private fun HistoryScreenEmptyPreview() {
 private fun HistoryScreenNotEmptyPreview() {
     MCDONALDSTheme {
         HistoryScreen(
+            onNavigateToMenuList = {},
+            onNavigateToOrder = {},
             modifier = Modifier.background(McDonaldsTheme.colors.white),
             carts = listOf(
                 Cart(
