@@ -64,7 +64,7 @@ private fun OrderScreen(
     var burgerCount by remember { mutableStateOf(1) }
 
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize(),
     ) {
         DefaultTopBar(
@@ -119,42 +119,44 @@ private fun OrderScreen(
                 modifier = Modifier
                     .padding(horizontal = 20.dp)
             )
-            Spacer(modifier = Modifier.height(16.dp))
-            OrderSideDetailContainer(
-                ingredientList = persistentListOf(),
-                sideList = persistentListOf(
-                    Side(
-                        name = stringResource(R.string.order_side_french_fries),
-                        imageId = R.drawable.img_side_fries
+            if (setType == OrderType.SET) {
+                Spacer(modifier = Modifier.height(16.dp))
+                OrderSideDetailContainer(
+                    ingredientList = persistentListOf(),
+                    sideList = persistentListOf(
+                        Side(
+                            name = stringResource(R.string.order_side_french_fries),
+                            imageId = R.drawable.img_side_fries
+                        ),
+                        Side(
+                            name = stringResource(R.string.order_side_coleslaw),
+                            imageId = R.drawable.img_side_coleslaw
+                        )
                     ),
-                    Side(
-                        name = stringResource(R.string.order_side_coleslaw),
-                        imageId = R.drawable.img_side_coleslaw
-                    )
-                ),
-                modifier = Modifier
-                    .padding(horizontal = 20.dp)
-            )
-            Spacer(modifier = Modifier.height(16.dp))
-            OrderSideDetailContainer(
-                ingredientList = persistentListOf(),
-                sideList = persistentListOf(
-                    Side(
-                        name = stringResource(R.string.order_drink_sprite),
-                        imageId = R.drawable.img_drink_sprite
+                    modifier = Modifier
+                        .padding(horizontal = 20.dp)
+                )
+                Spacer(modifier = Modifier.height(16.dp))
+                OrderSideDetailContainer(
+                    ingredientList = persistentListOf(),
+                    sideList = persistentListOf(
+                        Side(
+                            name = stringResource(R.string.order_drink_sprite),
+                            imageId = R.drawable.img_drink_sprite
+                        ),
+                        Side(
+                            name = stringResource(R.string.order_drink_coke),
+                            imageId = R.drawable.img_drink_coke
+                        ),
+                        Side(
+                            name = stringResource(R.string.order_drink_zero_coke),
+                            imageId = R.drawable.img_drink_zero_coke
+                        ),
                     ),
-                    Side(
-                        name = stringResource(R.string.order_drink_coke),
-                        imageId = R.drawable.img_drink_coke
-                    ),
-                    Side(
-                        name = stringResource(R.string.order_drink_zero_coke),
-                        imageId = R.drawable.img_drink_zero_coke
-                    ),
-                ),
-                modifier = Modifier
-                    .padding(horizontal = 20.dp)
-            )
+                    modifier = Modifier
+                        .padding(horizontal = 20.dp)
+                )
+            }
             Spacer(modifier = Modifier.height(24.dp))
             BorderedNumberIncrementer(
                 count = burgerCount,
