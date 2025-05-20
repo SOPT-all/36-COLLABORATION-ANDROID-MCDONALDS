@@ -50,10 +50,10 @@ fun OrderRoute(
 ) {
     OrderScreen(
         setType = viewModel.setType.value,
-        updateSetType = { setType: SetType -> viewModel.updateSetType(setType) },
+        updateSetType = viewModel::updateSetType,
         burgerCount = viewModel.burgerCount.value,
-        increaseBurgerCount = { viewModel.increaseBurgerCount() },
-        decreaseBurgerCount = { viewModel.decreaseBurgerCount() },
+        increaseBurgerCount = viewModel::increaseBurgerCount,
+        decreaseBurgerCount = viewModel::decreaseBurgerCount,
         onBackClick = onBackClick,
         onNavigateToHistory = onNavigateToHistory,
         modifier = modifier
