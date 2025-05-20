@@ -13,12 +13,12 @@ fun NavController.navigateToStore(navOptions: NavOptions? = null) = navigate(Sto
 
 fun NavGraphBuilder.storeGraph(
     onNavigateToMenuList: () -> Unit,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     composable<Store> {
         StoreRoute(
             onNavigateToMenuList = onNavigateToMenuList,
-            modifier = modifier,
+            modifier = modifier
         )
     }
 }

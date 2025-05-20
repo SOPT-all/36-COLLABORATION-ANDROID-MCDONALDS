@@ -9,7 +9,7 @@ import kotlinx.serialization.Serializable
 import org.sopt.mcdonalds.core.common.navigation.Route
 import org.sopt.mcdonalds.presentation.history.HistoryRoute
 
-fun NavController.navigateToHistory(navOptions: NavOptions? = null){
+fun NavController.navigateToHistory(navOptions: NavOptions? = null) {
     navigate(History, navOptions)
 }
 
@@ -18,7 +18,7 @@ fun NavGraphBuilder.historyGraph(
     onNavigateToOrder: (Long) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    composable <History> {
+    composable<History> {
         HistoryRoute(
             onNavigateToMenuList = onNavigateToMenuList,
             onNavigateToOrder = onNavigateToOrder,
@@ -28,4 +28,4 @@ fun NavGraphBuilder.historyGraph(
 }
 
 @Serializable
-data object History: Route
+data object History : Route

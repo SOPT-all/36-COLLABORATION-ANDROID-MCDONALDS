@@ -44,7 +44,7 @@ import org.sopt.mcdonalds.presentation.order.model.Side
 fun OrderSideDetailContainer(
     ingredientList: List<Ingredient>,
     sideList: List<Side>,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     var sideExpanded by remember { mutableStateOf(false) }
     var ingredientExpanded by remember { mutableStateOf(false) }

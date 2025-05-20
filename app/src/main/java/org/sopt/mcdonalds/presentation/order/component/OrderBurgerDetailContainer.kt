@@ -46,7 +46,7 @@ fun OrderBurgerDetailContainer(
     name: String,
     @DrawableRes imageId: Int,
     ingredientList: List<Ingredient>,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     var ingredientExpanded by remember { mutableStateOf(false) }
 
@@ -92,7 +92,6 @@ fun OrderBurgerDetailContainer(
     }
 }
 
-
 @Preview(showBackground = true)
 @Composable
 private fun OrderBurgerDetailContainerPreview() {
@@ -105,7 +104,7 @@ private fun OrderBurgerDetailContainerPreview() {
                     name = "양파",
                     amount = remember { mutableStateOf(1) }
                 )
-            ),
+            )
         )
     }
 }

@@ -13,13 +13,13 @@ import org.sopt.mcdonalds.presentation.history.state.HistoryContract.HistoryStat
 
 @HiltViewModel
 class HistoryViewModel @Inject constructor(
-    //TODO: API connection
-): ViewModel() {
+    // TODO: API connection
+) : ViewModel() {
     private val _uiState = MutableStateFlow(HistoryState())
     val uiState = _uiState.asStateFlow()
 
     init {
-        //TODO: API call
+        // TODO: API call
     }
 
     fun updateCartList(menuList: List<Cart>) {
@@ -28,13 +28,13 @@ class HistoryViewModel @Inject constructor(
         }
     }
 
-    fun updateRecentBurgerList(recentBurgerList: List<RecentBurger>){
+    fun updateRecentBurgerList(recentBurgerList: List<RecentBurger>) {
         _uiState.update {
             it.copy(recentBurgerList = recentBurgerList.toImmutableList())
         }
     }
 
-    fun increaseCount(index: Int){
+    fun increaseCount(index: Int) {
         _uiState.update {
             val updatedList = it.cartList.toMutableList().apply {
                 this[index] = this[index].copy(amount = this[index].amount + 1)
@@ -43,7 +43,7 @@ class HistoryViewModel @Inject constructor(
         }
     }
 
-    fun decreaseCount(index: Int){
+    fun decreaseCount(index: Int) {
         _uiState.update {
             val updatedList = it.cartList.toMutableList().apply {
                 this[index] = this[index].copy(amount = maxOf(this[index].amount - 1, 1))
@@ -52,7 +52,7 @@ class HistoryViewModel @Inject constructor(
         }
     }
 
-    fun updatePriceSum(){
+    fun updatePriceSum() {
         _uiState.update { it ->
             it.copy(priceSum = it.cartList.sumOf { it.price * it.amount })
         }

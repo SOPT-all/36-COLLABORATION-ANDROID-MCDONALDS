@@ -23,7 +23,7 @@ fun MenuListFilterGroup(
     selectedMenuType: MenuType,
     menuTypes: ImmutableList<MenuType>,
     onMenuTypeSelect: (MenuType) -> Unit,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     LazyRow(
         modifier = modifier,

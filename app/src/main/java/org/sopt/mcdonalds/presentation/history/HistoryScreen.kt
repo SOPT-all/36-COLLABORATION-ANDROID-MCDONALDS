@@ -16,8 +16,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -34,7 +32,6 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import java.time.LocalDateTime
-import kotlinx.collections.immutable.persistentListOf
 import org.sopt.mcdonalds.R
 import org.sopt.mcdonalds.core.designsystem.component.DefaultTopBar
 import org.sopt.mcdonalds.core.designsystem.theme.MCDONALDSTheme
@@ -48,20 +45,17 @@ import org.sopt.mcdonalds.presentation.history.component.HistoryStoreBar
 import org.sopt.mcdonalds.presentation.history.component.HistoryTimeBar
 import org.sopt.mcdonalds.presentation.history.model.Cart
 import org.sopt.mcdonalds.presentation.history.model.RecentBurger
-import org.sopt.mcdonalds.presentation.history.navigation.History
-import org.sopt.mcdonalds.presentation.history.state.HistoryContract.HistoryState
 
 @Composable
 fun HistoryRoute(
     onNavigateToMenuList: () -> Unit,
     onNavigateToOrder: (Long) -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: HistoryViewModel = hiltViewModel(),
+    viewModel: HistoryViewModel = hiltViewModel()
 ) {
-
     HistoryScreen(
         viewModel = viewModel,
-        onNavigateToMenuList =  onNavigateToMenuList,
+        onNavigateToMenuList = onNavigateToMenuList,
         onNavigateToOrder = onNavigateToOrder,
         modifier = modifier
     )
@@ -73,13 +67,12 @@ private fun HistoryScreen(
     viewModel: HistoryViewModel,
     onNavigateToMenuList: () -> Unit,
     onNavigateToOrder: (Long) -> Unit,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val store = stringResource(R.string.store_title)
     val density = LocalDensity.current
     var footerHeightDp by remember { mutableStateOf(0.dp) }
-
 
     Box(
         modifier = modifier.fillMaxSize()
@@ -139,10 +132,12 @@ private fun HistoryScreen(
                         menuName = cart.menuName,
                         onIncrementClick = {
                             viewModel.increaseCount(index)
-                            viewModel.updatePriceSum() },
+                            viewModel.updatePriceSum()
+                        },
                         onDecrementClick = {
                             viewModel.decreaseCount(index)
-                            viewModel.updatePriceSum() },
+                            viewModel.updatePriceSum()
+                        },
                         onEditClick = { /*TODO*/ },
                         onDeleteClick = { /*구현 안함*/ }
                     )
@@ -177,7 +172,7 @@ private fun HistoryScreen(
                         price = recentBurger.menuPrice,
                         imageUrl = recentBurger.menuImage,
                         menuName = recentBurger.menuName,
-                        onClick = {onNavigateToOrder(recentBurger.menuId)}
+                        onClick = { onNavigateToOrder(recentBurger.menuId) }
                     )
                 }
             }
@@ -212,10 +207,10 @@ private fun HistoryScreen(
 @Preview
 @Composable
 private fun HistoryScreenEmptyPreview() {
-    MCDONALDSTheme{
+    MCDONALDSTheme {
         val viewModel = HistoryViewModel()
         viewModel.updateRecentBurgerList(
-             listOf(
+            listOf(
                 RecentBurger(
                     menuId = 1,
                     menuName = "더블 1995® 버거",
@@ -304,7 +299,7 @@ private fun HistoryScreenNotEmptyPreview() {
             viewModel = viewModel,
             onNavigateToMenuList = {},
             onNavigateToOrder = {},
-            modifier = Modifier.background(McDonaldsTheme.colors.white),
+            modifier = Modifier.background(McDonaldsTheme.colors.white)
         )
     }
 }
