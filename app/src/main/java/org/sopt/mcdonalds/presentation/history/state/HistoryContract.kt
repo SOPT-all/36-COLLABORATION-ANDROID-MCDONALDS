@@ -8,6 +8,7 @@ import org.sopt.mcdonalds.presentation.history.model.RecentBurger
 class HistoryContract {
     data class HistoryState(
         val cartList: ImmutableList<Cart> = persistentListOf(),
-        val recentBurgerList: ImmutableList<RecentBurger> = persistentListOf()
+        val recentBurgerList: ImmutableList<RecentBurger> = persistentListOf(),
+        val priceSum: Int = 0
     )
 }

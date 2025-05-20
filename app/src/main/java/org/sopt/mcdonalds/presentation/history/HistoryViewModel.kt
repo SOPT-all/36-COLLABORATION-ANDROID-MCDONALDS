@@ -33,4 +33,28 @@ class HistoryViewModel @Inject constructor(
             it.copy(recentBurgerList = recentBurgerList.toImmutableList())
         }
     }
+
+    fun increaseCount(index: Int){
+        _uiState.update {
+            val updatedList = it.cartList.toMutableList().apply {
+                this[index] = this[index].copy(amount = this[index].amount + 1)
+            }
+            it.copy(cartList = updatedList.toImmutableList())
+        }
+    }
+
+    fun decreaseCount(index: Int){
+        _uiState.update {
+            val updatedList = it.cartList.toMutableList().apply {
+                this[index] = this[index].copy(amount = maxOf(this[index].amount - 1, 1))
+            }
+            it.copy(cartList = updatedList.toImmutableList())
+        }
+    }
+
+    fun updatePriceSum(){
+        _uiState.update { it ->
+            it.copy(priceSum = it.cartList.sumOf { it.price * it.amount })
+        }
+    }
 }

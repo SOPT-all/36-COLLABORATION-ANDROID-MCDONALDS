@@ -17,6 +17,7 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -30,6 +31,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import java.time.LocalDateTime
 import kotlinx.collections.immutable.persistentListOf
 import org.sopt.mcdonalds.R
@@ -45,14 +48,19 @@ import org.sopt.mcdonalds.presentation.history.component.HistoryStoreBar
 import org.sopt.mcdonalds.presentation.history.component.HistoryTimeBar
 import org.sopt.mcdonalds.presentation.history.model.Cart
 import org.sopt.mcdonalds.presentation.history.model.RecentBurger
+import org.sopt.mcdonalds.presentation.history.navigation.History
+import org.sopt.mcdonalds.presentation.history.state.HistoryContract.HistoryState
 
 @Composable
 fun HistoryRoute(
     onNavigateToMenuList: () -> Unit,
     onNavigateToOrder: (Long) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    viewModel: HistoryViewModel = hiltViewModel(),
 ) {
+
     HistoryScreen(
+        viewModel = viewModel,
         onNavigateToMenuList =  onNavigateToMenuList,
         onNavigateToOrder = onNavigateToOrder,
         modifier = modifier
@@ -62,21 +70,16 @@ fun HistoryRoute(
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun HistoryScreen(
+    viewModel: HistoryViewModel,
     onNavigateToMenuList: () -> Unit,
     onNavigateToOrder: (Long) -> Unit,
     modifier: Modifier = Modifier,
-    carts: List<Cart> = persistentListOf<Cart>(),
-    recentBurgers: List<RecentBurger> = persistentListOf<RecentBurger>()
 ) {
-    val store = "양평SK DT"
-    var priceSum by remember { mutableStateOf(0) }
-    var cartList by remember { mutableStateOf(carts.toMutableList()) }
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val store = stringResource(R.string.store_title)
     val density = LocalDensity.current
     var footerHeightDp by remember { mutableStateOf(0.dp) }
 
-    LaunchedEffect(cartList) {
-        priceSum = cartList.sumOf { it.price * it.amount }
-    }
 
     Box(
         modifier = modifier.fillMaxSize()
@@ -104,7 +107,7 @@ private fun HistoryScreen(
                     endTime = LocalDateTime.now()
                 )
             }
-            if (carts.isEmpty()) {
+            if (uiState.cartList.isEmpty()) {
                 item {
                     Spacer(
                         modifier = Modifier.height(50.dp)
@@ -125,7 +128,7 @@ private fun HistoryScreen(
                 }
             } else {
                 itemsIndexed(
-                    items = cartList,
+                    items = uiState.cartList,
                     key = { index, cart -> cart.cartId }
                 ) { index, cart ->
                     HistoryCartItem(
@@ -135,17 +138,13 @@ private fun HistoryScreen(
                         imageUrl = cart.imageUrl,
                         menuName = cart.menuName,
                         onIncrementClick = {
-                            cartList = cartList.toMutableList().also {
-                                it[index] = it[index].copy(amount = it[index].amount + 1)
-                            }
-                        },
+                            viewModel.increaseCount(index)
+                            viewModel.updatePriceSum() },
                         onDecrementClick = {
-                            cartList = cartList.toMutableList().also {
-                                it[index] = it[index].copy(amount = maxOf(1, it[index].amount - 1))
-                            }
-                        },
+                            viewModel.decreaseCount(index)
+                            viewModel.updatePriceSum() },
                         onEditClick = { /*TODO*/ },
-                        onDeleteClick = { /*TODO*/ }
+                        onDeleteClick = { /*구현 안함*/ }
                     )
                 }
             }
@@ -158,7 +157,7 @@ private fun HistoryScreen(
                 )
                 Spacer(modifier = Modifier.height(20.dp))
             }
-            if (carts.isEmpty()) {
+            if (uiState.cartList.isEmpty()) {
                 item {
                     Spacer(modifier = Modifier.height(30.dp))
                     Box(modifier = Modifier.fillMaxWidth().align(Alignment.CenterStart)) {
@@ -171,7 +170,7 @@ private fun HistoryScreen(
                     }
                 }
                 itemsIndexed(
-                    items = recentBurgers,
+                    items = uiState.recentBurgerList,
                     key = { _, recentBurger -> recentBurger.menuId }
                 ) { _, recentBurger ->
                     HistoryRecentBurgerItem(
@@ -195,10 +194,10 @@ private fun HistoryScreen(
             Column(
                 modifier = Modifier.fillMaxWidth()
             ) {
-                if (carts.isNotEmpty()) {
+                if (uiState.cartList.isNotEmpty()) {
                     HistoryResultBar(
                         text = stringResource(R.string.history_sum_title),
-                        price = priceSum
+                        price = uiState.priceSum
                     )
                 }
                 HistorySquareButton(
@@ -215,41 +214,10 @@ private fun HistoryScreen(
 private fun HistoryScreenEmptyPreview() {
     MCDONALDSTheme {
         HistoryScreen(
+            viewModel = HistoryViewModel(),
             onNavigateToMenuList = {},
             onNavigateToOrder = {},
-            modifier = Modifier.background(McDonaldsTheme.colors.white),
-            recentBurgers = listOf(
-                RecentBurger(
-                    menuId = 1,
-                    menuName = "더블 1995® 버거",
-                    menuPrice = "₩8,300 ~",
-                    menuImage = ""
-                ),
-                RecentBurger(
-                    menuId = 2,
-                    menuName = "더블 1995® 버거",
-                    menuPrice = "₩8,300 ~",
-                    menuImage = ""
-                ),
-                RecentBurger(
-                    menuId = 3,
-                    menuName = "더블 1995® 버거",
-                    menuPrice = "₩8,300 ~",
-                    menuImage = ""
-                ),
-                RecentBurger(
-                    menuId = 4,
-                    menuName = "더블 1995® 버거",
-                    menuPrice = "₩8,300 ~",
-                    menuImage = ""
-                ),
-                RecentBurger(
-                    menuId = 5,
-                    menuName = "더블 1995® 버거",
-                    menuPrice = "₩8,300 ~",
-                    menuImage = ""
-                )
-            )
+            modifier = Modifier.background(McDonaldsTheme.colors.white)
         )
     }
 }
@@ -259,43 +227,10 @@ private fun HistoryScreenEmptyPreview() {
 private fun HistoryScreenNotEmptyPreview() {
     MCDONALDSTheme {
         HistoryScreen(
+            viewModel = HistoryViewModel(),
             onNavigateToMenuList = {},
             onNavigateToOrder = {},
             modifier = Modifier.background(McDonaldsTheme.colors.white),
-            carts = listOf(
-                Cart(
-                    cartId = 1,
-                    menuName = "더블 1995® 버거",
-                    amount = 2,
-                    price = 5500,
-                    isSet = true,
-                    imageUrl = ""
-                ),
-                Cart(
-                    cartId = 2,
-                    menuName = "더블 1995® 버거",
-                    amount = 2,
-                    price = 5500,
-                    isSet = true,
-                    imageUrl = ""
-                ),
-                Cart(
-                    cartId = 3,
-                    menuName = "더블 1995® 버거",
-                    amount = 2,
-                    price = 5500,
-                    isSet = true,
-                    imageUrl = ""
-                ),
-                Cart(
-                    cartId = 4,
-                    menuName = "더블 1995® 버거",
-                    amount = 1,
-                    price = 3500,
-                    isSet = false,
-                    imageUrl = ""
-                )
-            )
         )
     }
 }
