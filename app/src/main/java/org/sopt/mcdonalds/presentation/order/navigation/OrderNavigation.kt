@@ -9,8 +9,8 @@ import kotlinx.serialization.Serializable
 import org.sopt.mcdonalds.core.common.navigation.Route
 import org.sopt.mcdonalds.presentation.order.OrderRoute
 
-fun NavController.navigateToOrder(navOptions: NavOptions? = null) {
-    navigate(Order, navOptions)
+fun NavController.navigateToOrder(menuId: Int, navOptions: NavOptions? = null) {
+    navigate(Order(menuId = menuId), navOptions)
 }
 
 fun NavGraphBuilder.orderGraph(
@@ -28,4 +28,6 @@ fun NavGraphBuilder.orderGraph(
 }
 
 @Serializable
-data object Order : Route
+data class Order(
+    val menuId: Int
+) : Route
