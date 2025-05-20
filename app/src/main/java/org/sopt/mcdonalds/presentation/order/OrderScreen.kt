@@ -27,6 +27,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import kotlinx.collections.immutable.persistentListOf
 import org.sopt.mcdonalds.R
 import org.sopt.mcdonalds.core.designsystem.component.BorderedNumberIncrementer
@@ -38,15 +39,21 @@ import org.sopt.mcdonalds.presentation.order.component.OrderButton
 import org.sopt.mcdonalds.presentation.order.component.OrderSetSelectButton
 import org.sopt.mcdonalds.presentation.order.component.OrderSideDetailContainer
 import org.sopt.mcdonalds.presentation.order.model.Side
-import org.sopt.mcdonalds.presentation.order.type.OrderType
+import org.sopt.mcdonalds.presentation.order.type.SetType
 
 @Composable
 fun OrderRoute(
     onBackClick: () -> Unit,
     onNavigateToHistory: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    viewModel: OrderViewModel = hiltViewModel()
 ) {
     OrderScreen(
+        setType = viewModel.setType.value,
+        updateSetType = { setType: SetType -> viewModel.updateSetType(setType) },
+        burgerCount = viewModel.burgerCount.value,
+        increaseBurgerCount = { viewModel.increaseBurgerCount() },
+        decreaseBurgerCount = { viewModel.decreaseBurgerCount() },
         onBackClick = onBackClick,
         onNavigateToHistory = onNavigateToHistory,
         modifier = modifier
@@ -56,13 +63,15 @@ fun OrderRoute(
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun OrderScreen(
+    setType: SetType,
+    updateSetType: (SetType) -> Unit,
+    burgerCount: Int,
+    increaseBurgerCount: () -> Unit,
+    decreaseBurgerCount: () -> Unit,
     onBackClick: () -> Unit,
     onNavigateToHistory: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    var setType by remember { mutableStateOf(OrderType.SET) }
-    var burgerCount by remember { mutableStateOf(1) }
-
     Column(
         modifier = modifier
             .fillMaxSize(),
@@ -99,16 +108,16 @@ private fun OrderScreen(
                 OrderSetSelectButton(
                     text = stringResource(R.string.order_change_set),
                     price = "",
-                    isSelected = setType == OrderType.SET,
+                    isSelected = setType == SetType.SET,
                     imageURL = "",
-                    onSelect = { setType = OrderType.SET }
+                    onSelect = { updateSetType(SetType.SET) }
                 )
                 OrderSetSelectButton(
                     text = stringResource(R.string.order_change_single),
                     price = "",
-                    isSelected = setType == OrderType.SINGLE,
+                    isSelected = setType == SetType.SINGLE,
                     imageURL = "",
-                    onSelect = { setType = OrderType.SINGLE }
+                    onSelect = { updateSetType(SetType.SINGLE) }
                 )
             }
             Spacer(modifier = Modifier.height(24.dp))
@@ -119,7 +128,7 @@ private fun OrderScreen(
                 modifier = Modifier
                     .padding(horizontal = 20.dp)
             )
-            if (setType == OrderType.SET) {
+            if (setType == SetType.SET) {
                 Spacer(modifier = Modifier.height(16.dp))
                 OrderSideDetailContainer(
                     ingredientList = persistentListOf(),
@@ -160,8 +169,8 @@ private fun OrderScreen(
             Spacer(modifier = Modifier.height(24.dp))
             BorderedNumberIncrementer(
                 count = burgerCount,
-                onIncrementClick = { burgerCount++ },
-                onDecrementClick = { if (burgerCount > 0) burgerCount-- },
+                onIncrementClick = { increaseBurgerCount() },
+                onDecrementClick = { if (burgerCount > 0) decreaseBurgerCount() },
                 modifier = Modifier
                     .width(145.dp)
                     .height(40.dp)
@@ -211,9 +220,16 @@ private fun OrderScreen(
 
 @Preview
 @Composable
-private fun OrderScreenPreview() {
+private fun OrderScreenPreview(
+) {
+    var count by remember { mutableStateOf(1) }
     MCDONALDSTheme {
         OrderScreen(
+            setType = SetType.SET,
+            updateSetType = {},
+            burgerCount = count,
+            increaseBurgerCount = { count++ },
+            decreaseBurgerCount = { if (count > 0) count-- },
             onBackClick = {},
             onNavigateToHistory = {},
             modifier = Modifier.background(McDonaldsTheme.colors.white)
