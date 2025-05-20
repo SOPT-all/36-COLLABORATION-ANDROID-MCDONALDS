@@ -57,4 +57,7 @@
     <string name="order_drink_coke">코카 콜라</string>
 
     <string name="order_product_info">원산지, 영양성분 및 알레르기 정보</string>
+
+    <!-- bottom sheet   -->
+    <string name="bottom_sheet_confirm_button">변경 완료</string>
 </resources>
