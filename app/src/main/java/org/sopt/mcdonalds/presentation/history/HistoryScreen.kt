@@ -212,9 +212,45 @@ private fun HistoryScreen(
 @Preview
 @Composable
 private fun HistoryScreenEmptyPreview() {
-    MCDONALDSTheme {
+    MCDONALDSTheme{
+        val viewModel = HistoryViewModel()
+        viewModel.updateRecentBurgerList(
+             listOf(
+                RecentBurger(
+                    menuId = 1,
+                    menuName = "더블 1995® 버거",
+                    menuPrice = "₩8,300 ~",
+                    menuImage = ""
+                ),
+                RecentBurger(
+                    menuId = 2,
+                    menuName = "더블 1995® 버거",
+                    menuPrice = "₩8,300 ~",
+                    menuImage = ""
+                ),
+                RecentBurger(
+                    menuId = 3,
+                    menuName = "더블 1995® 버거",
+                    menuPrice = "₩8,300 ~",
+                    menuImage = ""
+                ),
+                RecentBurger(
+                    menuId = 4,
+                    menuName = "더블 1995® 버거",
+                    menuPrice = "₩8,300 ~",
+                    menuImage = ""
+                ),
+                RecentBurger(
+                    menuId = 5,
+                    menuName = "더블 1995® 버거",
+                    menuPrice = "₩8,300 ~",
+                    menuImage = ""
+                )
+            )
+        )
+
         HistoryScreen(
-            viewModel = HistoryViewModel(),
+            viewModel = viewModel,
             onNavigateToMenuList = {},
             onNavigateToOrder = {},
             modifier = Modifier.background(McDonaldsTheme.colors.white)
@@ -226,8 +262,46 @@ private fun HistoryScreenEmptyPreview() {
 @Composable
 private fun HistoryScreenNotEmptyPreview() {
     MCDONALDSTheme {
+        val viewModel = HistoryViewModel()
+        viewModel.updateCartList(
+            listOf(
+                Cart(
+                    cartId = 1,
+                    menuName = "더블 1995® 버거",
+                    amount = 2,
+                    price = 5500,
+                    isSet = true,
+                    imageUrl = ""
+                ),
+                Cart(
+                    cartId = 2,
+                    menuName = "더블 1995® 버거",
+                    amount = 2,
+                    price = 5500,
+                    isSet = true,
+                    imageUrl = ""
+                ),
+                Cart(
+                    cartId = 3,
+                    menuName = "더블 1995® 버거",
+                    amount = 2,
+                    price = 5500,
+                    isSet = true,
+                    imageUrl = ""
+                ),
+                Cart(
+                    cartId = 4,
+                    menuName = "더블 1995® 버거",
+                    amount = 1,
+                    price = 3500,
+                    isSet = false,
+                    imageUrl = ""
+                )
+            )
+        )
+
         HistoryScreen(
-            viewModel = HistoryViewModel(),
+            viewModel = viewModel,
             onNavigateToMenuList = {},
             onNavigateToOrder = {},
             modifier = Modifier.background(McDonaldsTheme.colors.white),

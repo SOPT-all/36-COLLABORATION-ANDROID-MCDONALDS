@@ -22,13 +22,13 @@ class HistoryViewModel @Inject constructor(
         //TODO: API call
     }
 
-    private fun updateCartList(menuList: List<Cart>) {
+    fun updateCartList(menuList: List<Cart>) {
         _uiState.update {
             it.copy(cartList = menuList.toImmutableList())
         }
     }
 
-    private fun updateRecentBurgerList(recentBurgerList: List<RecentBurger>){
+    fun updateRecentBurgerList(recentBurgerList: List<RecentBurger>){
         _uiState.update {
             it.copy(recentBurgerList = recentBurgerList.toImmutableList())
         }
