@@ -26,6 +26,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
 import org.sopt.mcdonalds.R
 import org.sopt.mcdonalds.core.designsystem.theme.MCDONALDSTheme
 import org.sopt.mcdonalds.core.designsystem.theme.McDonaldsTheme
@@ -44,7 +45,7 @@ import org.sopt.mcdonalds.presentation.order.model.Ingredient
 @Composable
 fun OrderBurgerDetailContainer(
     name: String,
-    @DrawableRes imageId: Int,
+    imageURL: String,
     ingredientList: List<Ingredient>,
     modifier: Modifier = Modifier
 ) {
@@ -67,8 +68,8 @@ fun OrderBurgerDetailContainer(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Start
         ) {
-            Image(
-                painter = painterResource(imageId),
+            AsyncImage(
+                model = imageURL,
                 contentDescription = null,
                 modifier = Modifier
                     .width(76.dp)
@@ -98,7 +99,7 @@ private fun OrderBurgerDetailContainerPreview() {
     MCDONALDSTheme {
         OrderBurgerDetailContainer(
             "더블 1955® 버거",
-            R.drawable.img_burger_single,
+            "",
             ingredientList = listOf(
                 Ingredient(
                     name = "양파",

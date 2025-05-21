@@ -135,8 +135,8 @@ private fun OrderScreen(
             }
             Spacer(modifier = Modifier.height(24.dp))
             OrderBurgerDetailContainer(
-                name = "",
-                imageId = R.drawable.img_burger_single,
+                name = uiState.menuDetail.name,
+                imageURL = uiState.menuDetail.singleImg,
                 ingredientList = persistentListOf(),
                 modifier = Modifier
                     .padding(horizontal = 20.dp)
