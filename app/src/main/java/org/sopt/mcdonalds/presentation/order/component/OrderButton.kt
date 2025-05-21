@@ -20,6 +20,7 @@ import org.sopt.mcdonalds.R
 import org.sopt.mcdonalds.core.common.util.NoRippleInteractionSource
 import org.sopt.mcdonalds.core.designsystem.theme.MCDONALDSTheme
 import org.sopt.mcdonalds.core.designsystem.theme.McDonaldsTheme
+import org.sopt.mcdonalds.presentation.order.RouteDestination
 
 /**
  * 더미 사용자 데이터를 보여주기 위한 컴포넌트

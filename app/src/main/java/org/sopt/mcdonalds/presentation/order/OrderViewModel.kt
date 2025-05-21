@@ -43,8 +43,8 @@ class OrderViewModel @Inject constructor(
     )
     val uiState = _uiState.asStateFlow()
 
-    private val _result = MutableSharedFlow<OrderResult>()
-    val result = _result.asSharedFlow()
+    private val _destination = MutableSharedFlow<RouteDestination>()
+    val destination = _destination.asSharedFlow()
 
     init {
         viewModelScope.launch {
@@ -80,7 +80,7 @@ class OrderViewModel @Inject constructor(
         }
     }
 
-    fun onClickOrderButton() {
+    fun onClickOrderButton(routeDestination: RouteDestination) {
         viewModelScope.launch {
             postCartUseCase(
                 cartDetail = CartDetail(
@@ -89,15 +89,15 @@ class OrderViewModel @Inject constructor(
                     menuId = uiState.value.menuDetail.id
                 )
             ).onSuccess {
-                _result.emit(OrderResult.Success)
+                _destination.emit(routeDestination)
             }.onFailure {
-                _result.emit(OrderResult.Failure)
+                // TODO
             }
         }
     }
 }
 
-sealed class OrderResult {
-    object Success : OrderResult()
-    object Failure : OrderResult()
+sealed class RouteDestination {
+    object MenuList : RouteDestination()
+    object History : RouteDestination()
 }

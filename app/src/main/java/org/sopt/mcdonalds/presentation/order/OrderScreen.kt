@@ -16,6 +16,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -48,10 +49,19 @@ import org.sopt.mcdonalds.presentation.order.type.SetType
 fun OrderRoute(
     onBackClick: () -> Unit,
     onNavigateToHistory: () -> Unit,
+    onNavigateToMenuList: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: OrderViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    LaunchedEffect(Unit) {
+        viewModel.destination.collect { destination ->
+            when (destination) {
+                is RouteDestination.History -> onNavigateToHistory()
+                is RouteDestination.MenuList -> onNavigateToMenuList()
+            }
+        }
+    }
 
     OrderScreen(
         uiState = uiState,
@@ -59,7 +69,7 @@ fun OrderRoute(
         increaseBurgerCount = viewModel::increaseBurgerCount,
         decreaseBurgerCount = viewModel::decreaseBurgerCount,
         onBackClick = onBackClick,
-        onNavigateToHistory = onNavigateToHistory,
+        onClickOrderButton = viewModel::onClickOrderButton,
         modifier = modifier
     )
 }
@@ -72,7 +82,7 @@ private fun OrderScreen(
     increaseBurgerCount: () -> Unit,
     decreaseBurgerCount: () -> Unit,
     onBackClick: () -> Unit,
-    onNavigateToHistory: () -> Unit,
+    onClickOrderButton: (RouteDestination) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -109,18 +119,18 @@ private fun OrderScreen(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 OrderSetSelectButton(
-                    text = stringResource(R.string.order_change_set),
-                    price = "",
-                    isSelected = uiState.setType == SetType.SET,
-                    imageURL = "",
-                    onSelect = { updateSetType(SetType.SET) }
+                    text = stringResource(R.string.order_change_single),
+                    price = uiState.menuDetail.singlePrice,
+                    isSelected = uiState.setType == SetType.SINGLE,
+                    imageURL = uiState.menuDetail.singleImg,
+                    onSelect = { updateSetType(SetType.SINGLE) }
                 )
                 OrderSetSelectButton(
-                    text = stringResource(R.string.order_change_single),
-                    price = "",
-                    isSelected = uiState.setType == SetType.SINGLE,
-                    imageURL = "",
-                    onSelect = { updateSetType(SetType.SINGLE) }
+                    text = stringResource(R.string.order_change_set),
+                    price = uiState.menuDetail.setPrice,
+                    isSelected = uiState.setType == SetType.SET,
+                    imageURL = uiState.menuDetail.setImg,
+                    onSelect = { updateSetType(SetType.SET) }
                 )
             }
             Spacer(modifier = Modifier.height(24.dp))
@@ -206,13 +216,13 @@ private fun OrderScreen(
             ) {
                 OrderButton(
                     text = stringResource(R.string.order_order_button),
-                    onClick = { /* TODO */ },
+                    onClick = { onClickOrderButton(RouteDestination.MenuList) },
                     color = McDonaldsTheme.colors.white,
                     modifier = Modifier.weight(1f)
                 )
                 OrderButton(
                     text = stringResource(R.string.order_cart_button),
-                    onClick = { /* TODO */ },
+                    onClick = { onClickOrderButton(RouteDestination.History) },
                     color = McDonaldsTheme.colors.yellow,
                     modifier = Modifier.weight(1f)
                 )
@@ -242,7 +252,7 @@ private fun OrderScreenPreview(
             increaseBurgerCount = { count++ },
             decreaseBurgerCount = { if (count > 0) count-- },
             onBackClick = {},
-            onNavigateToHistory = {},
+            onClickOrderButton = {},
             modifier = Modifier.background(McDonaldsTheme.colors.white)
         )
     }

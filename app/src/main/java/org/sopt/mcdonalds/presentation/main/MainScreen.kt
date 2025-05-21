@@ -62,6 +62,7 @@ private fun MainNavHost(
         orderGraph(
             onNavigateToUp = navController::navigateUp,
             onNavigateToHistory = { /* TODO */ },
+            onNavigateToMenuList = navController::navigateToMenuList,
             modifier = modifier,
         )
     }
