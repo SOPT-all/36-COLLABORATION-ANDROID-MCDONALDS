@@ -46,7 +46,7 @@ import org.sopt.mcdonalds.presentation.history.component.HistoryResultBar
 import org.sopt.mcdonalds.presentation.history.component.HistorySquareButton
 import org.sopt.mcdonalds.presentation.history.component.HistoryStoreBar
 import org.sopt.mcdonalds.presentation.history.component.HistoryTimeBar
-import org.sopt.mcdonalds.presentation.history.model.Cart
+import org.sopt.mcdonalds.domain.cart.model.Cart
 import org.sopt.mcdonalds.presentation.history.state.HistoryContract.HistoryState
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -143,7 +143,7 @@ private fun HistoryScreen(
             } else {
                 itemsIndexed(
                     items = uiState.cartList,
-                    key = { index, cart -> cart.cartId }
+                    key = { index, cart -> cart.id }
                 ) { index, cart ->
                     HistoryCartItem(
                         price = cart.price,
