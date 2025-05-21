@@ -45,7 +45,7 @@ import org.sopt.mcdonalds.presentation.order.model.Ingredient
 @Composable
 fun OrderBurgerDetailContainer(
     name: String,
-    imageURL: String,
+    @DrawableRes imageId: Int,
     ingredientList: List<Ingredient>,
     modifier: Modifier = Modifier
 ) {
@@ -68,8 +68,8 @@ fun OrderBurgerDetailContainer(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Start
         ) {
-            AsyncImage(
-                model = imageURL,
+            Image(
+                painter = painterResource(imageId),
                 contentDescription = null,
                 modifier = Modifier
                     .width(76.dp)
@@ -99,7 +99,7 @@ private fun OrderBurgerDetailContainerPreview() {
     MCDONALDSTheme {
         OrderBurgerDetailContainer(
             "더블 1955® 버거",
-            "",
+            R.drawable.img_burger_single,
             ingredientList = listOf(
                 Ingredient(
                     name = "양파",
