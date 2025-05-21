@@ -19,5 +19,11 @@ class CartRepositoryImpl @Inject constructor(
 
     override suspend fun updateCartAmount(cartId: Long, amount: Int): Result<Unit> = runCatching {
         cartDataSource.updateCartAmount(cartId, amount.toUpdateCartAmountRequest())
+    }.recoverCatching { e ->
+        if (e is SerializationException) {
+            Unit
+        } else {
+            throw e
+        }
     }
 }
