@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
+import org.sopt.mcdonalds.presentation.history.navigation.historyGraph
 import org.sopt.mcdonalds.presentation.menu.navigation.menuListGraph
 import org.sopt.mcdonalds.presentation.menu.navigation.navigateToMenuList
 import org.sopt.mcdonalds.presentation.order.navigation.orderGraph
@@ -19,11 +20,11 @@ import org.sopt.mcdonalds.presentation.store.navigation.storeGraph
 @Composable
 fun MainScreen() {
     Scaffold(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxSize()
     ) { innerPadding ->
         MainNavHost(
             navController = rememberNavController(),
-            modifier = Modifier.padding(innerPadding),
+            modifier = Modifier.padding(innerPadding)
         )
     }
 }
@@ -31,7 +32,7 @@ fun MainScreen() {
 @Composable
 private fun MainNavHost(
     navController: NavHostController,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     NavHost(
         enterTransition = { EnterTransition.None },
@@ -39,17 +40,23 @@ private fun MainNavHost(
         popEnterTransition = { EnterTransition.None },
         popExitTransition = { ExitTransition.None },
         navController = navController,
-        startDestination = Store,
+        startDestination = Store
     ) {
         storeGraph(
             onNavigateToMenuList = navController::navigateToMenuList,
-            modifier = modifier,
+            modifier = modifier
         )
 
         menuListGraph(
             onNavigateToUp = navController::navigateUp,
             onNavigateToOrder = { /* TODO */ },
-            modifier = modifier,
+            modifier = modifier
+        )
+
+        historyGraph(
+            onNavigateToMenuList = navController::navigateToMenuList,
+            onNavigateToOrder = { /* TODO */ },
+            modifier = modifier
         )
 
         orderGraph(

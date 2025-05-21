@@ -26,6 +26,7 @@
     <string name="store_address">노원구 동일로 1341(상계동), 서울특별시</string>
     <string name="store_open_hours">24시간</string>
     <string name="select_store">매장 선택하기</string>
+    <string name="store_title">중계역점</string>
 
     <!-- menu list   -->
     <string name="menu_list_title">버거 &amp; 세트</string>

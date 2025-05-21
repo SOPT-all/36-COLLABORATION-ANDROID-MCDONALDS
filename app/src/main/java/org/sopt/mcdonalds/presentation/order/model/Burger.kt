@@ -6,5 +6,5 @@ data class Burger(
     val singleImg: String,
     val singlePrice: String,
     val setImg: String,
-    val setPrice: String,
+    val setPrice: String
 )

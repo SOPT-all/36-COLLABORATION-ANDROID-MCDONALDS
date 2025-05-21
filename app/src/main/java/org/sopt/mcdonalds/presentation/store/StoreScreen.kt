@@ -3,8 +3,6 @@ package org.sopt.mcdonalds.presentation.store
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -27,6 +25,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import kotlin.random.Random
 import kotlinx.collections.immutable.toPersistentList
 import org.sopt.mcdonalds.R.drawable.ic_map_location_64
 import org.sopt.mcdonalds.R.drawable.img_map
@@ -38,7 +37,6 @@ import org.sopt.mcdonalds.presentation.store.component.StoreInformationCard
 import org.sopt.mcdonalds.presentation.store.component.StoreLocationFab
 import org.sopt.mcdonalds.presentation.store.component.StoreTopBar
 import org.sopt.mcdonalds.presentation.store.type.StoreType
-import kotlin.random.Random
 
 @Composable
 fun StoreRoute(
@@ -135,7 +133,7 @@ private fun StoreScreen(
 private fun StoreScreenPreview() {
     MCDONALDSTheme {
         StoreScreen(
-            onSelectStoreClick = {},
+            onSelectStoreClick = {}
         )
     }
 }

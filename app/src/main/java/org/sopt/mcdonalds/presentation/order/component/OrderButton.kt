@@ -35,7 +35,7 @@ fun OrderButton(
     text: String,
     onClick: () -> Unit,
     color: Color,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     val borderColor = McDonaldsTheme.colors.gray200
     Button(
@@ -58,7 +58,7 @@ fun OrderButton(
         contentPadding = PaddingValues(vertical = 19.dp, horizontal = 57.dp),
         colors = ButtonDefaults.buttonColors(color),
         shape = RoundedCornerShape(0.dp),
-        interactionSource = NoRippleInteractionSource,
+        interactionSource = NoRippleInteractionSource
     ) {
         Text(
             text = text,

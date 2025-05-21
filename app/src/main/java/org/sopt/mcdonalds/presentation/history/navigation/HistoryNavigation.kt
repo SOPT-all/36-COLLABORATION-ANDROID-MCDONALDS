@@ -1,4 +1,4 @@
-package org.sopt.mcdonalds.presentation.store.navigation
+package org.sopt.mcdonalds.presentation.history.navigation
 
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
@@ -7,21 +7,25 @@ import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import kotlinx.serialization.Serializable
 import org.sopt.mcdonalds.core.common.navigation.Route
-import org.sopt.mcdonalds.presentation.store.StoreRoute
+import org.sopt.mcdonalds.presentation.history.HistoryRoute
 
-fun NavController.navigateToStore(navOptions: NavOptions? = null) = navigate(Store, navOptions)
+fun NavController.navigateToHistory(navOptions: NavOptions? = null) {
+    navigate(History, navOptions)
+}
 
-fun NavGraphBuilder.storeGraph(
+fun NavGraphBuilder.historyGraph(
     onNavigateToMenuList: () -> Unit,
+    onNavigateToOrder: (Long) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    composable<Store> {
-        StoreRoute(
+    composable<History> {
+        HistoryRoute(
             onNavigateToMenuList = onNavigateToMenuList,
+            onNavigateToOrder = onNavigateToOrder,
             modifier = modifier
         )
     }
 }
 
 @Serializable
-data object Store : Route
+data object History : Route
