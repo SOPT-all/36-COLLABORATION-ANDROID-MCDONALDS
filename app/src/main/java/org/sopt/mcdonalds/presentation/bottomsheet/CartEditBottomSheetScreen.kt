@@ -40,30 +40,13 @@ import org.sopt.mcdonalds.presentation.order.model.Side
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CartEditBottomSheetRoute(
-    cart: Cart,
-    onDismiss: () -> Unit,
-    modifier: Modifier = Modifier
-) {
-    //TODO: uiState 추가
-
-    val sheetState = rememberModalBottomSheetState()
-    CartEditBottomSheetScreen(
-        cart = cart,
-        onDismiss = onDismiss,
-        sheetState = sheetState,
-        modifier = modifier
-    )
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-private fun CartEditBottomSheetScreen (
+fun CartEditBottomSheetScreen (
     cart: Cart,
     onDismiss: () -> Unit,
     sheetState: SheetState,
     modifier: Modifier = Modifier
 ){
+
     ModalBottomSheet(
         onDismissRequest = onDismiss,
         sheetState = sheetState,
