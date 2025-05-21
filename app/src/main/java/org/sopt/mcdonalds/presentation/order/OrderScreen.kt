@@ -35,11 +35,13 @@ import org.sopt.mcdonalds.core.designsystem.component.BorderedNumberIncrementer
 import org.sopt.mcdonalds.core.designsystem.component.DefaultTopBar
 import org.sopt.mcdonalds.core.designsystem.theme.MCDONALDSTheme
 import org.sopt.mcdonalds.core.designsystem.theme.McDonaldsTheme
+import org.sopt.mcdonalds.domain.menu.model.MenuDetail
 import org.sopt.mcdonalds.presentation.order.component.OrderBurgerDetailContainer
 import org.sopt.mcdonalds.presentation.order.component.OrderButton
 import org.sopt.mcdonalds.presentation.order.component.OrderSetSelectButton
 import org.sopt.mcdonalds.presentation.order.component.OrderSideDetailContainer
 import org.sopt.mcdonalds.presentation.order.model.Side
+import org.sopt.mcdonalds.presentation.order.state.OrderContract.OrderState
 import org.sopt.mcdonalds.presentation.order.type.SetType
 
 @Composable
@@ -52,9 +54,8 @@ fun OrderRoute(
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     OrderScreen(
-        setType = uiState.setType,
+        uiState = uiState,
         updateSetType = viewModel::updateSetType,
-        burgerCount = uiState.burgerCount,
         increaseBurgerCount = viewModel::increaseBurgerCount,
         decreaseBurgerCount = viewModel::decreaseBurgerCount,
         onBackClick = onBackClick,
@@ -66,9 +67,8 @@ fun OrderRoute(
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun OrderScreen(
-    setType: SetType,
+    uiState: OrderState,
     updateSetType: (SetType) -> Unit,
-    burgerCount: Int,
     increaseBurgerCount: () -> Unit,
     decreaseBurgerCount: () -> Unit,
     onBackClick: () -> Unit,
@@ -91,7 +91,7 @@ private fun OrderScreen(
         ) {
             Spacer(modifier = Modifier.height(32.dp))
             Text(
-                text = "더블 1955® 버거",/* TODO: 나중에 수정 */
+                text = uiState.menuDetail.name,
                 style = McDonaldsTheme.typography.head34b,
                 color = McDonaldsTheme.colors.gray800,
                 textAlign = TextAlign.Start,
@@ -111,14 +111,14 @@ private fun OrderScreen(
                 OrderSetSelectButton(
                     text = stringResource(R.string.order_change_set),
                     price = "",
-                    isSelected = setType == SetType.SET,
+                    isSelected = uiState.setType == SetType.SET,
                     imageURL = "",
                     onSelect = { updateSetType(SetType.SET) }
                 )
                 OrderSetSelectButton(
                     text = stringResource(R.string.order_change_single),
                     price = "",
-                    isSelected = setType == SetType.SINGLE,
+                    isSelected = uiState.setType == SetType.SINGLE,
                     imageURL = "",
                     onSelect = { updateSetType(SetType.SINGLE) }
                 )
@@ -131,7 +131,7 @@ private fun OrderScreen(
                 modifier = Modifier
                     .padding(horizontal = 20.dp)
             )
-            if (setType == SetType.SET) {
+            if (uiState.setType == SetType.SET) {
                 Spacer(modifier = Modifier.height(16.dp))
                 OrderSideDetailContainer(
                     ingredientList = persistentListOf(),
@@ -171,9 +171,9 @@ private fun OrderScreen(
             }
             Spacer(modifier = Modifier.height(24.dp))
             BorderedNumberIncrementer(
-                count = burgerCount,
+                count = uiState.burgerCount,
                 onIncrementClick = { increaseBurgerCount() },
-                onDecrementClick = { if (burgerCount > 0) decreaseBurgerCount() },
+                onDecrementClick = { if (uiState.burgerCount > 0) decreaseBurgerCount() },
                 modifier = Modifier
                     .width(145.dp)
                     .height(40.dp)
@@ -228,9 +228,17 @@ private fun OrderScreenPreview(
     var count by remember { mutableStateOf(1) }
     MCDONALDSTheme {
         OrderScreen(
-            setType = SetType.SET,
+            uiState = OrderState(
+                menuDetail = MenuDetail(
+                    id = 0,
+                    name = "",
+                    singleImg = "",
+                    singlePrice = "",
+                    setImg = "",
+                    setPrice = ""
+                )
+            ),
             updateSetType = {},
-            burgerCount = count,
             increaseBurgerCount = { count++ },
             decreaseBurgerCount = { if (count > 0) count-- },
             onBackClick = {},
