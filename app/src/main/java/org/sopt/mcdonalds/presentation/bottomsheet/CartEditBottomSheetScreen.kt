@@ -16,7 +16,6 @@ import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.SheetState
 import androidx.compose.material3.SheetValue
 import androidx.compose.material3.Text
-import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -28,42 +27,39 @@ import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.persistentListOf
 import org.sopt.mcdonalds.R
 import org.sopt.mcdonalds.R.drawable.ic_close_24
-import org.sopt.mcdonalds.R.string.select_store
 import org.sopt.mcdonalds.core.common.util.noRippleClickable
 import org.sopt.mcdonalds.core.designsystem.theme.MCDONALDSTheme
 import org.sopt.mcdonalds.core.designsystem.theme.McDonaldsTheme
 import org.sopt.mcdonalds.presentation.history.model.Cart
 import org.sopt.mcdonalds.presentation.order.component.OrderBurgerDetailContainer
 import org.sopt.mcdonalds.presentation.order.component.OrderSideDetailContainer
-import org.sopt.mcdonalds.presentation.order.model.Burger
 import org.sopt.mcdonalds.presentation.order.model.Side
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CartEditBottomSheetScreen (
+fun CartEditBottomSheetScreen(
     cart: Cart,
     onDismiss: () -> Unit,
     sheetState: SheetState,
     modifier: Modifier = Modifier
-){
-
+) {
     ModalBottomSheet(
         onDismissRequest = onDismiss,
         sheetState = sheetState,
         shape = RoundedCornerShape(topStart = 12.dp, topEnd = 12.dp),
         dragHandle = null
     ) {
-        Column (
+        Column(
             modifier = modifier
                 .fillMaxWidth()
                 .background(color = McDonaldsTheme.colors.white)
                 .padding(25.dp)
         ) {
-            Row (
+            Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
-            ){
+            ) {
                 Text(
                     text = if (cart.isSet) "${cart.menuName} - 세트" else cart.menuName,
                     style = McDonaldsTheme.typography.body14b,
@@ -88,7 +84,7 @@ fun CartEditBottomSheetScreen (
                     imageId = R.drawable.img_burger_single,
                     ingredientList = persistentListOf()
                 )
-                if(cart.isSet){
+                if (cart.isSet) {
                     OrderSideDetailContainer(
                         ingredientList = persistentListOf(),
                         sideList = persistentListOf(
@@ -147,7 +143,7 @@ fun CartEditBottomSheetScreen (
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview
 @Composable
-private fun CartEditBottomSheetScreenPreview(){
+private fun CartEditBottomSheetScreenPreview() {
     MCDONALDSTheme {
         CartEditBottomSheetScreen(
             cart = Cart(
