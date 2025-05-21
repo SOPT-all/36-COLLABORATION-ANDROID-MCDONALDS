@@ -3,6 +3,7 @@ package org.sopt.mcdonalds.data.cart.service
 import java.util.Objects
 import org.sopt.mcdonalds.core.network.BaseResponse
 import org.sopt.mcdonalds.data.cart.dto.CartListResponse
+import org.sopt.mcdonalds.data.cart.dto.UpdateCartAmountRequest
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.PATCH
@@ -15,6 +16,6 @@ interface CartService {
     @PATCH("cart/{cartItemId}")
     suspend fun updateCartAmount(
         @Path("cartItemId") cartItemId: Long,
-        @Body amount: Int,
+        @Body request: UpdateCartAmountRequest,
     ): BaseResponse<Unit>
 }

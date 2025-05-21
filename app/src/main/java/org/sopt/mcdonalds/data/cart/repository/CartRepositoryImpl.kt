@@ -1,8 +1,10 @@
 package org.sopt.mcdonalds.data.cart.repository
 
 import javax.inject.Inject
+import kotlinx.serialization.SerializationException
 import org.sopt.mcdonalds.data.cart.datasource.CartDataSource
-import org.sopt.mcdonalds.data.cart.toDomain
+import org.sopt.mcdonalds.data.cart.mapper.toDomain
+import org.sopt.mcdonalds.data.cart.mapper.toUpdateCartAmountRequest
 import org.sopt.mcdonalds.domain.cart.model.Cart
 import org.sopt.mcdonalds.domain.cart.repository.CartRepository
 
@@ -16,6 +18,6 @@ class CartRepositoryImpl @Inject constructor(
     }
 
     override suspend fun updateCartAmount(cartId: Long, amount: Int): Result<Unit> = runCatching {
-        cartDataSource.updateCartAmount(cartId, amount)
+        cartDataSource.updateCartAmount(cartId, amount.toUpdateCartAmountRequest())
     }
 }

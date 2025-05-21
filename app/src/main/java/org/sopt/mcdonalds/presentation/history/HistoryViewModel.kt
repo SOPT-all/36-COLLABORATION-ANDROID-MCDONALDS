@@ -14,6 +14,7 @@ import org.sopt.mcdonalds.domain.cart.usecase.UpdateCartAmountUseCase
 import org.sopt.mcdonalds.domain.cart.model.Cart
 import org.sopt.mcdonalds.presentation.history.model.RecentBurger
 import org.sopt.mcdonalds.presentation.history.state.HistoryContract.HistoryState
+import timber.log.Timber
 
 @HiltViewModel
 class HistoryViewModel @Inject constructor(
@@ -27,6 +28,7 @@ class HistoryViewModel @Inject constructor(
         viewModelScope.launch {
             getCartsUseCase().onSuccess {
                 updateCartList(it)
+                updatePriceSum()
             }.onFailure {
                 // TODO: API Called Failed
             }
@@ -42,6 +44,12 @@ class HistoryViewModel @Inject constructor(
     private fun updateRecentBurgerList(recentBurgerList: List<RecentBurger>) {
         _uiState.update {
             it.copy(recentBurgerList = recentBurgerList.toImmutableList())
+        }
+    }
+
+    private fun updatePriceSum(){
+        _uiState.update {
+            it.copy(priceSum = it.cartList.sumOf { cart -> cart.price * cart.amount })
         }
     }
 

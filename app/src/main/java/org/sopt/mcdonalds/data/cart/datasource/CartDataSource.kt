@@ -1,6 +1,7 @@
 package org.sopt.mcdonalds.data.cart.datasource
 
 import javax.inject.Inject
+import org.sopt.mcdonalds.data.cart.dto.UpdateCartAmountRequest
 import org.sopt.mcdonalds.data.cart.service.CartService
 
 class CartDataSource @Inject constructor(
@@ -10,6 +11,6 @@ class CartDataSource @Inject constructor(
 
     suspend fun updateCartAmount(
         cartItemId: Long,
-        amount: Int
-    ) = cartService.updateCartAmount(cartItemId, amount).data
+        request: UpdateCartAmountRequest
+    ) = cartService.updateCartAmount(cartItemId, request).data
 }
