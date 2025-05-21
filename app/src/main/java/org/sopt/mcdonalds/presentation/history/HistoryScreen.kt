@@ -77,7 +77,7 @@ fun HistoryRoute(
         openBottomSheet = {it -> bottomSheetCart = it},
         increaseCount = viewModel::increaseCount,
         decreaseCount = viewModel::decreaseCount,
-        modifier = modifier
+        modifier = modifier.background(color = McDonaldsTheme.colors.white)
     )
 }
 
