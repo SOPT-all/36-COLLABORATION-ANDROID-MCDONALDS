@@ -5,7 +5,6 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
 import kotlinx.serialization.json.Json
 import okhttp3.Interceptor
 import okhttp3.MediaType.Companion.toMediaType
@@ -20,6 +19,7 @@ import org.sopt.mcdonalds.core.network.isJsonObject
 import retrofit2.Converter
 import retrofit2.Retrofit
 import timber.log.Timber
+import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -63,43 +63,26 @@ object NetworkModule {
     @JWT
     @Provides
     @Singleton
-    fun provideJWTHttpLoggingInterceptor(authInterceptor: AuthInterceptor): Interceptor =
-        authInterceptor
+    fun provideJwtInterceptor(
+        authInterceptor: AuthInterceptor,
+    ): Interceptor = authInterceptor
 
+    @JWT
     @Provides
     @Singleton
     fun provideOkHttpClient(
-        loggingInterceptor: Interceptor
+        loggingInterceptor: Interceptor,
+        @JWT headerInterceptor: Interceptor,
     ): OkHttpClient = OkHttpClient.Builder()
         .addInterceptor(loggingInterceptor)
+        .addInterceptor(headerInterceptor)
         .build()
 
-    @JWT
     @Provides
     @Singleton
-    fun provideJWTOkHttpClient(
-        loggingInterceptor: Interceptor,
-        authInterceptor: AuthInterceptor
-    ): OkHttpClient = OkHttpClient.Builder()
-        .addInterceptor(loggingInterceptor)
-        .addInterceptor(authInterceptor)
-        .build()
-
-    @Provides
     fun provideRetrofit(
-        client: OkHttpClient,
-        factory: Converter.Factory
-    ): Retrofit = Retrofit.Builder()
-        .baseUrl(BASE_URL)
-        .client(client)
-        .addConverterFactory(factory)
-        .build()
-
-    @JWT
-    @Provides
-    fun provideJWTRetrofit(
         @JWT client: OkHttpClient,
-        factory: Converter.Factory
+        factory: Converter.Factory,
     ): Retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)
         .client(client)

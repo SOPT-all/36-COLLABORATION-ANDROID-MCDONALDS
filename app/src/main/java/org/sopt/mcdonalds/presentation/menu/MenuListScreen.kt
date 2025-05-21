@@ -71,7 +71,7 @@ private fun MenuListScreen(
         MenuListContent(
             menus = uiState.menuList,
             onMenuClick = onMenuClick,
-            modifier = modifier
+            modifier = Modifier
         )
     }
 }
