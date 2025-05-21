@@ -49,12 +49,12 @@ fun OrderRoute(
     modifier: Modifier = Modifier,
     viewModel: OrderViewModel = hiltViewModel()
 ) {
-    val setType by viewModel.setType.collectAsStateWithLifecycle()
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     OrderScreen(
-        setType = setType,
+        setType = uiState.setType,
         updateSetType = viewModel::updateSetType,
-        burgerCount = viewModel.burgerCount.value,
+        burgerCount = uiState.burgerCount,
         increaseBurgerCount = viewModel::increaseBurgerCount,
         decreaseBurgerCount = viewModel::decreaseBurgerCount,
         onBackClick = onBackClick,
