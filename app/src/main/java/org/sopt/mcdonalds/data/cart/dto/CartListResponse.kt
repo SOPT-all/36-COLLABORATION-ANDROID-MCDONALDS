@@ -1,4 +1,4 @@
-package org.sopt.mcdonalds.data.dto
+package org.sopt.mcdonalds.data.cart.dto
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

@@ -2,7 +2,7 @@ package org.sopt.mcdonalds.data.cart.service
 
 import java.util.Objects
 import org.sopt.mcdonalds.core.network.BaseResponse
-import org.sopt.mcdonalds.data.dto.CartListResponse
+import org.sopt.mcdonalds.data.cart.dto.CartListResponse
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.PATCH
