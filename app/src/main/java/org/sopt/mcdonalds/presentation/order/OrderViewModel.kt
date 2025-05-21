@@ -18,6 +18,7 @@ import org.sopt.mcdonalds.domain.menu.usecase.GetMenuDetailUseCase
 import org.sopt.mcdonalds.presentation.order.navigation.Order
 import org.sopt.mcdonalds.presentation.order.state.OrderContract.OrderState
 import org.sopt.mcdonalds.presentation.order.type.SetType
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -82,6 +83,7 @@ class OrderViewModel @Inject constructor(
 
     fun onClickOrderButton(routeDestination: RouteDestination) {
         viewModelScope.launch {
+            Timber.d("post 요청 시작")
             postCartUseCase(
                 cartDetail = CartDetail(
                     setType = uiState.value.setType,
@@ -89,8 +91,10 @@ class OrderViewModel @Inject constructor(
                     menuId = uiState.value.menuDetail.id
                 )
             ).onSuccess {
+                Timber.d("post 요청 성공", routeDestination)
                 _destination.emit(routeDestination)
             }.onFailure {
+                Timber.e(it, "post 실패: ${it.message}")
                 // TODO
             }
         }
