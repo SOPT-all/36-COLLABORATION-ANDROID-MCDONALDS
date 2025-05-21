@@ -14,7 +14,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -36,6 +38,7 @@ import org.sopt.mcdonalds.R
 import org.sopt.mcdonalds.core.designsystem.component.DefaultTopBar
 import org.sopt.mcdonalds.core.designsystem.theme.MCDONALDSTheme
 import org.sopt.mcdonalds.core.designsystem.theme.McDonaldsTheme
+import org.sopt.mcdonalds.presentation.bottomsheet.CartEditBottomSheetScreen
 import org.sopt.mcdonalds.presentation.history.component.HistoryCartItem
 import org.sopt.mcdonalds.presentation.history.component.HistoryMenuAddButton
 import org.sopt.mcdonalds.presentation.history.component.HistoryRecentBurgerItem
@@ -43,8 +46,10 @@ import org.sopt.mcdonalds.presentation.history.component.HistoryResultBar
 import org.sopt.mcdonalds.presentation.history.component.HistorySquareButton
 import org.sopt.mcdonalds.presentation.history.component.HistoryStoreBar
 import org.sopt.mcdonalds.presentation.history.component.HistoryTimeBar
+import org.sopt.mcdonalds.presentation.history.model.Cart
 import org.sopt.mcdonalds.presentation.history.state.HistoryContract.HistoryState
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HistoryRoute(
     onNavigateToMenuList: () -> Unit,
@@ -53,13 +58,25 @@ fun HistoryRoute(
     viewModel: HistoryViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val sheetState = rememberModalBottomSheetState()
+    var bottomSheetCart by remember { mutableStateOf<Cart?>(null) }
+
+    if (bottomSheetCart != null) {
+        CartEditBottomSheetScreen(
+            cart = bottomSheetCart!!,
+            onDismiss = { bottomSheetCart = null },
+            sheetState = sheetState
+        )
+    }
+
     HistoryScreen(
         uiState = uiState,
         onNavigateToMenuList = onNavigateToMenuList,
         onNavigateToOrder = onNavigateToOrder,
+        openBottomSheet = { it -> bottomSheetCart = it },
         increaseCount = viewModel::increaseCount,
         decreaseCount = viewModel::decreaseCount,
-        modifier = modifier
+        modifier = modifier.background(color = McDonaldsTheme.colors.white)
     )
 }
 
@@ -69,6 +86,7 @@ private fun HistoryScreen(
     uiState: HistoryState,
     onNavigateToMenuList: () -> Unit,
     onNavigateToOrder: (Long) -> Unit,
+    openBottomSheet: (Cart) -> Unit,
     increaseCount: (Int) -> Unit,
     decreaseCount: (Int) -> Unit,
     modifier: Modifier = Modifier
@@ -139,7 +157,7 @@ private fun HistoryScreen(
                         onDecrementClick = {
                             decreaseCount(index)
                         },
-                        onEditClick = { /*TODO*/ },
+                        onEditClick = { openBottomSheet(cart) },
                         onDeleteClick = { /*구현 안함*/ }
                     )
                 }
@@ -213,6 +231,7 @@ private fun HistoryScreenPreview() {
             uiState = HistoryState(),
             onNavigateToMenuList = {},
             onNavigateToOrder = {},
+            openBottomSheet = {},
             increaseCount = {},
             decreaseCount = {},
             modifier = Modifier.background(McDonaldsTheme.colors.white)
