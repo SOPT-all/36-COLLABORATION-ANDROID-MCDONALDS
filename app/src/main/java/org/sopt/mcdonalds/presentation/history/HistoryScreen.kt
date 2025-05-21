@@ -38,6 +38,7 @@ import org.sopt.mcdonalds.R
 import org.sopt.mcdonalds.core.designsystem.component.DefaultTopBar
 import org.sopt.mcdonalds.core.designsystem.theme.MCDONALDSTheme
 import org.sopt.mcdonalds.core.designsystem.theme.McDonaldsTheme
+import org.sopt.mcdonalds.domain.cart.model.Cart
 import org.sopt.mcdonalds.presentation.bottomsheet.CartEditBottomSheetScreen
 import org.sopt.mcdonalds.presentation.history.component.HistoryCartItem
 import org.sopt.mcdonalds.presentation.history.component.HistoryMenuAddButton
@@ -46,7 +47,6 @@ import org.sopt.mcdonalds.presentation.history.component.HistoryResultBar
 import org.sopt.mcdonalds.presentation.history.component.HistorySquareButton
 import org.sopt.mcdonalds.presentation.history.component.HistoryStoreBar
 import org.sopt.mcdonalds.presentation.history.component.HistoryTimeBar
-import org.sopt.mcdonalds.domain.cart.model.Cart
 import org.sopt.mcdonalds.presentation.history.state.HistoryContract.HistoryState
 
 @OptIn(ExperimentalMaterial3Api::class)

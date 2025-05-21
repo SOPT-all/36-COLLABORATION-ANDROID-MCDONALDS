@@ -1,7 +1,7 @@
 package org.sopt.mcdonalds.data.menu.datasource
 
-import org.sopt.mcdonalds.data.menu.service.MenuService
 import javax.inject.Inject
+import org.sopt.mcdonalds.data.menu.service.MenuService
 
 class MenuDataSource @Inject constructor(
     private val menuService: MenuService

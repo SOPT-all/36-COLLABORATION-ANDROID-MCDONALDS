@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class UpdateCartAmountRequest (
+data class UpdateCartAmountRequest(
     @SerialName("amount")
     val amount: Int
 )

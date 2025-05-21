@@ -77,7 +77,7 @@ private fun OrderScreen(
 ) {
     Column(
         modifier = modifier
-            .fillMaxSize(),
+            .fillMaxSize()
     ) {
         DefaultTopBar(
             onBackClick = onBackClick
@@ -91,7 +91,7 @@ private fun OrderScreen(
         ) {
             Spacer(modifier = Modifier.height(32.dp))
             Text(
-                text = "더블 1955® 버거",/* TODO: 나중에 수정 */
+                text = "더블 1955® 버거", /* TODO: 나중에 수정 */
                 style = McDonaldsTheme.typography.head34b,
                 color = McDonaldsTheme.colors.gray800,
                 textAlign = TextAlign.Start,
@@ -163,7 +163,7 @@ private fun OrderScreen(
                         Side(
                             name = stringResource(R.string.order_drink_zero_coke),
                             imageId = R.drawable.img_drink_zero_coke
-                        ),
+                        )
                     ),
                     modifier = Modifier
                         .padding(horizontal = 20.dp)
@@ -202,7 +202,7 @@ private fun OrderScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(58.dp),
-                verticalAlignment = Alignment.CenterVertically,
+                verticalAlignment = Alignment.CenterVertically
             ) {
                 OrderButton(
                     text = stringResource(R.string.order_order_button),
@@ -223,8 +223,7 @@ private fun OrderScreen(
 
 @Preview
 @Composable
-private fun OrderScreenPreview(
-) {
+private fun OrderScreenPreview() {
     var count by remember { mutableStateOf(1) }
     MCDONALDSTheme {
         OrderScreen(

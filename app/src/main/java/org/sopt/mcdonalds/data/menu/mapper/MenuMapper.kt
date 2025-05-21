@@ -10,7 +10,7 @@ fun MenuListResponse.toDomain() = this.menus.map {
         id = it.id,
         name = it.name,
         imageUrl = it.img,
-        price = it.price,
+        price = it.price
     )
 }
 
@@ -20,5 +20,5 @@ fun MenuDetailResponse.toDomain() = MenuDetail(
     singleImg = this.singleImg,
     singlePrice = this.singlePrice,
     setImg = this.setImg,
-    setPrice = this.setPrice,
+    setPrice = this.setPrice
 )

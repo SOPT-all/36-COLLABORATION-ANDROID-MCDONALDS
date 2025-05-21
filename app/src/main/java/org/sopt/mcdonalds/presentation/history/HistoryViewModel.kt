@@ -10,12 +10,11 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import org.sopt.mcdonalds.domain.cart.model.Cart
 import org.sopt.mcdonalds.domain.cart.usecase.GetCartsUseCase
 import org.sopt.mcdonalds.domain.cart.usecase.UpdateCartAmountUseCase
-import org.sopt.mcdonalds.domain.cart.model.Cart
 import org.sopt.mcdonalds.presentation.history.model.RecentBurger
 import org.sopt.mcdonalds.presentation.history.state.HistoryContract.HistoryState
-import timber.log.Timber
 
 @HiltViewModel
 class HistoryViewModel @Inject constructor(
@@ -49,14 +48,14 @@ class HistoryViewModel @Inject constructor(
         }
     }
 
-    private fun updatePriceSum(){
+    private fun updatePriceSum() {
         _uiState.update {
             it.copy(priceSum = it.cartList.sumOf { cart -> cart.price * cart.amount })
         }
     }
 
     fun increaseCount(index: Int) {
-        if(!canClick) return
+        if (!canClick) return
         canClick = false
 
         viewModelScope.launch {
@@ -82,10 +81,10 @@ class HistoryViewModel @Inject constructor(
     }
 
     fun decreaseCount(index: Int) {
-        if(!canClick) return
+        if (!canClick) return
         canClick = false
 
-        if(uiState.value.cartList[index].amount <= 1) return
+        if (uiState.value.cartList[index].amount <= 1) return
         viewModelScope.launch {
             updateCartAmountUseCase(
                 cartId = uiState.value.cartList[index].id,

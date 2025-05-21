@@ -4,5 +4,5 @@ data class Menu(
     val id: Long,
     val name: String,
     val imageUrl: String,
-    val price: String,
+    val price: String
 )

@@ -1,8 +1,8 @@
 package org.sopt.mcdonalds.data.menu.service
 
 import org.sopt.mcdonalds.core.network.BaseResponse
-import org.sopt.mcdonalds.data.menu.dto.MenuListResponse
 import org.sopt.mcdonalds.data.menu.dto.MenuDetailResponse
+import org.sopt.mcdonalds.data.menu.dto.MenuListResponse
 import retrofit2.http.GET
 import retrofit2.http.Path
 

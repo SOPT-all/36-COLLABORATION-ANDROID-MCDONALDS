@@ -10,7 +10,7 @@ import org.sopt.mcdonalds.domain.cart.repository.CartRepository
 
 class CartRepositoryImpl @Inject constructor(
     private val cartDataSource: CartDataSource
-): CartRepository {
+) : CartRepository {
     override suspend fun getCarts(): Result<List<Cart>> = runCatching {
         cartDataSource.getCarts()
     }.mapCatching {
