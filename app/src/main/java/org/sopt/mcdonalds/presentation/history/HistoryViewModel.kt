@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.collections.immutable.toImmutableList
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -23,6 +24,7 @@ class HistoryViewModel @Inject constructor(
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(HistoryState())
     val uiState = _uiState.asStateFlow()
+    var canClick = true
 
     init {
         viewModelScope.launch {
@@ -54,6 +56,9 @@ class HistoryViewModel @Inject constructor(
     }
 
     fun increaseCount(index: Int) {
+        if(!canClick) return
+        canClick = false
+
         viewModelScope.launch {
             updateCartAmountUseCase(
                 cartId = uiState.value.cartList[index].id,
@@ -71,10 +76,15 @@ class HistoryViewModel @Inject constructor(
             }.onFailure {
                 // TODO: API Called Failed
             }
+            delay(1000L)
+            canClick = true
         }
     }
 
     fun decreaseCount(index: Int) {
+        if(!canClick) return
+        canClick = false
+
         if(uiState.value.cartList[index].amount <= 1) return
         viewModelScope.launch {
             updateCartAmountUseCase(
@@ -93,6 +103,8 @@ class HistoryViewModel @Inject constructor(
             }.onFailure {
                 // TODO: API Called Failed
             }
+            delay(1000L)
+            canClick = true
         }
     }
 }
