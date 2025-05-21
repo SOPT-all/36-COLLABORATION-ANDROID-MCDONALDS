@@ -58,7 +58,7 @@ fun HistoryRoute(
     viewModel: HistoryViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-    val sheetState = rememberModalBottomSheetState()
+    val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
     var bottomSheetCart by remember { mutableStateOf<Cart?>(null) }
 
     if (bottomSheetCart != null) {
