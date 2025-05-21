@@ -28,6 +28,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kotlinx.collections.immutable.persistentListOf
 import org.sopt.mcdonalds.R
 import org.sopt.mcdonalds.core.designsystem.component.BorderedNumberIncrementer
@@ -48,8 +49,10 @@ fun OrderRoute(
     modifier: Modifier = Modifier,
     viewModel: OrderViewModel = hiltViewModel()
 ) {
+    val setType by viewModel.setType.collectAsStateWithLifecycle()
+
     OrderScreen(
-        setType = viewModel.setType.value,
+        setType = setType,
         updateSetType = viewModel::updateSetType,
         burgerCount = viewModel.burgerCount.value,
         increaseBurgerCount = viewModel::increaseBurgerCount,
