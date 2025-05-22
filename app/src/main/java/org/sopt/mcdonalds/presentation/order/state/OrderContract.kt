@@ -9,4 +9,13 @@ class OrderContract {
         val burgerCount: Int = 1,
         val setType: SetType = SetType.SET,
     )
+
+    data class OrderSideEffect(
+        val routeDestination: RouteDestination
+    )
+}
+
+sealed class RouteDestination {
+    object MenuList : RouteDestination()
+    object History : RouteDestination()
 }

@@ -29,7 +29,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.findViewTreeLifecycleOwner
+import androidx.lifecycle.flowWithLifecycle
 import kotlinx.collections.immutable.persistentListOf
 import org.sopt.mcdonalds.R
 import org.sopt.mcdonalds.core.designsystem.component.BorderedNumberIncrementer
@@ -42,7 +45,9 @@ import org.sopt.mcdonalds.presentation.order.component.OrderButton
 import org.sopt.mcdonalds.presentation.order.component.OrderSetSelectButton
 import org.sopt.mcdonalds.presentation.order.component.OrderSideDetailContainer
 import org.sopt.mcdonalds.presentation.order.model.Side
+import org.sopt.mcdonalds.presentation.order.state.OrderContract
 import org.sopt.mcdonalds.presentation.order.state.OrderContract.OrderState
+import org.sopt.mcdonalds.presentation.order.state.RouteDestination
 import org.sopt.mcdonalds.presentation.order.type.SetType
 
 @Composable
@@ -54,13 +59,16 @@ fun OrderRoute(
     viewModel: OrderViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-    LaunchedEffect(Unit) {
-        viewModel.destination.collect { destination ->
-            when (destination) {
-                is RouteDestination.History -> onNavigateToHistory()
-                is RouteDestination.MenuList -> onNavigateToMenuList()
+    val lifecycleOwner = LocalLifecycleOwner.current
+
+    LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {
+        viewModel.sideEffect.flowWithLifecycle(lifecycle = lifecycleOwner.lifecycle)
+            .collect { sideEffect ->
+                when (sideEffect.routeDestination) {
+                    is RouteDestination.History -> onNavigateToHistory()
+                    is RouteDestination.MenuList -> onNavigateToMenuList()
+                }
             }
-        }
     }
 
     OrderScreen(

@@ -16,7 +16,9 @@ import org.sopt.mcdonalds.domain.cart.usecase.PostCartUseCase
 import org.sopt.mcdonalds.domain.menu.model.MenuDetail
 import org.sopt.mcdonalds.domain.menu.usecase.GetMenuDetailUseCase
 import org.sopt.mcdonalds.presentation.order.navigation.Order
+import org.sopt.mcdonalds.presentation.order.state.OrderContract.OrderSideEffect
 import org.sopt.mcdonalds.presentation.order.state.OrderContract.OrderState
+import org.sopt.mcdonalds.presentation.order.state.RouteDestination
 import org.sopt.mcdonalds.presentation.order.type.SetType
 import timber.log.Timber
 import javax.inject.Inject
@@ -44,8 +46,8 @@ class OrderViewModel @Inject constructor(
     )
     val uiState = _uiState.asStateFlow()
 
-    private val _destination = MutableSharedFlow<RouteDestination>()
-    val destination = _destination.asSharedFlow()
+    private val _sideEffect = MutableSharedFlow<OrderSideEffect>()
+    val sideEffect = _sideEffect.asSharedFlow()
 
     init {
         viewModelScope.launch {
@@ -92,16 +94,11 @@ class OrderViewModel @Inject constructor(
                 )
             ).onSuccess {
                 Timber.d("post 요청 성공", routeDestination)
-                _destination.emit(routeDestination)
+                _sideEffect.emit(OrderSideEffect(routeDestination))
             }.onFailure {
                 Timber.e(it, "post 실패: ${it.message}")
                 // TODO
             }
         }
     }
-}
-
-sealed class RouteDestination {
-    object MenuList : RouteDestination()
-    object History : RouteDestination()
 }
