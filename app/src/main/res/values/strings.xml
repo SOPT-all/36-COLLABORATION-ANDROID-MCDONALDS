@@ -53,8 +53,12 @@
     <string name="order_side_coleslaw">코울슬로</string>
 
     <string name="order_drink_sprite">스프라이트</string>
-    <string name="order_drink_zero_coke">코카 콜라 제로</string>
+    <string name="order_drink_mango_ice_tea">망고 피치 아이스티</string>
+    <string name="order_drink_peach_ice_tea">피치 아이스티</string>
     <string name="order_drink_coke">코카 콜라</string>
+    <string name="order_drink_fanta">환타</string>
+    <string name="order_drink_zero_coke">코카 콜라 제로</string>
+
 
     <string name="order_product_info">원산지, 영양성분 및 알레르기 정보</string>
 
