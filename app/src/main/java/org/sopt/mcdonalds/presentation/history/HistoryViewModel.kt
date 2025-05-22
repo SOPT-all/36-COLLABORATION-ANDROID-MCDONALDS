@@ -84,7 +84,10 @@ class HistoryViewModel @Inject constructor(
         if (!canClick) return
         canClick = false
 
-        if (uiState.value.cartList[index].amount <= 1) return
+        if (uiState.value.cartList[index].amount <= 1){
+            canClick = true
+            return
+        }
         viewModelScope.launch {
             updateCartAmountUseCase(
                 cartId = uiState.value.cartList[index].id,
