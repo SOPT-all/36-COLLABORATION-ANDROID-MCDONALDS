@@ -16,6 +16,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -28,37 +29,55 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.findViewTreeLifecycleOwner
+import androidx.lifecycle.flowWithLifecycle
 import kotlinx.collections.immutable.persistentListOf
 import org.sopt.mcdonalds.R
 import org.sopt.mcdonalds.core.designsystem.component.BorderedNumberIncrementer
 import org.sopt.mcdonalds.core.designsystem.component.DefaultTopBar
 import org.sopt.mcdonalds.core.designsystem.theme.MCDONALDSTheme
 import org.sopt.mcdonalds.core.designsystem.theme.McDonaldsTheme
+import org.sopt.mcdonalds.domain.menu.model.MenuDetail
 import org.sopt.mcdonalds.presentation.order.component.OrderBurgerDetailContainer
 import org.sopt.mcdonalds.presentation.order.component.OrderButton
 import org.sopt.mcdonalds.presentation.order.component.OrderSetSelectButton
 import org.sopt.mcdonalds.presentation.order.component.OrderSideDetailContainer
 import org.sopt.mcdonalds.presentation.order.model.Side
+import org.sopt.mcdonalds.presentation.order.state.OrderContract
+import org.sopt.mcdonalds.presentation.order.state.OrderContract.OrderState
+import org.sopt.mcdonalds.presentation.order.state.RouteDestination
 import org.sopt.mcdonalds.presentation.order.type.SetType
 
 @Composable
 fun OrderRoute(
     onBackClick: () -> Unit,
     onNavigateToHistory: () -> Unit,
+    onNavigateToMenuList: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: OrderViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val lifecycleOwner = LocalLifecycleOwner.current
+
+    LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {
+        viewModel.sideEffect.flowWithLifecycle(lifecycle = lifecycleOwner.lifecycle)
+            .collect { sideEffect ->
+                when (sideEffect.routeDestination) {
+                    is RouteDestination.History -> onNavigateToHistory()
+                    is RouteDestination.MenuList -> onNavigateToMenuList()
+                }
+            }
+    }
 
     OrderScreen(
-        setType = uiState.setType,
+        uiState = uiState,
         updateSetType = viewModel::updateSetType,
-        burgerCount = uiState.burgerCount,
         increaseBurgerCount = viewModel::increaseBurgerCount,
         decreaseBurgerCount = viewModel::decreaseBurgerCount,
         onBackClick = onBackClick,
-        onNavigateToHistory = onNavigateToHistory,
+        onClickOrderButton = viewModel::onClickOrderButton,
         modifier = modifier
     )
 }
@@ -66,13 +85,12 @@ fun OrderRoute(
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun OrderScreen(
-    setType: SetType,
+    uiState: OrderState,
     updateSetType: (SetType) -> Unit,
-    burgerCount: Int,
     increaseBurgerCount: () -> Unit,
     decreaseBurgerCount: () -> Unit,
     onBackClick: () -> Unit,
-    onNavigateToHistory: () -> Unit,
+    onClickOrderButton: (RouteDestination) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -91,7 +109,7 @@ private fun OrderScreen(
         ) {
             Spacer(modifier = Modifier.height(32.dp))
             Text(
-                text = "더블 1955® 버거",/* TODO: 나중에 수정 */
+                text = uiState.menuDetail.name,
                 style = McDonaldsTheme.typography.head34b,
                 color = McDonaldsTheme.colors.gray800,
                 textAlign = TextAlign.Start,
@@ -109,29 +127,29 @@ private fun OrderScreen(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 OrderSetSelectButton(
-                    text = stringResource(R.string.order_change_set),
-                    price = "",
-                    isSelected = setType == SetType.SET,
-                    imageURL = "",
-                    onSelect = { updateSetType(SetType.SET) }
+                    text = stringResource(R.string.order_change_single),
+                    price = uiState.menuDetail.singlePrice,
+                    isSelected = uiState.setType == SetType.SINGLE,
+                    imageURL = uiState.menuDetail.singleImg,
+                    onSelect = { updateSetType(SetType.SINGLE) }
                 )
                 OrderSetSelectButton(
-                    text = stringResource(R.string.order_change_single),
-                    price = "",
-                    isSelected = setType == SetType.SINGLE,
-                    imageURL = "",
-                    onSelect = { updateSetType(SetType.SINGLE) }
+                    text = stringResource(R.string.order_change_set),
+                    price = uiState.menuDetail.setPrice,
+                    isSelected = uiState.setType == SetType.SET,
+                    imageURL = uiState.menuDetail.setImg,
+                    onSelect = { updateSetType(SetType.SET) }
                 )
             }
             Spacer(modifier = Modifier.height(24.dp))
             OrderBurgerDetailContainer(
-                name = "",
+                name = uiState.menuDetail.name,
                 imageId = R.drawable.img_burger_single,
                 ingredientList = persistentListOf(),
                 modifier = Modifier
                     .padding(horizontal = 20.dp)
             )
-            if (setType == SetType.SET) {
+            if (uiState.setType == SetType.SET) {
                 Spacer(modifier = Modifier.height(16.dp))
                 OrderSideDetailContainer(
                     ingredientList = persistentListOf(),
@@ -171,9 +189,9 @@ private fun OrderScreen(
             }
             Spacer(modifier = Modifier.height(24.dp))
             BorderedNumberIncrementer(
-                count = burgerCount,
+                count = uiState.burgerCount,
                 onIncrementClick = { increaseBurgerCount() },
-                onDecrementClick = { if (burgerCount > 0) decreaseBurgerCount() },
+                onDecrementClick = { if (uiState.burgerCount > 0) decreaseBurgerCount() },
                 modifier = Modifier
                     .width(145.dp)
                     .height(40.dp)
@@ -206,13 +224,13 @@ private fun OrderScreen(
             ) {
                 OrderButton(
                     text = stringResource(R.string.order_order_button),
-                    onClick = { /* TODO */ },
+                    onClick = { onClickOrderButton(RouteDestination.MenuList) },
                     color = McDonaldsTheme.colors.white,
                     modifier = Modifier.weight(1f)
                 )
                 OrderButton(
                     text = stringResource(R.string.order_cart_button),
-                    onClick = { /* TODO */ },
+                    onClick = { onClickOrderButton(RouteDestination.History) },
                     color = McDonaldsTheme.colors.yellow,
                     modifier = Modifier.weight(1f)
                 )
@@ -228,13 +246,21 @@ private fun OrderScreenPreview(
     var count by remember { mutableStateOf(1) }
     MCDONALDSTheme {
         OrderScreen(
-            setType = SetType.SET,
+            uiState = OrderState(
+                menuDetail = MenuDetail(
+                    id = 0,
+                    name = "",
+                    singleImg = "",
+                    singlePrice = "",
+                    setImg = "",
+                    setPrice = ""
+                )
+            ),
             updateSetType = {},
-            burgerCount = count,
             increaseBurgerCount = { count++ },
             decreaseBurgerCount = { if (count > 0) count-- },
             onBackClick = {},
-            onNavigateToHistory = {},
+            onClickOrderButton = {},
             modifier = Modifier.background(McDonaldsTheme.colors.white)
         )
     }

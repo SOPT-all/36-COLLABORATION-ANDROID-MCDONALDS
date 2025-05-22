@@ -16,12 +16,14 @@ fun NavController.navigateToOrder(menuId: Long, navOptions: NavOptions? = null) 
 fun NavGraphBuilder.orderGraph(
     onNavigateToUp: () -> Unit,
     onNavigateToHistory: () -> Unit,
+    onNavigateToMenuList: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     composable<Order> {
         OrderRoute(
             onBackClick = onNavigateToUp,
             onNavigateToHistory = onNavigateToHistory,
+            onNavigateToMenuList = onNavigateToMenuList,
             modifier = modifier
         )
     }
