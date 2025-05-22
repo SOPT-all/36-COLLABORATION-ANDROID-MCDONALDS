@@ -19,9 +19,8 @@ import org.sopt.mcdonalds.domain.menu.usecase.GetMenuDetailUseCase
 import org.sopt.mcdonalds.presentation.order.navigation.Order
 import org.sopt.mcdonalds.presentation.order.state.OrderContract.OrderSideEffect
 import org.sopt.mcdonalds.presentation.order.state.OrderContract.OrderState
-import org.sopt.mcdonalds.presentation.order.state.RouteDestination
+import org.sopt.mcdonalds.presentation.order.type.OrderType
 import org.sopt.mcdonalds.presentation.order.type.SetType
-import timber.log.Timber
 
 @HiltViewModel
 class OrderViewModel @Inject constructor(
@@ -32,18 +31,7 @@ class OrderViewModel @Inject constructor(
 
     val menuId = savedStateHandle.toRoute<Order>().menuId
 
-    private val _uiState = MutableStateFlow(
-        OrderState(
-            menuDetail = MenuDetail(
-                id = menuId,
-                name = "",
-                singleImg = "",
-                singlePrice = "",
-                setImg = "",
-                setPrice = ""
-            )
-        )
-    )
+    private val _uiState = MutableStateFlow(OrderState())
     val uiState = _uiState.asStateFlow()
 
     private val _sideEffect = MutableSharedFlow<OrderSideEffect>()
@@ -83,20 +71,20 @@ class OrderViewModel @Inject constructor(
         }
     }
 
-    fun onClickOrderButton(routeDestination: RouteDestination) {
+    fun onClickOrderButton(orderType: OrderType) {
         viewModelScope.launch {
-            Timber.d("post 요청 시작")
             postCartUseCase(
                 cartDetail = CartDetail(
-                    isSet = uiState.value.setType == SetType.SET,
-                    amount = uiState.value.burgerCount,
-                    menuId = uiState.value.menuDetail.id
+                    isSet = _uiState.value.setType == SetType.SET,
+                    amount = _uiState.value.burgerCount,
+                    menuId = _uiState.value.menuDetail.id
                 )
             ).onSuccess {
-                Timber.d("post 요청 성공", routeDestination)
-                _sideEffect.emit(OrderSideEffect(routeDestination))
+                when (orderType) {
+                    OrderType.ORDER_NOW -> _sideEffect.emit(OrderSideEffect.NavigateToHistory)
+                    OrderType.ADD_TO_CART -> _sideEffect.emit(OrderSideEffect.NavigateToMenuList)
+                }
             }.onFailure {
-                Timber.e(it, "post 실패: ${it.message}")
                 // TODO
             }
         }
