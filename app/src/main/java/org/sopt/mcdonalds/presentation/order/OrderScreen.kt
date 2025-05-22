@@ -137,7 +137,7 @@ private fun OrderScreen(
                 Spacer(modifier = Modifier.height(16.dp))
 
                 OrderSideDetailContainer(
-                    ingredientList = listOf(
+                    ingredientList = persistentListOf(
                         Ingredient(
                             name = "소금",
                             amount = remember { mutableStateOf(1) }
@@ -158,7 +158,7 @@ private fun OrderScreen(
                 Spacer(modifier = Modifier.height(16.dp))
 
                 OrderSideDetailContainer(
-                    ingredientList = listOf(
+                    ingredientList = persistentListOf(
                         Ingredient(
                             name = "얼음",
                             amount = remember { mutableStateOf(1) }
