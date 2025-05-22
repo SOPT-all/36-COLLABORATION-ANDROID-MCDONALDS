@@ -30,7 +30,7 @@ import org.sopt.mcdonalds.R.drawable.ic_close_24
 import org.sopt.mcdonalds.core.common.util.noRippleClickable
 import org.sopt.mcdonalds.core.designsystem.theme.MCDONALDSTheme
 import org.sopt.mcdonalds.core.designsystem.theme.McDonaldsTheme
-import org.sopt.mcdonalds.presentation.history.model.Cart
+import org.sopt.mcdonalds.domain.cart.model.Cart
 import org.sopt.mcdonalds.presentation.order.component.OrderBurgerDetailContainer
 import org.sopt.mcdonalds.presentation.order.component.OrderSideDetailContainer
 import org.sopt.mcdonalds.presentation.order.model.Side
@@ -147,7 +147,7 @@ private fun CartEditBottomSheetScreenPreview() {
     MCDONALDSTheme {
         CartEditBottomSheetScreen(
             cart = Cart(
-                cartId = 1,
+                id = 1,
                 amount = 1,
                 price = 11500,
                 menuName = "더블 1955® 버거",

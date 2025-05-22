@@ -6,5 +6,5 @@ data class MenuDetail(
     val singleImg: String,
     val singlePrice: String,
     val setImg: String,
-    val setPrice: String,
+    val setPrice: String
 )

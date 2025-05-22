@@ -12,6 +12,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
 import org.sopt.mcdonalds.presentation.history.navigation.historyGraph
+import org.sopt.mcdonalds.presentation.history.navigation.navigateToHistory
 import org.sopt.mcdonalds.presentation.menu.navigation.menuListGraph
 import org.sopt.mcdonalds.presentation.menu.navigation.navigateToMenuList
 import org.sopt.mcdonalds.presentation.order.navigation.Order
@@ -60,22 +61,26 @@ private fun MainNavHost(
 
         historyGraph(
             onNavigateToMenuList = navController::navigateToMenuList,
-            onNavigateToOrder = { /* TODO */ },
+            onNavigateToOrder = {
+                navController.navigateToOrder(it)
+            },
             modifier = modifier
         )
 
         orderGraph(
             onNavigateToUp = navController::navigateUp,
-            onNavigateToHistory = { /* TODO */ },
+            onNavigateToHistory = navController::navigateToHistory,
             onNavigateToMenuList = {
-                navController.navigateToMenuList(navOptions = navOptions {
-                    popUpTo<Order> {
-                        inclusive = true
+                navController.navigateToMenuList(
+                    navOptions = navOptions {
+                        popUpTo<Order> {
+                            inclusive = true
+                        }
+                        launchSingleTop = true
                     }
-                    launchSingleTop = true
-                })
+                )
             },
-            modifier = modifier,
+            modifier = modifier
         )
     }
 }

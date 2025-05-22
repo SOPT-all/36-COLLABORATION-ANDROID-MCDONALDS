@@ -3,6 +3,7 @@ package org.sopt.mcdonalds.presentation.menu
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.collections.immutable.toPersistentList
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -11,11 +12,10 @@ import kotlinx.coroutines.launch
 import org.sopt.mcdonalds.domain.menu.model.Menu
 import org.sopt.mcdonalds.domain.menu.usecase.GetMenusUseCase
 import org.sopt.mcdonalds.presentation.menu.state.MenuListContract.MenuListState
-import javax.inject.Inject
 
 @HiltViewModel
 class MenuListViewModel @Inject constructor(
-    private val getMenusUseCase: GetMenusUseCase,
+    private val getMenusUseCase: GetMenusUseCase
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(MenuListState())
     val uiState = _uiState.asStateFlow()

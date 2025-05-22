@@ -4,11 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-class CartPostRequest(
-    @SerialName("isSet")
-    val isSet: Boolean,
+data class UpdateCartAmountRequest(
     @SerialName("amount")
-    val amount: Int,
-    @SerialName("menuId")
-    val menuId: Long
+    val amount: Int
 )

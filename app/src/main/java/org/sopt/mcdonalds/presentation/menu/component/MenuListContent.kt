@@ -29,7 +29,7 @@ import org.sopt.mcdonalds.domain.menu.model.Menu
 fun MenuListContent(
     menus: ImmutableList<Menu>,
     onMenuClick: (Long) -> Unit,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     LazyColumn(
         modifier = modifier
@@ -55,7 +55,7 @@ private fun MenuListItem(
     imageUrl: String,
     menuName: String,
     menuPrice: String,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     val context = LocalContext.current
 

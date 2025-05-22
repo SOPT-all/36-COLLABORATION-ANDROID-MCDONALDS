@@ -134,6 +134,7 @@ fun HistoryCartItem(
                         model = ImageRequest
                             .Builder(context = context)
                             .data(imageUrl)
+                            .crossfade(true)
                             .build(),
                         contentDescription = null
                     )
