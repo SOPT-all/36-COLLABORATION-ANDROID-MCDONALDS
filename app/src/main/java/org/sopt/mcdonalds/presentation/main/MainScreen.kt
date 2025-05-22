@@ -59,9 +59,25 @@ private fun MainNavHost(
         )
 
         historyGraph(
-            onNavigateToMenuList = navController::navigateToMenuList,
+            onNavigateToMenuList = {
+                val navOptions = navOptions {
+                    navController.currentDestination?.route?.let {
+                        popUpTo(it) {
+                            inclusive = true
+                        }
+                    }
+                }
+                navController.navigateToMenuList(navOptions)
+            },
             onNavigateToOrder = {
-                navController.navigateToOrder(it)
+                val navOptions = navOptions {
+                    navController.currentDestination?.route?.let {
+                        popUpTo(it) {
+                            inclusive = true
+                        }
+                    }
+                }
+                navController.navigateToOrder(it, navOptions)
             },
             modifier = modifier
         )
