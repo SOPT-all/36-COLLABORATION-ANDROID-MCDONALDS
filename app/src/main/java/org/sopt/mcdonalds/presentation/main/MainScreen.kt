@@ -15,7 +15,6 @@ import org.sopt.mcdonalds.presentation.history.navigation.historyGraph
 import org.sopt.mcdonalds.presentation.history.navigation.navigateToHistory
 import org.sopt.mcdonalds.presentation.menu.navigation.menuListGraph
 import org.sopt.mcdonalds.presentation.menu.navigation.navigateToMenuList
-import org.sopt.mcdonalds.presentation.order.navigation.Order
 import org.sopt.mcdonalds.presentation.order.navigation.navigateToOrder
 import org.sopt.mcdonalds.presentation.order.navigation.orderGraph
 import org.sopt.mcdonalds.presentation.store.navigation.Store
@@ -36,7 +35,7 @@ fun MainScreen() {
 @Composable
 private fun MainNavHost(
     navController: NavHostController,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     NavHost(
         enterTransition = { EnterTransition.None },
@@ -69,16 +68,25 @@ private fun MainNavHost(
 
         orderGraph(
             onNavigateToUp = navController::navigateUp,
-            onNavigateToHistory = navController::navigateToHistory,
-            onNavigateToMenuList = {
-                navController.navigateToMenuList(
-                    navOptions = navOptions {
-                        popUpTo<Order> {
+            onNavigateToHistory = {
+                val navOptions = navOptions {
+                    navController.currentDestination?.route?.let {
+                        popUpTo(it) {
                             inclusive = true
                         }
-                        launchSingleTop = true
                     }
-                )
+                }
+                navController.navigateToHistory(navOptions)
+            },
+            onNavigateToMenuList = {
+                val navOptions = navOptions {
+                    navController.currentDestination?.route?.let {
+                        popUpTo(it) {
+                            inclusive = true
+                        }
+                    }
+                }
+                navController.navigateToMenuList(navOptions)
             },
             modifier = modifier
         )
