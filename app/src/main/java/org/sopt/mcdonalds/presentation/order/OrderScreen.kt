@@ -56,7 +56,7 @@ fun OrderRoute(
     onNavigateToHistory: () -> Unit,
     onNavigateToMenuList: () -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: OrderViewModel = hiltViewModel()
+    viewModel: OrderViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val lifecycleOwner = LocalLifecycleOwner.current
@@ -91,160 +91,169 @@ private fun OrderScreen(
     decreaseBurgerCount: () -> Unit,
     onBackClick: () -> Unit,
     onClickOrderButton: (OrderType) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     val scrollState = rememberScrollState()
 
-    Box(
+    Column(
         modifier = modifier.fillMaxSize()
     ) {
         DefaultTopBar(
-            onBackClick = onBackClick
+            onBackClick = onBackClick,
+            modifier = Modifier
+                .fillMaxWidth(),
         )
 
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 20.dp)
-                .verticalScroll(scrollState)
+        Box(
+            modifier = Modifier.fillMaxSize()
         ) {
-            Spacer(modifier = Modifier.height(32.dp))
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 20.dp)
+                    .verticalScroll(scrollState)
+            ) {
+                Spacer(modifier = Modifier.height(32.dp))
 
-            Text(
-                text = uiState.menuDetail.name,
-                style = McDonaldsTheme.typography.head34b,
-                color = McDonaldsTheme.colors.gray800
-            )
+                Text(
+                    text = uiState.menuDetail.name,
+                    style = McDonaldsTheme.typography.head34b,
+                    color = McDonaldsTheme.colors.gray800
+                )
 
-            Spacer(modifier = Modifier.height(28.dp))
+                Spacer(modifier = Modifier.height(28.dp))
 
-            OrderSetSelector(
-                menuDetail = uiState.menuDetail,
-                isSetSelected = uiState.setType == SetType.SET,
-                onSelect = { type ->
-                    updateSetType(type)
+                OrderSetSelector(
+                    menuDetail = uiState.menuDetail,
+                    isSetSelected = uiState.setType == SetType.SET,
+                    onSelect = { type ->
+                        updateSetType(type)
+                    }
+                )
+
+                Spacer(modifier = Modifier.height(24.dp))
+
+                OrderBurgerDetailContainer(
+                    name = uiState.menuDetail.name,
+                    imageId = R.drawable.img_burger_single
+                )
+
+                if (uiState.setType == SetType.SET) {
+                    Spacer(modifier = Modifier.height(16.dp))
+
+                    OrderSideDetailContainer(
+                        ingredientList = persistentListOf(
+                            Ingredient(
+                                name = "소금",
+                                amount = remember { mutableStateOf(1) }
+                            )
+                        ),
+                        sideList = persistentListOf(
+                            Side(
+                                name = stringResource(R.string.order_side_french_fries),
+                                imageId = R.drawable.img_side_fries
+                            ),
+                            Side(
+                                name = stringResource(R.string.order_side_coleslaw),
+                                imageId = R.drawable.img_side_coleslaw
+                            )
+                        )
+                    )
+
+                    Spacer(modifier = Modifier.height(16.dp))
+
+                    OrderSideDetailContainer(
+                        ingredientList = persistentListOf(
+                            Ingredient(
+                                name = "얼음",
+                                amount = remember { mutableStateOf(1) }
+                            )
+                        ),
+                        sideList = persistentListOf(
+                            Side(
+                                name = stringResource(R.string.order_drink_sprite),
+                                imageId = R.drawable.img_drink_sprite
+                            ),
+                            Side(
+                                name = stringResource(R.string.order_drink_mango_ice_tea),
+                                imageId = R.drawable.img_drink_mango_icetea
+                            ),
+                            Side(
+                                name = stringResource(R.string.order_drink_peach_ice_tea),
+                                imageId = R.drawable.img_drink_peach_icetea
+                            ),
+                            Side(
+                                name = stringResource(R.string.order_drink_coke),
+                                imageId = R.drawable.img_drink_coke
+                            ),
+                            Side(
+                                name = stringResource(R.string.order_drink_fanta),
+                                imageId = R.drawable.img_drink_fanta
+                            ),
+                            Side(
+                                name = stringResource(R.string.order_drink_zero_coke),
+                                imageId = R.drawable.img_drink_zero_coke
+                            )
+                        )
+                    )
                 }
-            )
 
-            Spacer(modifier = Modifier.height(24.dp))
+                Spacer(modifier = Modifier.height(24.dp))
 
-            OrderBurgerDetailContainer(
-                name = uiState.menuDetail.name,
-                imageId = R.drawable.img_burger_single
-            )
-
-            if (uiState.setType == SetType.SET) {
-                Spacer(modifier = Modifier.height(16.dp))
-
-                OrderSideDetailContainer(
-                    ingredientList = persistentListOf(
-                        Ingredient(
-                            name = "소금",
-                            amount = remember { mutableStateOf(1) }
-                        )
-                    ),
-                    sideList = persistentListOf(
-                        Side(
-                            name = stringResource(R.string.order_side_french_fries),
-                            imageId = R.drawable.img_side_fries
-                        ),
-                        Side(
-                            name = stringResource(R.string.order_side_coleslaw),
-                            imageId = R.drawable.img_side_coleslaw
-                        )
-                    )
+                BorderedNumberIncrementer(
+                    count = uiState.burgerCount,
+                    onIncrementClick = increaseBurgerCount,
+                    onDecrementClick = { if (uiState.burgerCount > 0) decreaseBurgerCount() },
+                    modifier = Modifier
+                        .align(Alignment.CenterHorizontally)
+                        .width(144.dp)
                 )
 
-                Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(34.dp))
 
-                OrderSideDetailContainer(
-                    ingredientList = persistentListOf(
-                        Ingredient(
-                            name = "얼음",
-                            amount = remember { mutableStateOf(1) }
-                        )
-                    ),
-                    sideList = persistentListOf(
-                        Side(
-                            name = stringResource(R.string.order_drink_sprite),
-                            imageId = R.drawable.img_drink_sprite
-                        ),
-                        Side(
-                            name = stringResource(R.string.order_drink_mango_ice_tea),
-                            imageId = R.drawable.img_drink_mango_icetea
-                        ),
-                        Side(
-                            name = stringResource(R.string.order_drink_peach_ice_tea),
-                            imageId = R.drawable.img_drink_peach_icetea
-                        ),
-                        Side(
-                            name = stringResource(R.string.order_drink_coke),
-                            imageId = R.drawable.img_drink_coke
-                        ),
-                        Side(
-                            name = stringResource(R.string.order_drink_fanta),
-                            imageId = R.drawable.img_drink_fanta
-                        ),
-                        Side(
-                            name = stringResource(R.string.order_drink_zero_coke),
-                            imageId = R.drawable.img_drink_zero_coke
-                        )
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        text = stringResource(R.string.order_product_info),
+                        style = McDonaldsTheme.typography.body14r,
+                        color = McDonaldsTheme.colors.gray500
                     )
-                )
+
+                    Spacer(modifier = Modifier.width(7.dp))
+
+                    Icon(
+                        imageVector = ImageVector.vectorResource(R.drawable.ic_right_chevron),
+                        contentDescription = null,
+                        tint = McDonaldsTheme.colors.gray500
+                    )
+                }
+
+                Spacer(modifier = Modifier.height(86.dp))
             }
-
-            Spacer(modifier = Modifier.height(24.dp))
-
-            BorderedNumberIncrementer(
-                count = uiState.burgerCount,
-                onIncrementClick = increaseBurgerCount,
-                onDecrementClick = { if (uiState.burgerCount > 0) decreaseBurgerCount() },
-                modifier = Modifier.width(145.dp)
-            )
-
-            Spacer(modifier = Modifier.height(34.dp))
 
             Row(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .align(Alignment.BottomCenter)
+                    .fillMaxWidth()
+                    .height(58.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Text(
-                    text = stringResource(R.string.order_product_info),
-                    style = McDonaldsTheme.typography.body14r,
-                    color = McDonaldsTheme.colors.gray500
+                OrderButton(
+                    text = stringResource(R.string.order_order_button),
+                    onClick = { onClickOrderButton(OrderType.ORDER_NOW) },
+                    color = McDonaldsTheme.colors.white,
+                    modifier = Modifier.weight(1f)
                 )
 
-                Spacer(modifier = Modifier.width(7.dp))
-
-                Icon(
-                    imageVector = ImageVector.vectorResource(R.drawable.ic_right_chevron),
-                    contentDescription = null,
-                    tint = McDonaldsTheme.colors.gray500
+                OrderButton(
+                    text = stringResource(R.string.order_cart_button),
+                    onClick = { onClickOrderButton(OrderType.ADD_TO_CART) },
+                    color = McDonaldsTheme.colors.yellow,
+                    modifier = Modifier.weight(1f)
                 )
             }
-
-            Spacer(modifier = Modifier.height(36.dp))
-        }
-        Row(
-            modifier = Modifier
-                .align(Alignment.BottomCenter)
-                .fillMaxWidth()
-                .height(58.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            OrderButton(
-                text = stringResource(R.string.order_order_button),
-                onClick = { onClickOrderButton(OrderType.ORDER_NOW) },
-                color = McDonaldsTheme.colors.white,
-                modifier = Modifier.weight(1f)
-            )
-
-            OrderButton(
-                text = stringResource(R.string.order_cart_button),
-                onClick = { onClickOrderButton(OrderType.ADD_TO_CART) },
-                color = McDonaldsTheme.colors.yellow,
-                modifier = Modifier.weight(1f)
-            )
         }
     }
 }

@@ -1,4 +1,4 @@
-package org.sopt.mcdonalds.presentation.bottomsheet
+package org.sopt.mcdonalds.presentation.history.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
