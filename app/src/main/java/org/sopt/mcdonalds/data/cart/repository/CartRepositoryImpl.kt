@@ -3,10 +3,10 @@ package org.sopt.mcdonalds.data.cart.repository
 import javax.inject.Inject
 import kotlinx.serialization.SerializationException
 import org.sopt.mcdonalds.data.cart.datasource.CartDataSource
+import org.sopt.mcdonalds.data.cart.mapper.toData
 import org.sopt.mcdonalds.data.cart.mapper.toDomain
 import org.sopt.mcdonalds.data.cart.mapper.toUpdateCartAmountRequest
 import org.sopt.mcdonalds.domain.cart.model.Cart
-import org.sopt.mcdonalds.data.cart.mapper.toData
 import org.sopt.mcdonalds.domain.cart.model.CartDetail
 import org.sopt.mcdonalds.domain.cart.repository.CartRepository
 

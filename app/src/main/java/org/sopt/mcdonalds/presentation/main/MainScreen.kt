@@ -71,14 +71,16 @@ private fun MainNavHost(
             onNavigateToUp = navController::navigateUp,
             onNavigateToHistory = navController::navigateToHistory,
             onNavigateToMenuList = {
-                navController.navigateToMenuList(navOptions = navOptions {
-                    popUpTo<Order> {
-                        inclusive = true
+                navController.navigateToMenuList(
+                    navOptions = navOptions {
+                        popUpTo<Order> {
+                            inclusive = true
+                        }
+                        launchSingleTop = true
                     }
-                    launchSingleTop = true
-                })
+                )
             },
-            modifier = modifier,
+            modifier = modifier
         )
     }
 }

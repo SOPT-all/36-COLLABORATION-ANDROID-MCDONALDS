@@ -1,8 +1,8 @@
 package org.sopt.mcdonalds.domain.cart.usecase
 
+import javax.inject.Inject
 import org.sopt.mcdonalds.domain.cart.model.CartDetail
 import org.sopt.mcdonalds.domain.cart.repository.CartRepository
-import javax.inject.Inject
 
 class PostCartUseCase @Inject constructor(
     private val cartRepository: CartRepository

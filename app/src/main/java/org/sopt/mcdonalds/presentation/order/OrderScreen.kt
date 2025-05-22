@@ -31,7 +31,6 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.findViewTreeLifecycleOwner
 import androidx.lifecycle.flowWithLifecycle
 import kotlinx.collections.immutable.persistentListOf
 import org.sopt.mcdonalds.R
@@ -45,7 +44,6 @@ import org.sopt.mcdonalds.presentation.order.component.OrderButton
 import org.sopt.mcdonalds.presentation.order.component.OrderSetSelectButton
 import org.sopt.mcdonalds.presentation.order.component.OrderSideDetailContainer
 import org.sopt.mcdonalds.presentation.order.model.Side
-import org.sopt.mcdonalds.presentation.order.state.OrderContract
 import org.sopt.mcdonalds.presentation.order.state.OrderContract.OrderState
 import org.sopt.mcdonalds.presentation.order.state.RouteDestination
 import org.sopt.mcdonalds.presentation.order.type.SetType
@@ -95,7 +93,7 @@ private fun OrderScreen(
 ) {
     Column(
         modifier = modifier
-            .fillMaxSize(),
+            .fillMaxSize()
     ) {
         DefaultTopBar(
             onBackClick = onBackClick
@@ -181,7 +179,7 @@ private fun OrderScreen(
                         Side(
                             name = stringResource(R.string.order_drink_zero_coke),
                             imageId = R.drawable.img_drink_zero_coke
-                        ),
+                        )
                     ),
                     modifier = Modifier
                         .padding(horizontal = 20.dp)
@@ -220,7 +218,7 @@ private fun OrderScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(58.dp),
-                verticalAlignment = Alignment.CenterVertically,
+                verticalAlignment = Alignment.CenterVertically
             ) {
                 OrderButton(
                     text = stringResource(R.string.order_order_button),
@@ -241,8 +239,7 @@ private fun OrderScreen(
 
 @Preview
 @Composable
-private fun OrderScreenPreview(
-) {
+private fun OrderScreenPreview() {
     var count by remember { mutableStateOf(1) }
     MCDONALDSTheme {
         OrderScreen(

@@ -7,7 +7,7 @@ class OrderContract {
     data class OrderState(
         val menuDetail: MenuDetail,
         val burgerCount: Int = 1,
-        val setType: SetType = SetType.SET,
+        val setType: SetType = SetType.SET
     )
 
     data class OrderSideEffect(
