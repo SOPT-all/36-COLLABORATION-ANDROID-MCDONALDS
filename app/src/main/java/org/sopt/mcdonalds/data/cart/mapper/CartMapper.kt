@@ -5,7 +5,7 @@ import org.sopt.mcdonalds.domain.cart.model.CartDetail
 import org.sopt.mcdonalds.presentation.order.type.SetType
 
 fun CartDetail.toData() = CartPostRequest(
-    isSet = setType == SetType.SET,
+    isSet = isSet,
     amount = amount,
     menuId = menuId,
 )

@@ -88,7 +88,7 @@ class OrderViewModel @Inject constructor(
             Timber.d("post 요청 시작")
             postCartUseCase(
                 cartDetail = CartDetail(
-                    setType = uiState.value.setType,
+                    isSet = uiState.value.setType == SetType.SET,
                     amount = uiState.value.burgerCount,
                     menuId = uiState.value.menuDetail.id
                 )
