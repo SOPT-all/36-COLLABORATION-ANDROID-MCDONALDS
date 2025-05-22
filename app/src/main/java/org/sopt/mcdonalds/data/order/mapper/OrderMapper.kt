@@ -8,6 +8,6 @@ fun RecentOrderResponse.toDomain() = this.recentItems.map {
         id = it.id,
         name = it.name,
         imageUrl = it.img,
-        price = it.price
+        price = it.price.toString()
     )
 }

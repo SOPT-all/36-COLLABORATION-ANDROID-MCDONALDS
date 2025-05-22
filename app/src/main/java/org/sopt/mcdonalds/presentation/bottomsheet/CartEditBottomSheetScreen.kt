@@ -81,8 +81,7 @@ fun CartEditBottomSheetScreen(
             ) {
                 OrderBurgerDetailContainer(
                     name = cart.menuName,
-                    imageId = R.drawable.img_burger_single,
-                    ingredientList = persistentListOf()
+                    imageId = R.drawable.img_burger_single
                 )
                 if (cart.isSet) {
                     OrderSideDetailContainer(
