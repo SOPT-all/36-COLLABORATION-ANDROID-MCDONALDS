@@ -33,13 +33,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import java.time.LocalDateTime
 import org.sopt.mcdonalds.R
 import org.sopt.mcdonalds.core.designsystem.component.DefaultTopBar
 import org.sopt.mcdonalds.core.designsystem.theme.MCDONALDSTheme
 import org.sopt.mcdonalds.core.designsystem.theme.McDonaldsTheme
 import org.sopt.mcdonalds.domain.cart.model.Cart
-import org.sopt.mcdonalds.presentation.bottomsheet.CartEditBottomSheetScreen
+import org.sopt.mcdonalds.presentation.history.component.CartEditBottomSheetScreen
 import org.sopt.mcdonalds.presentation.history.component.HistoryCartItem
 import org.sopt.mcdonalds.presentation.history.component.HistoryMenuAddButton
 import org.sopt.mcdonalds.presentation.history.component.HistoryRecentBurgerItem
@@ -48,6 +47,7 @@ import org.sopt.mcdonalds.presentation.history.component.HistorySquareButton
 import org.sopt.mcdonalds.presentation.history.component.HistoryStoreBar
 import org.sopt.mcdonalds.presentation.history.component.HistoryTimeBar
 import org.sopt.mcdonalds.presentation.history.state.HistoryContract.HistoryState
+import java.time.LocalDateTime
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -55,7 +55,7 @@ fun HistoryRoute(
     onNavigateToMenuList: () -> Unit,
     onNavigateToOrder: (Long) -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: HistoryViewModel = hiltViewModel()
+    viewModel: HistoryViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
@@ -76,7 +76,8 @@ fun HistoryRoute(
         openBottomSheet = { it -> bottomSheetCart = it },
         increaseCount = viewModel::increaseCount,
         decreaseCount = viewModel::decreaseCount,
-        modifier = modifier.background(color = McDonaldsTheme.colors.white)
+        onOrderClick = viewModel::postOrder,
+        modifier = modifier
     )
 }
 
@@ -89,14 +90,17 @@ private fun HistoryScreen(
     openBottomSheet: (Cart) -> Unit,
     increaseCount: (Int) -> Unit,
     decreaseCount: (Int) -> Unit,
-    modifier: Modifier = Modifier
+    onOrderClick: () -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     val store = stringResource(R.string.store_title)
     val density = LocalDensity.current
     var footerHeightDp by remember { mutableStateOf(0.dp) }
 
     Box(
-        modifier = modifier.fillMaxSize()
+        modifier = modifier
+            .fillMaxSize()
+            .background(color = McDonaldsTheme.colors.white)
     ) {
         LazyColumn(
             modifier = Modifier
@@ -109,31 +113,33 @@ private fun HistoryScreen(
                 DefaultTopBar(
                     onBackClick = onNavigateToMenuList,
                     title = stringResource(R.string.history_title),
-                    modifier = Modifier.background(color = McDonaldsTheme.colors.white).fillMaxWidth()
+                    modifier = Modifier
+                        .background(color = McDonaldsTheme.colors.white)
+                        .fillMaxWidth()
                 )
+
                 HistoryStoreBar(
                     store = store,
                     onStoreChangeClick = { /*구현 안함*/ }
                 )
-            }
-            item {
+
                 HistoryTimeBar(
                     endTime = LocalDateTime.now()
                 )
             }
+
             if (uiState.cartList.isEmpty()) {
                 item {
-                    Spacer(
-                        modifier = Modifier.height(50.dp)
-                    )
+                    Spacer(modifier = Modifier.height(50.dp))
+
                     Image(
                         imageVector = ImageVector.vectorResource(R.drawable.ic_hamburger),
                         contentDescription = null,
                         modifier = Modifier.size(94.dp)
                     )
-                    Spacer(
-                        modifier = Modifier.height(21.dp)
-                    )
+
+                    Spacer(modifier = Modifier.height(21.dp))
+
                     Text(
                         text = stringResource(R.string.history_empty_notice),
                         color = McDonaldsTheme.colors.black,
@@ -174,7 +180,12 @@ private fun HistoryScreen(
             if (uiState.cartList.isEmpty()) {
                 item {
                     Spacer(modifier = Modifier.height(30.dp))
-                    Box(modifier = Modifier.fillMaxWidth().align(Alignment.CenterStart)) {
+
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .align(Alignment.CenterStart)
+                    ) {
                         Text(
                             modifier = Modifier.padding(start = 25.dp),
                             text = stringResource(R.string.history_recent_burger_title),
@@ -185,13 +196,13 @@ private fun HistoryScreen(
                 }
                 itemsIndexed(
                     items = uiState.recentBurgerList,
-                    key = { _, recentBurger -> recentBurger.menuId }
+                    key = { _, recentOrder -> recentOrder.id }
                 ) { _, recentBurger ->
                     HistoryRecentBurgerItem(
-                        price = recentBurger.menuPrice,
-                        imageUrl = recentBurger.menuImage,
-                        menuName = recentBurger.menuName,
-                        onClick = { onNavigateToOrder(recentBurger.menuId) }
+                        price = recentBurger.price,
+                        imageUrl = recentBurger.imageUrl,
+                        menuName = recentBurger.name,
+                        onClick = { onNavigateToOrder(recentBurger.id) }
                     )
                 }
             }
@@ -214,9 +225,10 @@ private fun HistoryScreen(
                         price = uiState.priceSum
                     )
                 }
+
                 HistorySquareButton(
                     text = stringResource(R.string.history_order_button),
-                    onClick = { /*TODO*/ }
+                    onClick = onOrderClick
                 )
             }
         }
@@ -234,6 +246,7 @@ private fun HistoryScreenPreview() {
             openBottomSheet = {},
             increaseCount = {},
             decreaseCount = {},
+            onOrderClick = {},
             modifier = Modifier.background(McDonaldsTheme.colors.white)
         )
     }

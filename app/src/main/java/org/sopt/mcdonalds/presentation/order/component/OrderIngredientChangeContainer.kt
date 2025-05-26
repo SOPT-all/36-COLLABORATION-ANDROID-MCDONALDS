@@ -1,10 +1,7 @@
 package org.sopt.mcdonalds.presentation.order.component
 
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.slideInVertically
-import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -20,7 +17,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
@@ -53,57 +49,35 @@ fun IngredientChangeContainer(
     modifier: Modifier = Modifier
 ) {
     Column(
-        modifier = Modifier.clipToBounds(),
+        modifier = Modifier,
         verticalArrangement = Arrangement.Top
     ) {
         Row(
             modifier = modifier
-                .fillMaxWidth(),
+                .fillMaxWidth()
+                .noRippleClickable(toggle),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Text(
                 text = text,
                 style = McDonaldsTheme.typography.body14r,
                 color = McDonaldsTheme.colors.black,
-                modifier = Modifier.padding(start = 24.dp, top = 10.dp, bottom = 10.dp)
+                modifier = Modifier.padding(start = 24.dp, top = 12.dp, bottom = 12.dp)
             )
+
             Icon(
                 imageVector = ImageVector.vectorResource(R.drawable.ic_down_chevron_20),
                 contentDescription = null,
                 tint = McDonaldsTheme.colors.gray800,
                 modifier = Modifier
                     .padding(end = 16.dp, top = 10.dp, bottom = 10.dp)
-                    .noRippleClickable(onClick = toggle)
             )
         }
+
         HorizontalDivider(color = McDonaldsTheme.colors.gray200, thickness = 1.dp)
-        IngredientListContainer(
-            isExpanded = isExpanded,
-            ingredientList = ingredientList
-        )
-    }
-}
 
-/**
- * Ingredient List Container
- * 재료 변경에서 확장시 나오는 재료리스트 컴포넌트
- *
- * @param isExpanded 확장 여부
- * @param ingredientList 재료 리스트
- * @param modifier 수정자
- */
-
-@Composable
-private fun IngredientListContainer(
-    isExpanded: Boolean,
-    ingredientList: List<Ingredient>,
-    modifier: Modifier = Modifier
-) {
-    Box(modifier = modifier.clipToBounds()) {
         AnimatedVisibility(
-            visible = isExpanded,
-            enter = slideInVertically(initialOffsetY = { -it }),
-            exit = slideOutVertically(targetOffsetY = { -it })
+            visible = isExpanded
         ) {
             Column {
                 ingredientList.forEach { ingredient ->
@@ -144,6 +118,7 @@ private fun IngredientContainer(
                 color = McDonaldsTheme.colors.black,
                 modifier = Modifier.padding(start = 24.dp, top = 9.dp, bottom = 9.dp)
             )
+
             NumberIncrementer(
                 count = amount.value,
                 onIncrementClick = { if (amount.value in 0..9) amount.value++ },
@@ -153,6 +128,7 @@ private fun IngredientContainer(
                     .padding(end = 20.dp, top = 9.dp, bottom = 9.dp)
             )
         }
+
         HorizontalDivider(color = McDonaldsTheme.colors.gray200, thickness = 1.dp)
     }
 }

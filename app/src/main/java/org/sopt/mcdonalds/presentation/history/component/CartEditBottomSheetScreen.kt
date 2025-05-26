@@ -1,4 +1,4 @@
-package org.sopt.mcdonalds.presentation.bottomsheet
+package org.sopt.mcdonalds.presentation.history.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -9,7 +9,9 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ModalBottomSheet
@@ -17,6 +19,8 @@ import androidx.compose.material3.SheetState
 import androidx.compose.material3.SheetValue
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -33,6 +37,7 @@ import org.sopt.mcdonalds.core.designsystem.theme.McDonaldsTheme
 import org.sopt.mcdonalds.domain.cart.model.Cart
 import org.sopt.mcdonalds.presentation.order.component.OrderBurgerDetailContainer
 import org.sopt.mcdonalds.presentation.order.component.OrderSideDetailContainer
+import org.sopt.mcdonalds.presentation.order.model.Ingredient
 import org.sopt.mcdonalds.presentation.order.model.Side
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -43,6 +48,8 @@ fun CartEditBottomSheetScreen(
     sheetState: SheetState,
     modifier: Modifier = Modifier
 ) {
+    val scrollState = rememberScrollState()
+
     ModalBottomSheet(
         onDismissRequest = onDismiss,
         sheetState = sheetState,
@@ -51,6 +58,7 @@ fun CartEditBottomSheetScreen(
     ) {
         Column(
             modifier = modifier
+                .verticalScroll(scrollState)
                 .fillMaxWidth()
                 .background(color = McDonaldsTheme.colors.white)
                 .padding(25.dp)
@@ -65,6 +73,7 @@ fun CartEditBottomSheetScreen(
                     style = McDonaldsTheme.typography.body14b,
                     color = McDonaldsTheme.colors.black
                 )
+
                 Icon(
                     imageVector = ImageVector.vectorResource(ic_close_24),
                     contentDescription = null,
@@ -73,7 +82,9 @@ fun CartEditBottomSheetScreen(
                     tint = McDonaldsTheme.colors.black
                 )
             }
+
             Spacer(modifier = Modifier.height(17.dp))
+
             Column(
                 modifier = Modifier.fillMaxWidth(),
                 verticalArrangement = Arrangement.spacedBy(16.dp),
@@ -81,12 +92,17 @@ fun CartEditBottomSheetScreen(
             ) {
                 OrderBurgerDetailContainer(
                     name = cart.menuName,
-                    imageId = R.drawable.img_burger_single,
-                    ingredientList = persistentListOf()
+                    imageId = R.drawable.img_burger_single
                 )
+
                 if (cart.isSet) {
                     OrderSideDetailContainer(
-                        ingredientList = persistentListOf(),
+                        ingredientList = persistentListOf(
+                            Ingredient(
+                                name = "소금",
+                                amount = remember { mutableStateOf(1) }
+                            )
+                        ),
                         sideList = persistentListOf(
                             Side(
                                 name = stringResource(R.string.order_side_french_fries),
@@ -98,16 +114,34 @@ fun CartEditBottomSheetScreen(
                             )
                         )
                     )
+
                     OrderSideDetailContainer(
-                        ingredientList = persistentListOf(),
+                        ingredientList = persistentListOf(
+                            Ingredient(
+                                name = "얼음",
+                                amount = remember { mutableStateOf(1) }
+                            )
+                        ),
                         sideList = persistentListOf(
                             Side(
                                 name = stringResource(R.string.order_drink_sprite),
                                 imageId = R.drawable.img_drink_sprite
                             ),
                             Side(
+                                name = stringResource(R.string.order_drink_mango_ice_tea),
+                                imageId = R.drawable.img_drink_mango_icetea
+                            ),
+                            Side(
+                                name = stringResource(R.string.order_drink_peach_ice_tea),
+                                imageId = R.drawable.img_drink_peach_icetea
+                            ),
+                            Side(
                                 name = stringResource(R.string.order_drink_coke),
                                 imageId = R.drawable.img_drink_coke
+                            ),
+                            Side(
+                                name = stringResource(R.string.order_drink_fanta),
+                                imageId = R.drawable.img_drink_fanta
                             ),
                             Side(
                                 name = stringResource(R.string.order_drink_zero_coke),

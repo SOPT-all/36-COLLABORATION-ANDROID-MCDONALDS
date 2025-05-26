@@ -23,7 +23,6 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import org.sopt.mcdonalds.R.drawable.ic_minus_24
 import org.sopt.mcdonalds.R.drawable.ic_plus_24
@@ -105,7 +104,7 @@ fun BorderedNumberIncrementer(
 ) {
     Row(
         modifier = modifier
-            .border(Dp.Hairline, McDonaldsTheme.colors.gray200, RoundedCornerShape(8.dp))
+            .border(1.dp, McDonaldsTheme.colors.gray200, RoundedCornerShape(8.dp))
             .padding(paddingValues),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically

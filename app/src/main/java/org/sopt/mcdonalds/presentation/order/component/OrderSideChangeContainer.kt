@@ -2,12 +2,9 @@ package org.sopt.mcdonalds.presentation.order.component
 
 import androidx.annotation.DrawableRes
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.slideInVertically
-import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -25,7 +22,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -60,64 +56,36 @@ fun SideChangeContainer(
     modifier: Modifier = Modifier
 ) {
     Column(
-        modifier = Modifier.clipToBounds(),
+        modifier = Modifier,
         verticalArrangement = Arrangement.Top
     ) {
         Row(
             modifier = modifier
-                .fillMaxWidth(),
+                .fillMaxWidth()
+                .padding(start = 24.dp, end = 16.dp, top = 10.dp, bottom = 10.dp)
+                .noRippleClickable(toggle),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Text(
                 text = text,
                 style = McDonaldsTheme.typography.body14r,
-                color = McDonaldsTheme.colors.black,
-                modifier = Modifier.padding(start = 24.dp, top = 10.dp, bottom = 10.dp)
+                color = McDonaldsTheme.colors.black
             )
+
             Icon(
                 imageVector = ImageVector.vectorResource(R.drawable.ic_down_chevron_20),
                 contentDescription = null,
-                tint = McDonaldsTheme.colors.gray800,
-                modifier = Modifier
-                    .padding(end = 16.dp, top = 10.dp, bottom = 10.dp)
-                    .noRippleClickable(onClick = toggle)
+                tint = McDonaldsTheme.colors.gray800
             )
         }
+
         HorizontalDivider(color = McDonaldsTheme.colors.gray200, thickness = 1.dp)
-        SideListContainer(
-            isExpanded = isExpanded,
-            sideList = sideList,
-            onSelect = onSelect
-        )
-    }
-}
 
-/**
- * Ingredient Change Container
- * 주문하기에서 버거나 사이드의 재료를 변경하는 컴포넌트
- *
- * @param isExpanded 재료 리스트가 나오는지 여부
- * @param sideList 확장 시 보여줄 사이드 리스트
- * @param onSelect 변경할 사이드를 선택할 때 실행되는 함수
- * @param modifier 수정자
- */
-
-@Composable
-private fun SideListContainer(
-    isExpanded: Boolean,
-    sideList: List<Side>,
-    onSelect: (Side) -> Unit,
-    modifier: Modifier = Modifier
-) {
-    Box(modifier = modifier.clipToBounds()) {
         AnimatedVisibility(
-            visible = isExpanded,
-            enter = slideInVertically(),
-            exit = slideOutVertically()
+            visible = isExpanded
         ) {
             Column(
-                modifier = Modifier,
-                verticalArrangement = Arrangement.Top
+                verticalArrangement = Arrangement.Center
             ) {
                 sideList.forEach { side ->
                     SideContainer(
